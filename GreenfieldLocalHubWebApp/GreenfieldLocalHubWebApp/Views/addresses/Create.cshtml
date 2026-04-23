@@ -1,0 +1,118 @@
+﻿@model GreenfieldLocalHubWebApp.Models.address
+@{
+    ViewData["Title"] = "Add New Address";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/addresses/create.css" asp-append-version="true" />
+}
+
+<!-- Page Hero -->
+<div class="addr-page-hero">
+    <div class="addr-breadcrumb">
+        <a asp-action="Index">Addresses</a>
+        <span class="addr-breadcrumb-sep">›</span>
+        <span>Add New Address</span>
+    </div>
+    <p class="addr-eyebrow">Address Management</p>
+    <h1>Add New Address</h1>
+    <p>Enter the full delivery address details below. All fields are required and must be valid UK address information.</p>
+</div>
+
+<!-- Form Card -->
+<div class="addr-form-card">
+
+    <div asp-validation-summary="ModelOnly" class="addr-validation-summary"></div>
+
+    <p class="addr-form-section-label">Address Details</p>
+
+    <form asp-action="Create" novalidate>
+
+        <!-- Street -->
+        <div class="addr-form-group">
+            <label asp-for="street" class="addr-form-label">
+                Street Address <span class="req">*</span>
+            </label>
+            <input asp-for="street"
+                   class="addr-input"
+                   placeholder="e.g. 12 High Street"
+                   autocomplete="address-line1" />
+            <span asp-validation-for="street" class="addr-field-error"></span>
+        </div>
+
+        <!-- City -->
+        <div class="addr-form-group">
+            <label asp-for="city" class="addr-form-label">
+                City / Town <span class="req">*</span>
+            </label>
+            <input asp-for="city"
+                   class="addr-input"
+                   placeholder="e.g. Birmingham"
+                   autocomplete="address-level2" />
+            <span asp-validation-for="city" class="addr-field-error"></span>
+        </div>
+
+        <!-- Postcode + Country side-by-side -->
+        <div class="addr-form-row">
+
+            <!-- Postcode -->
+            <div class="addr-form-group">
+                <label asp-for="postalCode" class="addr-form-label">
+                    Post Code <span class="req">*</span>
+                </label>
+                <input asp-for="postalCode"
+                       id="postalCode"
+                       class="addr-input"
+                       placeholder="e.g. B1 1BB"
+                       autocomplete="postal-code"
+                       maxlength="8" />
+                <div id="postcodeStatus" class="addr-postcode-status" aria-live="polite">
+                    <span class="status-dot"></span>
+                    <span id="postcodeStatusText"></span>
+                </div>
+                <span asp-validation-for="postalCode" class="addr-field-error"></span>
+                <p class="addr-hint">Enter a valid UK post code.</p>
+            </div>
+
+            <!-- Country -->
+            <div class="addr-form-group">
+                <label asp-for="country" class="addr-form-label">
+                    Country <span class="req">*</span>
+                </label>
+                <div class="addr-select-wrap">
+                    <select asp-for="country" class="addr-select" required>
+                        <option value="">Select a country</option>
+                        <option value="England">England</option>
+                        <option value="Wales">Wales</option>
+                        <option value="Scotland">Scotland</option>
+                    </select>
+                </div>
+                <span asp-validation-for="country" class="addr-field-error"></span>
+            </div>
+
+        </div>
+
+        <!-- Actions -->
+        <div class="addr-btn-row">
+            <button type="submit" class="addr-btn-primary">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Save Address
+            </button>
+            <a asp-action="Index" class="addr-back-link">
+                ← Back to Addresses
+            </a>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    <script src="~/js/pages/addresses/create.js" asp-append-version="true"></script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,163 @@
+﻿@page
+@model ResendEmailConfirmationModel
+@{
+    ViewData["Title"] = "Resend email confirmation";
+}
+
+<style>
+    .resendPage {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 1rem 0 2rem;
+    }
+
+    .resendCard {
+        max-width: 560px;
+        border: 1px solid var(--border);
+        background: var(--white);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .resendCardHeader {
+        padding: 2rem 2rem 1.35rem;
+        border-bottom: 1px solid var(--border);
+        background: linear-gradient(135deg, var(--green-faint) 0%, var(--white) 100%);
+    }
+
+    .resendEyebrow {
+        display: inline-block;
+        font-size: .72rem;
+        font-weight: 600;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        color: var(--brown);
+        margin-bottom: .55rem;
+    }
+
+    .resendTitle {
+        font-family: var(--font-serif);
+        font-size: clamp(1.7rem, 3vw, 2.3rem);
+        font-weight: 600;
+        color: var(--green-dark);
+        line-height: 1.2;
+        margin: 0;
+    }
+
+    .resendSubtitle {
+        font-size: .92rem;
+        color: var(--text-muted);
+        line-height: 1.7;
+        margin: .7rem 0 0;
+        max-width: 42rem;
+    }
+
+    .resendDivider {
+        border: 0;
+        border-top: 1px solid var(--border);
+        margin: 0;
+    }
+
+    .resendCardBody {
+        padding: 1.6rem 2rem 2rem;
+    }
+
+    .statusMessage[role="alert"] {
+        background: #fde8e8;
+        border-left: 3px solid #a0281e;
+        color: #a0281e;
+        padding: .9rem 1rem;
+        font-size: .84rem;
+        line-height: 1.55;
+        margin-bottom: 1.2rem;
+    }
+
+    .emailField {
+        margin-bottom: 1.2rem;
+    }
+
+    .emailField .form-control,
+    .emailField .form-label {
+        font-family: var(--font-sans);
+    }
+
+    .emailField .form-control {
+        border: 1.5px solid var(--border);
+        background: var(--white);
+        color: var(--text);
+        min-height: 58px;
+    }
+
+    .emailField .form-control:focus {
+        border-color: var(--green);
+        box-shadow: 0 0 0 3px rgba(27,77,63,.08);
+    }
+
+    .emailField .form-label {
+        color: var(--text-muted);
+    }
+
+    .emailField .text-danger {
+        font-size: .75rem;
+    }
+
+    .submitButton {
+        border: none;
+        border-radius: 0;
+        background: var(--green);
+        color: var(--white);
+        font-family: var(--font-sans);
+        font-size: .9rem;
+        font-weight: 600;
+        letter-spacing: .02em;
+        padding: .95rem 1.25rem;
+        transition: var(--transition);
+    }
+
+    .submitButton:hover,
+    .submitButton:focus {
+        background: var(--green-light);
+        color: var(--white);
+    }
+
+    @@media (max-width: 768px) {
+        .resendPage {
+            padding: .5rem 0 1.5rem;
+        }
+
+        .resendCardHeader,
+        .resendCardBody {
+            padding-left: 1.4rem;
+            padding-right: 1.4rem;
+        }
+    }
+</style>
+
+<div class="resendPage">
+    <div class="resendCard">
+        <div class="resendCardHeader">
+            <span class="resendEyebrow">Account Access</span>
+            <h1 class="resendTitle">@ViewData["Title"]</h1>
+            <h2 class="resendSubtitle">Enter your email to receive a fresh confirmation link for your Greenfield Local Hub account.</h2>
+        </div>
+        <hr class="resendDivider" />
+        <div class="resendCardBody">
+            <div class="row">
+                <div class="col-md-12">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger statusMessage" role="alert"></div>
+            <div class="form-floating mb-3 emailField">
+                <input asp-for="Input.Email" class="form-control" aria-required="true" placeholder="name@example.com" />
+                <label asp-for="Input.Email" class="form-label"></label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <button type="submit" class="w-100 btn btn-lg btn-primary submitButton">Resend</button>
+        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

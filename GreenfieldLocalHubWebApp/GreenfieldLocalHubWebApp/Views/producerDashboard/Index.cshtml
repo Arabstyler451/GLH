@@ -1,0 +1,314 @@
+﻿@model IEnumerable<GreenfieldLocalHubWebApp.Models.products>
+
+@{
+    ViewData["Title"] = "Producer Dashboard";
+}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/producerDashboard/index.css" asp-append-version="true" />
+}
+
+<!-- PRODUCER DASHBOARD HERO -->
+<div class="pd-hero">
+    <div class="pd-hero-inner">
+        <div>
+            <span class="pd-hero-eyebrow">Producer Dashboard &mdash; Restricted Access</span>
+            <h1>Producer Dashboard</h1>
+            <p class="pd-hero-sub">Manage your products, orders, and producer profile.</p>
+        </div>
+        <div class="pd-hero-actions">
+            <a asp-controller="products" asp-action="Create" class="btn btn-brown">Add Product</a>
+                <form asp-area="Identity" asp-page="/Account/Logout" method="post">
+                    <button type="submit" class="btn btn-ghost-white">Sign out</button>
+                </form>
+        </div>
+    </div>
+</div>
+
+<!-- DASHBOARD BODY -->
+<div class="pd-section">
+    <div class="pd-container">
+
+        <!-- ── STAT CARDS ── -->
+        <div class="dash-grid" role="list" aria-label="Dashboard statistics">
+            <div class="dash-stat" role="listitem">
+                <p class="dash-stat-label">Total Products</p>
+                <p class="dash-stat-value">@ViewBag.totalProducts</p>
+                <p class="dash-stat-delta">Listed in your store</p>
+            </div>
+            <div class="dash-stat" role="listitem">
+                <p class="dash-stat-label">Low Stock Products</p>
+                <p class="dash-stat-value">@ViewBag.lowStockProducts</p>
+                <p class="dash-stat-delta warn">@ViewBag.lowStockProducts low stock alerts</p>
+            </div>
+            <div class="dash-stat" role="listitem">
+                <p class="dash-stat-label">Total Stock Units</p>
+                <p class="dash-stat-value">@ViewBag.totalStockUnits</p>
+                <p class="dash-stat-delta">Across all products</p>
+            </div>
+            <div class="dash-stat" role="listitem">
+                <p class="dash-stat-label">Recent Orders</p>
+                <p class="dash-stat-value">
+                    @((ViewBag.recentOrders as List<GreenfieldLocalHubWebApp.Models.orders> ?? new List<GreenfieldLocalHubWebApp.Models.orders>()).Count)
+                </p>
+                <p class="dash-stat-delta">In the last period</p>
+            </div>
+        </div>
+
+        <!-- ── TAB BAR ── -->
+<div class="tab-bar" role="tablist" aria-label="Dashboard sections">
+    <button class="tab @(ViewBag.activeTab == "products" ? "active" : "")"
+            role="tab"
+            aria-selected="@(ViewBag.activeTab == "products" ? "true" : "false")"
+            onclick="switchDashTab(this,'dtab-products')">Product Management</button>
+    <button class="tab @(ViewBag.activeTab == "orders" ? "active" : "")"
+            role="tab"
+            aria-selected="@(ViewBag.activeTab == "orders" ? "true" : "false")"
+            onclick="switchDashTab(this,'dtab-orders')">Order Management</button>
+</div>
+
+        <!-- PRODUCTS TAB -->
+<div id="dtab-products" class="dtab @(ViewBag.activeTab == "products" ? "active" : "")">
+            @if (!Model.Any())
+            {
+                <div class="empty-state">
+                    <p>You do not have any products yet.</p>
+                    <a asp-controller="products" asp-action="Create" class="btn btn-primary" style="margin-top:1.2rem;">Add Your First Product</a>
+                </div>
+            }
+            else
+            {
+                <div class="dtab-toolbar">
+                    <input type="search" class="form-input" placeholder="Search your products…"
+                           style="max-width:240px;" aria-label="Search products"
+                           oninput="filterTable(this,'products-tbody')">
+                    <a asp-controller="products" asp-action="Create" class="btn btn-primary btn-sm">Add Product</a>
+                </div>
+
+<div class="table-wrap">
+    <table class="data-table" role="table" aria-label="Product management table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="products-tbody">
+            @foreach (var item in Model.Take(5))
+            {
+                var stockClass = item.stockQuantity == 0 ? "out"
+                               : item.stockQuantity <= 10 ? "low"
+                               : "in";
+                var stockLabel = item.stockQuantity == 0 ? "Out of Stock"
+                               : item.stockQuantity <= 10 ? "Low Stock"
+                               : "In Stock";
+                <tr>
+                    <td>
+                        <div style="display:flex; align-items:center; gap:.85rem;">
+                            @if (!string.IsNullOrEmpty(item.productImage))
+                            {
+                                <img src="@item.productImage"
+                                     alt="@item.productName"
+                                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+                                     style="width:48px;height:48px;object-fit:cover;
+                                            border:1px solid var(--border);flex-shrink:0;" />
+                                <div style="width:48px;height:48px;background:var(--off-white);
+                                            border:1px solid var(--border);display:none;
+                                            align-items:center;justify-content:center;
+                                            font-size:.55rem;color:var(--text-light);
+                                            text-transform:uppercase;letter-spacing:.04em;
+                                            flex-shrink:0;">
+                                    IMG
+                                </div>
+                            }
+                            else
+                            {
+                                <div style="width:48px;height:48px;background:var(--off-white);
+                                            border:1px solid var(--border);display:flex;
+                                            align-items:center;justify-content:center;
+                                            font-size:.55rem;color:var(--text-light);
+                                            text-transform:uppercase;letter-spacing:.04em;
+                                            flex-shrink:0;">
+                                    IMG
+                                </div>
+                            }
+                            <strong>@item.productName</strong>
+                        </div>
+                    </td>
+                    <td>£@item.productPrice.ToString("0.00")</td>
+                    <td>@item.stockQuantity units</td>
+                    <td><span class="stock-pill @stockClass">@stockLabel</span></td>
+                    <td>
+                        <div style="display:flex;gap:.5rem;align-items:center;">
+                            <a asp-controller="products" asp-action="Edit"
+                               asp-route-id="@item.productsId"
+                               class="btn btn-ghost btn-sm">Edit</a>
+
+                            <form asp-controller="products"
+                                  asp-action="Delete"
+                                  asp-route-id="@item.productsId"
+                                  method="get"
+                                  style="display:inline;">
+                                <button type="submit" class="btn btn-sm"
+                                        style="background:#fde8e8;color:#a0281e;
+                                               border:1.5px solid #fde8e8;">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+                <a asp-controller="products" asp-action="Index" class="view-all-link">
+                    View All Your Products &rarr;
+                </a>
+            }
+        </div>
+
+<!-- ORDERS TAB -->
+<div id="dtab-orders" class="dtab @(ViewBag.activeTab == "orders" ? "active" : "")">
+    @{
+                var orders = ViewBag.recentOrders as List<GreenfieldLocalHubWebApp.Models.orders>
+                             ?? new List<GreenfieldLocalHubWebApp.Models.orders>();
+                var userEmails = ViewBag.userEmails as Dictionary<string, string>
+                                 ?? new Dictionary<string, string>();
+            }
+
+            @if (!orders.Any())
+            {
+                <div class="empty-state">
+                    <p>No recent orders.</p>
+                </div>
+            }
+            else
+            {
+                <div class="dtab-toolbar">
+                    <input type="search" class="form-input" placeholder="Search orders…"
+                           style="max-width:240px;" aria-label="Search orders"
+                           oninput="filterTable(this,'orders-tbody')">
+                    <select class="form-select" style="max-width:190px;" aria-label="Filter by status"
+                            onchange="filterByStatus(this,'orders-tbody')">
+                        <option value="">All Orders</option>
+                        <option>Pending</option>
+                        <option>Processing</option>
+                        <option>Dispatched</option>
+                        <option>Delivered</option>
+                        <option>Ready to Collect</option>
+                        <option>Collected</option>
+                    </select>
+                    <span class="toolbar-meta">@orders.Count active orders</span>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table" role="table" aria-label="Order management table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Order Date</th>
+                                <th>Fulfilment</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-tbody">
+                            @foreach (var order in orders)
+                            {
+                                var statusClass = order.orderStatus?.ToLower() switch {
+                                    "delivered"        => "delivered",
+                                    "dispatched"       => "dispatched",
+                                    "processing"       => "processing",
+                                    "ready to collect" => "ready",
+                                    "collected"        => "collected",
+                                    _                  => "pending"
+                                };
+
+                                var fulfilmentLabel = order.collection ? "Collection" : "Delivery";
+                                var fulfilmentColor = order.collection
+                                    ? "color:#1a3a8f;"
+                                    : "color:#1a6b40;";
+
+                                var nextStatus = order.collection
+                                    ? order.orderStatus switch
+                                    {
+                                        "Pending"          => "Processing",
+                                        "Processing"       => "Ready to Collect",
+                                        "Ready to Collect" => "Collected",
+                                        _                  => null
+                                    }
+                                    : order.orderStatus switch
+                                    {
+                                        "Pending"    => "Processing",
+                                        "Processing" => "Dispatched",
+                                        "Dispatched" => "Delivered",
+                                        _            => null
+                                    };
+
+                                var customerEmail = userEmails.TryGetValue(order.UserId, out var email)
+                                    ? email : "Unknown";
+
+                                <tr>
+                                    <td><strong>#@order.ordersId</strong></td>
+                                    <td>
+                                        <span style="font-size:.82rem;">@customerEmail</span>
+                                    </td>
+                                    <td>@order.orderDate.ToString("dd MMM yyyy")</td>
+                                    <td>
+                                        <span class="order-status" style="@fulfilmentColor">
+                                            @fulfilmentLabel
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="order-status @statusClass">
+                                            @order.orderStatus
+                                        </span>
+                                    </td>
+                                    <td style="display:flex; gap:.5rem; align-items:center;">
+                                        <a asp-controller="orders" asp-action="Details"
+                                           asp-route-id="@order.ordersId"
+                                           class="btn btn-ghost btn-sm">View</a>
+
+                                        @if (nextStatus != null)
+                                        {
+                                            <form asp-controller="producerDashboard"
+                                                  asp-action="UpdateOrderStatus"
+                                                  method="post" style="display:inline;">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="orderId"
+                                                       value="@order.ordersId" />
+                                                <button type="submit" class="btn btn-sm"
+                                                        style="background:var(--green);
+                                                               color:var(--white);">
+                                                    → @nextStatus
+                                                </button>
+                                            </form>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <a asp-controller="orders" asp-action="Index" class="view-all-link">
+                    View All Your Orders &rarr;
+                </a>
+            }
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/pages/producerDashboard/index.js" asp-append-version="true"></script>
+}

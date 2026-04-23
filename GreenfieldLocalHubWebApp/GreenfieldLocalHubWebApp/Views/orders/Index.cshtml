@@ -1,0 +1,115 @@
+﻿@model IEnumerable<GreenfieldLocalHubWebApp.Models.orders>
+
+@{
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    ViewData["Title"] = "My Orders";
+}
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/orders/index.css" asp-append-version="true" />
+}
+<div class="glh-orders-root">
+
+    <h2 class="glh-panel-title">My Orders</h2>
+
+    @{
+        /* Highlight any active (non-delivered) orders at the top */
+        var activeOrder = Model.FirstOrDefault(o =>
+            !string.Equals(o.orderStatus, "Delivered",  StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(o.orderStatus, "Cancelled",  StringComparison.OrdinalIgnoreCase));
+    }
+    @if (activeOrder != null)
+    {
+        <div class="glh-alert glh-alert-success" role="status">
+            Order <strong>#@activeOrder.ordersId</strong> is currently
+            <strong>@activeOrder.orderStatus</strong> —
+            placed on @activeOrder.orderDate.ToString("d MMM yyyy").
+        </div>
+    }
+
+    @if (!Model.Any())
+    {
+        <div class="glh-empty" role="status">
+            <p>You haven't placed any orders yet.</p>
+            <p><a asp-controller="Products" asp-action="Index">Browse our products</a> to get started.</p>
+        </div>
+    }
+    else
+    {
+        @foreach (var item in Model.OrderByDescending(o => o.orderDate))
+        {
+            /* ── Resolve status CSS class ── */
+            string statusClass = (item.orderStatus?.ToLower()) switch
+            {
+                "delivered"  => "glh-status-delivered",
+                "dispatched" => "glh-status-dispatched",
+                "processing" => "glh-status-processing",
+                "cancelled"  => "glh-status-cancelled",
+                _            => "glh-status-pending"
+            };
+
+            /* ── Delivery type label ── */
+            string deliveryLabel = item.deliveryType switch
+            {
+                "delivery"   => "Home Delivery",
+                "collection" => "Click & Collect",
+                _            => item.deliveryType ?? "—"
+            };
+
+            <div class="glh-order-row" role="row">
+
+                <!-- Column 1: order ID + date -->
+                <div>
+                    <p class="glh-order-id">#@item.ordersId</p>
+                    <p class="glh-order-date">@item.orderDate.ToString("d MMM yyyy")</p>
+                    <span class="glh-delivery-chip">@deliveryLabel</span>
+                </div>
+
+                <!-- Column 2: summary -->
+                <div class="glh-order-meta">
+                    <strong>@item.totalAmount.ToString("C")</strong>
+                    @if (!string.IsNullOrWhiteSpace(item.DeliveryCity))
+                    {
+                        <span>@item.DeliveryCity@(!string.IsNullOrWhiteSpace(item.DeliveryPostalCode) ? ", " + item.DeliveryPostalCode : "")</span>
+                    }
+                    @if (item.orderCollectionDate.HasValue)
+                    {
+                        <br /><span>Collection: @item.orderCollectionDate.Value.ToString("d MMM yyyy")</span>
+                    }
+                </div>
+
+                <!-- Column 3: status badge -->
+                <span class="glh-order-status @statusClass">
+                    @item.orderStatus
+                </span>
+
+                <!-- Column 4: actions -->
+                <div class="glh-order-actions">
+                    <a asp-action="Details"
+                       asp-route-id="@item.ordersId"
+                       class="glh-btn glh-btn-outline"
+                       aria-label="View details for order #@item.ordersId">
+                        Details
+                    </a>
+                    <form asp-controller="shoppingCarts"
+                          asp-action="Reorder"
+                          asp-route-orderId="@item.ordersId"
+                          method="post"
+                          style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit"
+                                class="glh-btn glh-btn-ghost"
+                                aria-label="Reorder items from order #@item.ordersId">
+                            Reorder
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        }
+    }
+
+</div>

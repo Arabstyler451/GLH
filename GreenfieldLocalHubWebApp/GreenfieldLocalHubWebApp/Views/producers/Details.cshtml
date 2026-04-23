@@ -1,0 +1,138 @@
+﻿@model GreenfieldLocalHubWebApp.Models.producers
+
+@{
+    ViewData["Title"] = "Producer Details";
+}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/producers/details.css" asp-append-version="true" />
+}
+
+<!-- Breadcrumb hero -->
+<div class="pd-page-hero">
+    <div class="pd-page-hero-inner">
+        <nav class="pd-breadcrumb" aria-label="Breadcrumb">
+            <a asp-action="Index" asp-controller="Home">Home</a>
+            <span class="pd-breadcrumb-sep">›</span>
+            <a asp-action="Index">Producers</a>
+            <span class="pd-breadcrumb-sep">›</span>
+            <span aria-current="page">@Model?.producerName</span>
+        </nav>
+    </div>
+</div>
+
+<section class="pd-section">
+    <div class="pd-container">
+
+        <!-- Full-width hero image -->
+        <div class="pd-hero-image">
+            @if (!string.IsNullOrWhiteSpace(Model?.producerImage))
+            {
+                <img src="@Model.producerImage" alt="@Model.producerName" />
+            }
+            else
+            {
+                <span>Image</span>
+            }
+        </div>
+
+        <!-- Sidebar + main body -->
+        <div class="pd-layout">
+
+            <!-- LEFT: info card -->
+            <div class="pd-sidebar">
+                <h1 class="pd-producer-name">@Model?.producerName</h1>
+                <p class="pd-producer-type">@Model?.producerLocation</p>
+
+                <div class="pd-tags">
+                    <span class="pd-tag">Local Producer</span>
+                    <span class="pd-tag">Traceable</span>
+                </div>
+
+                <div class="pd-contact-info">
+                    <p>Location: @Model?.producerLocation</p>
+                    <p>Email: @Model?.producerEmail</p>
+                    <p>Tel: @Model?.producerPhone</p>
+                </div>
+
+                <a class="pd-btn-primary" href="/Home/Contact">Contact Us</a>
+            </div>
+
+            <!-- RIGHT: story + stats + products -->
+            <div>
+                <span class="pd-eyebrow">Our Story</span>
+                <h2 class="pd-story-title">About @Model?.producerName</h2>
+                <p class="pd-story-text">@Model?.producerDescription</p>
+
+                <div class="pd-stats">
+                    <div class="pd-stat">
+                        <strong>Local</strong>
+                        <p>Producer</p>
+                    </div>
+                    <div class="pd-stat">
+                        <strong>100%</strong>
+                        <p>Traceable</p>
+                    </div>
+                    <div class="pd-stat">
+                        <strong>GLH</strong>
+                        <p>Verified</p>
+                    </div>
+                </div>
+
+                <!-- Products from this producer -->
+                <h3 class="pd-products-title">Products from @Model?.producerName</h3>
+
+                @if (Model?.products != null && Model.products.Any())
+                {
+                    <div class="pd-product-grid">
+                        @foreach (var product in Model.products)
+                        {
+                            string availClass = product.productAvailability ? "in" : "out";
+                            string availLabel = product.productAvailability ? "In Stock" : "Out of Stock";
+
+                            <a class="pd-product-card"
+                               asp-action="Details"
+                               asp-controller="products"
+                               asp-route-id="@product.productsId"
+                               aria-label="View @product.productName">
+                                <div class="pd-pc-img">
+                                    <div class="pd-pc-img-inner">
+                                        @if (!string.IsNullOrWhiteSpace(product.productImage))
+                                        {
+                                            <img src="@product.productImage"
+                                                 alt="@product.productName"
+                                                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                                            <span class="pd-pc-img-placeholder" style="display:none;">Image</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="pd-pc-img-placeholder">Image</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="pd-pc-body">
+                                    <h3 class="pd-pc-name">@product.productName</h3>
+                                    <div class="pd-pc-footer">
+                                        <span class="pd-pc-price">@product.productPrice.ToString("C")</span>
+                                        <span class="pd-avail @availClass">@availLabel</span>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="pd-no-products">No products currently listed for this producer.</p>
+                }
+            </div>
+
+        </div>
+
+        <a asp-action="Index" class="pd-back-link">&#8592; Back to Producers</a>
+
+    </div>
+</section>

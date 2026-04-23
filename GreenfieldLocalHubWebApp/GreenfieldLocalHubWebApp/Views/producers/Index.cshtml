@@ -1,0 +1,127 @@
+﻿@model IEnumerable<GreenfieldLocalHubWebApp.Models.producers>
+
+@{
+    ViewData["Title"] = "Producers";
+
+    var isAdminOrDev = User.IsInRole("Admin") || User.IsInRole("Developer");
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/producers/index.css" asp-append-version="true" />
+}
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+    <div class="page-hero-inner">
+        <span class="page-eyebrow">Our Community</span>
+        <h1>Meet Our Producers</h1>
+        <p>Local farmers and food artisans. Passionate about quality, sustainability and the land.</p>
+    </div>
+</div>
+
+<!-- MAIN SECTION -->
+<section class="section">
+    <div class="container">
+
+        <!-- Toolbar -->
+        <div class="producer-toolbar">
+            <input type="search"
+                   class="form-input producer-search"
+                   placeholder="Search producers..."
+                   aria-label="Search producers"
+                   id="producerSearch">
+
+            @if (isAdminOrDev)
+            {
+                <a asp-action="Create" class="btn btn-primary btn-sm">+ Add New Producer</a>
+            }
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="producer-empty">
+                <p class="producer-empty-note">No producers found.</p>
+                @if (isAdminOrDev)
+                {
+                    <a asp-action="Create" class="producer-empty-link">Add the first one.</a>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="producer-grid" id="producerGrid">
+                @foreach (var item in Model)
+                {
+                    <article class="producer-card"
+                             data-name="@item.producerName?.ToLower()"
+                             role="region"
+                             aria-label="@item.producerName">
+
+                        <!-- Image -->
+                        <div class="producer-img">
+                            @if (!string.IsNullOrWhiteSpace(item.producerImage))
+                            {
+                                <img src="@item.producerImage" alt="@item.producerName">
+                            }
+                            else
+                            {
+                                <div class="img-placeholder">No Image</div>
+                            }
+                        </div>
+
+                        <!-- Name -->
+                        <h3 class="producer-name">@item.producerName</h3>
+
+                        <!-- Description -->
+                        @if (!string.IsNullOrWhiteSpace(item.producerDescription))
+                        {
+                            <p class="producer-desc">@item.producerDescription</p>
+                        }
+                        else
+                        {
+                            <p class="producer-desc producer-empty-desc">No description provided.</p>
+                        }
+
+                        <!-- Info tags -->
+                        <div class="producer-tags">
+                            @if (!string.IsNullOrWhiteSpace(item.producerLocation))
+                            {
+                                <span class="tag"> @item.producerLocation</span>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(item.producerPhone))
+                            {
+                                <span class="tag"> @item.producerPhone</span>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(item.producerEmail))
+                            {
+                                <span class="tag"> @item.producerEmail</span>
+                            }
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="producer-actions">
+                            <a asp-action="Details" asp-route-id="@item.producersId" class="btn btn-outline btn-sm">View Details</a>
+                            @if (isAdminOrDev)
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.producersId" class="btn btn-ghost btn-sm">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.producersId"
+                                   class="btn btn-danger-soft btn-sm"
+                                   onclick="return confirm('Delete @item.producerName? This cannot be undone.');">Delete</a>
+                            }
+                        </div>
+
+                    </article>
+                }
+            </div>
+
+            <p class="producer-summary">
+                Showing <strong id="visibleCount">@Model.Count()</strong> of @Model.Count() producers
+            </p>
+        }
+
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/pages/producers/index.js" asp-append-version="true"></script>
+}

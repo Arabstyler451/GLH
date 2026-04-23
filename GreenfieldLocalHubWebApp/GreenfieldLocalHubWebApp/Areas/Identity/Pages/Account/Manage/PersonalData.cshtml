@@ -1,0 +1,189 @@
+﻿@page
+@model PersonalDataModel
+@{
+    ViewData["Title"] = "Personal Data";
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+}
+
+<style>
+    .personalDataPage {
+        padding: .5rem 0 2rem;
+    }
+
+    .personalDataCard {
+        max-width: 760px;
+        border: 1px solid var(--border);
+        background: var(--white);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .personalDataHeader {
+        padding: 2rem 2rem 1.35rem;
+        border-bottom: 1px solid var(--border);
+        background: linear-gradient(135deg, var(--green-faint) 0%, var(--white) 100%);
+    }
+
+    .personalDataEyebrow {
+        display: inline-block;
+        font-size: .72rem;
+        font-weight: 600;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        color: var(--brown);
+        margin-bottom: .55rem;
+    }
+
+    .personalDataTitle {
+        font-family: var(--font-serif);
+        font-size: clamp(1.55rem, 3vw, 2.15rem);
+        font-weight: 600;
+        color: var(--green-dark);
+        line-height: 1.2;
+        margin: 0;
+    }
+
+    .personalDataLead {
+        font-size: .92rem;
+        color: var(--text-muted);
+        line-height: 1.75;
+        margin: .75rem 0 0;
+        max-width: 44rem;
+    }
+
+    .personalDataBody {
+        padding: 1.75rem 2rem 2rem;
+    }
+
+    .personalDataGrid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .personalDataPanel {
+        border: 1px solid var(--border);
+        background: var(--off-white);
+        padding: 1.25rem 1.35rem;
+    }
+
+    .personalDataPanelTitle {
+        font-family: var(--font-serif);
+        font-size: 1.08rem;
+        color: var(--green-dark);
+        margin: 0 0 .45rem;
+    }
+
+    .personalDataText {
+        font-size: .88rem;
+        color: var(--text-muted);
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    .warningPanel {
+        border-color: rgba(160,40,30,.18);
+        background: #fff5f4;
+    }
+
+    .warningText {
+        color: #7f241b;
+    }
+
+    .buttonRow {
+        display: flex;
+        gap: .85rem;
+        flex-wrap: wrap;
+        margin-top: 1.5rem;
+    }
+
+    .downloadButton,
+    .deleteButton {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 150px;
+        border: none;
+        border-radius: 0;
+        padding: .9rem 1.4rem;
+        font-family: var(--font-sans);
+        font-size: .88rem;
+        font-weight: 600;
+        letter-spacing: .02em;
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .downloadButton {
+        background: var(--green);
+        color: var(--white);
+    }
+
+    .downloadButton:hover,
+    .downloadButton:focus {
+        background: var(--green-light);
+        color: var(--white);
+    }
+
+    .deleteButton {
+        background: #a0281e;
+        color: var(--white);
+    }
+
+    .deleteButton:hover,
+    .deleteButton:focus {
+        background: #7f241b;
+        color: var(--white);
+    }
+
+    @@media (max-width: 768px) {
+        .personalDataHeader,
+        .personalDataBody {
+            padding-left: 1.4rem;
+            padding-right: 1.4rem;
+        }
+
+        .buttonRow {
+            flex-direction: column;
+        }
+
+        .downloadButton,
+        .deleteButton {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="personalDataPage">
+    <div class="personalDataCard">
+        <div class="personalDataHeader">
+            <span class="personalDataEyebrow">Account Management</span>
+            <h3 class="personalDataTitle">@ViewData["Title"]</h3>
+            <p class="personalDataLead">Review the information attached to your Greenfield Local Hub account and choose whether to download it or permanently remove it.</p>
+        </div>
+
+        <div class="personalDataBody">
+            <div class="personalDataGrid">
+                <div class="personalDataPanel">
+                    <h4 class="personalDataPanelTitle">Download Your Information</h4>
+                    <p class="personalDataText">This will generate a copy of the personal data linked to your account so you can keep a record of your membership and account information.</p>
+                </div>
+
+                <div class="personalDataPanel warningPanel">
+                    <h4 class="personalDataPanelTitle">Delete Your Account</h4>
+                    <p class="personalDataText warningText"><strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong></p>
+                </div>
+            </div>
+
+            <div class="buttonRow">
+                <form id="download-data" asp-page="DownloadPersonalData" method="post">
+                    <button class="btn btn-primary downloadButton" type="submit">Download</button>
+                </form>
+                <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger deleteButton">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

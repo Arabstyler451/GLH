@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@RenderSection("Styles", required: false)
+
+@{
+
+    Layout = "_Layout.cshtml";
+
+
+    var user = await SignInManager.UserManager.GetUserAsync(User);
+    var userName = user?.UserName?.Split('@')[0];
+    // Capitalise first letter for the greeting
+    var greeting = string.IsNullOrEmpty(userName)
+        ? "your account"
+        : char.ToUpper(userName[0]) + userName.Substring(1);
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/accountLayout.css" asp-append-version="true" />
+}
+
+<!-- PAGE HERO -->
+<div class="account-page-hero">
+    <div class="account-page-hero-inner">
+        <span class="account-page-eyebrow">My Account</span>
+        <h1>Welcome back, @greeting</h1>
+        <p>Manage your profile, orders, and loyalty rewards.</p>
+    </div>
+</div>
+
+<!-- ACCOUNT BODY -->
+<div class="account-section">
+    <div class="account-container">
+        <div class="account-layout">
+
+            <!-- SIDEBAR -->
+            <partial name="~/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml" />
+
+            <!-- PAGE CONTENT -->
+            <div>
+                @RenderBody()
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

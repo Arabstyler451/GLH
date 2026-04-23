@@ -1,0 +1,175 @@
+﻿@model GreenfieldLocalHubWebApp.ViewModels.contactEnquiryViewModel
+
+@{
+    ViewData["Title"] = "Contact Us";
+    var producers = ViewBag.Producers as List<GreenfieldLocalHubWebApp.Models.producers>
+                    ?? new List<GreenfieldLocalHubWebApp.Models.producers>();
+    var success = TempData["ContactSuccess"] as string == "true";
+}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/home/contact.css" asp-append-version="true" />
+}
+
+<div class="page-hero">
+    <div class="page-hero-inner">
+        <span class="page-eyebrow">Get in Touch</span>
+        <h1>Contact Us</h1>
+        <p>We welcome enquiries from customers, producers, and anyone interested in what we do.</p>
+    </div>
+</div>
+
+<div class="contact-wrap">
+    <div class="contact-grid">
+
+        <!-- LEFT: FORM -->
+        <div>
+            <h2 style="font-family:var(--font-serif);font-size:1.4rem;
+                       color:var(--green-dark);margin-bottom:1.4rem;">
+                Send a Message
+            </h2>
+
+            @if (success)
+            {
+                <div class="alert-success" role="alert">
+                    ✓ Your message has been sent. We'll be in touch shortly.
+                </div>
+            }
+
+            <form asp-controller="Home" asp-action="Contact" method="post" novalidate>
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="alert-error"></div>
+
+                <!-- Name row -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label asp-for="FirstName" class="form-label">First Name</label>
+                        <input asp-for="FirstName" class="form-input"
+                               placeholder="First name" autocomplete="given-name" />
+                        <span asp-validation-for="FirstName" class="field-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName" class="form-label">Last Name</label>
+                        <input asp-for="LastName" class="form-input"
+                               placeholder="Last name" autocomplete="family-name" />
+                        <span asp-validation-for="LastName" class="field-error"></span>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label asp-for="Email" class="form-label">Email Address</label>
+                    <input asp-for="Email" type="email" class="form-input"
+                           placeholder="your@email.com" autocomplete="email" />
+                    <span asp-validation-for="Email" class="field-error"></span>
+                </div>
+
+                <!-- Subject + Producer row -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label asp-for="Subject" class="form-label">Subject</label>
+                        <select asp-for="Subject" class="form-select">
+                            <option value="">Select a subject</option>
+                            <option>General Enquiry</option>
+                            <option>Order Issue</option>
+                            <option>Producer Membership</option>
+                            <option>Press &amp; Media</option>
+                            <option>Accessibility Support</option>
+                        </select>
+                        <span asp-validation-for="Subject" class="field-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ProducerId" class="form-label">
+                            Producer
+                            <span class="optional">(optional)</span>
+                        </label>
+                        <select asp-for="ProducerId" class="form-select">
+                            <option value="">— No specific producer —</option>
+                            @foreach (var p in producers)
+                            {
+                                <option value="@p.producersId">@p.producerName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Message -->
+                <div class="form-group">
+                    <label asp-for="Message" class="form-label">Message</label>
+                    <textarea asp-for="Message" class="form-textarea"
+                              placeholder="Tell us how we can help..."></textarea>
+                    <span asp-validation-for="Message" class="field-error"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+
+        <!-- RIGHT: FIND US -->
+        <div>
+            <h2 style="font-family:var(--font-serif);font-size:1.4rem;
+                       color:var(--green-dark);margin-bottom:1.6rem;">
+                Find Us
+            </h2>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div class="contact-text">
+                    <strong>Our Hub</strong>
+                    <p>14 Market Square, Greenfield<br>Midshire, MK12 4AB</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div class="contact-text">
+                    <strong>Opening Hours</strong>
+                    <p>Mon–Fri: 8am – 6pm<br>Sat: 8am – 4pm &nbsp; Sun: 10am – 2pm</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.49 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 013.4 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.91 8.96a16 16 0 006.26 6.26l1.32-1.32a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                </div>
+                <div class="contact-text">
+                    <strong>Phone</strong>
+                    <p>01234 567 890<br>Mon–Fri, 9am–5pm</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <div class="contact-text">
+                    <strong>Email</strong>
+                    <p>greenfieldlocalhub@example.com</p>
+                </div>
+            </div>
+
+            <div style="background:var(--brown-faint);border:1px solid rgba(124,92,62,.2);
+                        padding:1.4rem;margin-top:.5rem;">
+                <p style="font-size:.85rem;font-weight:600;color:var(--brown);margin-bottom:.4rem;">
+                    Interested in joining as a producer?
+                </p>
+                <p style="font-size:.82rem;color:var(--text-muted);line-height:1.6;">
+                    Contact us via the form or call to discuss our cooperative membership
+                    and what it means for your business.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

@@ -1,0 +1,211 @@
+﻿@model GreenfieldLocalHubWebApp.Models.products
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/products/edit.css" asp-append-version="true" />
+}
+
+<div class="glh-edit-root">
+
+    <!-- PAGE HERO -->
+    <div class="glh-edit-hero">
+        <div class="glh-edit-hero-inner">
+            <nav class="glh-breadcrumb" aria-label="Breadcrumb">
+                <a asp-controller="Home" asp-action="Index">Home</a>
+                <span class="glh-breadcrumb-sep">›</span>
+                <a asp-controller="products" asp-action="Index">Shop</a>
+                <span class="glh-breadcrumb-sep">›</span>
+                <a asp-controller="products" asp-action="Details" asp-route-id="@Model.productsId">@Model.productName</a>
+                <span class="glh-breadcrumb-sep">›</span>
+                <span aria-current="page">Edit</span>
+            </nav>
+            <span class="glh-edit-eyebrow">Product Management</span>
+            <h1>Edit Product</h1>
+        </div>
+    </div>
+
+    <div class="glh-edit-section">
+        <form asp-action="Edit" method="post" id="editForm">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="productsId" />
+            <div asp-validation-summary="ModelOnly" class="glh-alert-error"></div>
+
+            <div class="glh-edit-grid">
+
+                <!-- LEFT COLUMN -->
+                <div>
+
+                    <!-- Card 1: Core Details -->
+                    <div class="glh-card">
+                        <div class="glh-card-header">
+                            <span class="glh-card-header-num">1</span>
+                            <h2>Product Details</h2>
+                        </div>
+                        <div class="glh-card-body">
+
+                            <div class="glh-form-group">
+                                <label asp-for="productName" class="glh-form-label">Product Name</label>
+                                <input asp-for="productName" class="glh-form-input" placeholder="e.g. Organic Free Range Eggs" />
+                                <span asp-validation-for="productName" class="glh-field-error"></span>
+                            </div>
+
+                            <div class="glh-form-group">
+                                <label asp-for="productDescription" class="glh-form-label">Description</label>
+                                <textarea asp-for="productDescription" class="glh-form-textarea"
+                                          placeholder="Describe your product…"></textarea>
+                                <span asp-validation-for="productDescription" class="glh-field-error"></span>
+                            </div>
+
+                            <div class="glh-form-row">
+                                <div class="glh-form-group">
+                                    <label asp-for="productPrice" class="glh-form-label">Price (£)</label>
+                                    <input asp-for="productPrice" type="number" step="0.01" min="0"
+                                           class="glh-form-input" placeholder="0.00" />
+                                    <span asp-validation-for="productPrice" class="glh-field-error"></span>
+                                </div>
+                                <div class="glh-form-group">
+                                    <label asp-for="productUnit" class="glh-form-label">Unit</label>
+                                    <input asp-for="productUnit" class="glh-form-input" placeholder="e.g. kg, litre, each" />
+                                    <span asp-validation-for="productUnit" class="glh-field-error"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Stock & Category -->
+                    <div class="glh-card">
+                        <div class="glh-card-header">
+                            <span class="glh-card-header-num">2</span>
+                            <h2>Stock &amp; Category</h2>
+                        </div>
+                        <div class="glh-card-body">
+
+                            <div class="glh-form-row">
+                                <div class="glh-form-group">
+                                    <label asp-for="stockQuantity" class="glh-form-label">Stock Quantity</label>
+                                    <input asp-for="stockQuantity" type="number" min="0"
+                                           class="glh-form-input" placeholder="0" />
+                                    <span asp-validation-for="stockQuantity" class="glh-field-error"></span>
+                                </div>
+                                <div class="glh-form-group">
+                                    <label asp-for="categoriesId" class="glh-form-label">Category</label>
+                                    <div class="glh-select-wrap">
+                                        @Html.DropDownListFor(
+                                            m => m.categoriesId,
+                                            (SelectList)ViewData["categoriesId"],
+                                            "— Select category —",
+                                            new { @class = "glh-form-select" })
+                                    </div>
+                                    <span asp-validation-for="categoriesId" class="glh-field-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="glh-form-group">
+                                <label class="glh-form-label">Availability</label>
+                                <div class="glh-toggle-wrap">
+                                    <label class="glh-toggle">
+                                        <input asp-for="productAvailability" type="checkbox" />
+                                        <span class="glh-toggle-slider"></span>
+                                    </label>
+                                    <div>
+                                        <div class="glh-toggle-label">Available for purchase</div>
+                                        <div class="glh-toggle-sub">Toggle off to hide this product from the shop</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Image -->
+                    <div class="glh-card">
+                        <div class="glh-card-header">
+                            <span class="glh-card-header-num">3</span>
+                            <h2>Product Image</h2>
+                        </div>
+                        <div class="glh-card-body">
+                            <div class="glh-form-group">
+                                <label asp-for="productImage" class="glh-form-label">Image URL</label>
+                                <input asp-for="productImage" class="glh-form-input"
+                                       placeholder="https://example.com/image.jpg"
+                                       oninput="previewImage(this.value)" />
+                                <p class="glh-form-hint">Paste a direct link to your product image.</p>
+                                <span asp-validation-for="productImage" class="glh-field-error"></span>
+                            </div>
+                            <div id="imgPreviewWrap" style="margin-top:.75rem;display:@(!string.IsNullOrEmpty(Model.productImage) ? "block" : "none")">
+                                <img id="imgPreview"
+                                     src="@Model.productImage"
+                                     alt="Preview"
+                                     style="width:100%;max-height:220px;object-fit:cover;border:1px solid var(--border);"
+                                     onerror="this.style.display='none'" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT COLUMN: SUMMARY SIDEBAR -->
+                <aside>
+                    <div class="glh-summary-card">
+                        <h2 class="glh-summary-title">Current Values</h2>
+
+                        <div class="glh-summary-row">
+                            <span>Product</span>
+                            <span>@Model.productName</span>
+                        </div>
+                        <div class="glh-summary-row">
+                            <span>Price</span>
+                            <span>£@Model.productPrice.ToString("0.00")</span>
+                        </div>
+                        <div class="glh-summary-row">
+                            <span>Stock</span>
+                            <span>@Model.stockQuantity units</span>
+                        </div>
+                        <div class="glh-summary-row">
+                            <span>Unit</span>
+                            <span>@(Model.productUnit ?? "—")</span>
+                        </div>
+                        <div class="glh-summary-row">
+                            <span>Status</span>
+                            <span>@(Model.productAvailability ? "Available" : "Hidden")</span>
+                        </div>
+
+                        <div style="margin-top:1.5rem;">
+                            <button type="submit" class="glh-btn glh-btn-primary">
+                                Save Changes
+                            </button>
+                            <a asp-controller="producerDashboard" asp-action="Index"
+                               asp-route-activeTab="products"
+                               class="glh-btn glh-btn-ghost">
+                                Cancel
+                            </a>
+                        </div>
+
+                        <div class="glh-info-box">
+                            <strong>Note</strong>
+                            Changes will be visible to customers immediately after saving.
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+        </form>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/pages/products/edit.js" asp-append-version="true"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}
+

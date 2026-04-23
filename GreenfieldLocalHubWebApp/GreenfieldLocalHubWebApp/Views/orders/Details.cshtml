@@ -1,0 +1,270 @@
+﻿@model IEnumerable<GreenfieldLocalHubWebApp.Models.orderProducts>
+
+@{
+    ViewData["Title"] = "Order Details";
+    var firstItem = Model.FirstOrDefault();
+    var order = firstItem?.orders;
+
+    decimal subtotal = Model.Sum(item => (decimal)item.products.productPrice * item.quantity);
+    decimal deliveryFee = (decimal)(order?.deliveryFee ?? 0f);
+    decimal expectedTotal = subtotal + deliveryFee;
+    decimal actualTotal = (decimal)(order?.totalAmount ?? 0f);
+    decimal loyaltyDiscount = expectedTotal > actualTotal ? expectedTotal - actualTotal : 0m;
+    decimal grandTotal = actualTotal > 0 ? actualTotal : expectedTotal;
+    int loyaltyPointsEarned = (int)(grandTotal * 10);
+}
+
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/orders/details.css" asp-append-version="true" />
+}
+
+<!-- PAGE HERO (now matching cart page exactly) -->
+<div class="page-hero">
+    <div class="page-hero-inner">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a asp-controller="orders" asp-action="Index">My Orders</a>
+            <span class="breadcrumb-sep">›</span>
+            <span aria-current="page">Order #@order?.ordersId</span>
+        </nav>
+        <span class="page-eyebrow">Order Details</span>
+        <h1>Order #@order?.ordersId</h1>
+    </div>
+</div>
+
+<!-- ══════════ SECTION ══════════ -->
+<section class="section">
+    <div class="container">
+
+        @if (order == null)
+        {
+            <div class="od-empty">
+                <p style="font-size:.9rem; margin-bottom:1rem;">Order not found.</p>
+                <a href="#" onclick="showPage('account'); switchPanel(null,'orders')" class="btn btn-outline btn-sm">← Back to My Orders</a>
+            </div>
+        }
+        else
+        {
+            <div class="order-detail-grid">
+
+                <!-- ═══ LEFT COLUMN ═══ -->
+                <div>
+
+                    <div class="od-status-banner">
+    
+                        <div class="od-status-top">
+                            <span class="od-status-eyebrow">
+                                Order Placed
+                            </span>
+                            <span class="od-status-date">
+                                @order.orderDate.ToString("dd MMMM yyyy")
+                            </span>
+                        </div>
+
+                        <div class="od-status-main">
+                            <span class="od-status-label">Status</span>
+                            <span class="od-status-pill @(order.orderStatus?.ToLower())">
+                                @order.orderStatus
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <!-- Order Information -->
+                    <div class="od-card">
+                        <h2 class="od-card-title">Order Information</h2>
+
+                        <!-- Info grid — uses same .info-item pattern as account profile panel -->
+                        <div class="od-info-grid">
+                            <div class="od-info-item">
+                                <label>Order Number</label>
+                                <p>#@order.ordersId</p>
+                            </div>
+                            <div class="od-info-item">
+                                <label>Order Date</label>
+                                <p>@order.orderDate.ToString("dd MMM yyyy")</p>
+                            </div>
+                            <div class="od-info-item">
+                                <label>Order Method</label>
+                                <p>
+                                    @(order.delivery == true
+                                        ? "Home Delivery"
+                                        : order.collection == true
+                                            ? "Click & Collect"
+                                            : "Unknown")
+                                </p>
+                            </div>
+                            <div class="od-info-item">
+                                @if (order.delivery == true && !string.IsNullOrEmpty(order.deliveryType))
+                                {
+                                    <label>Delivery Type</label>
+                                    <p>@order.deliveryType</p>
+                                }
+                                else if (order.collection == true && order.orderCollectionDate.HasValue)
+                                {
+                                    <label>Collection Date</label>
+                                    <p>@order.orderCollectionDate.Value.ToString("ddd, dd MMM yyyy")</p>
+                                }
+                                else
+                                {
+                                    <label>Status</label>
+                                    <p>
+                                        <span class="order-status @(order.orderStatus?.ToLower() == "delivered" ? "delivered" : order.orderStatus?.ToLower() == "processing" ? "processing" : "dispatched")">
+                                            @order.orderStatus
+                                        </span>
+                                    </p>
+                                }
+                            </div>
+                        </div>
+
+                        @if (order.delivery == true)
+                        {
+                            <div class="od-address-block">
+                                <span class="od-address-label">
+                                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                        <circle cx="12" cy="10" r="3" />
+                                    </svg>
+                                    Delivery Address
+                                </span>
+                                <address class="od-address">
+                                    @order.DeliveryStreet<br />
+                                    @order.DeliveryCity<br />
+                                    @order.DeliveryPostalCode<br />
+                                    @order.DeliveryCountry
+                                </address>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Products Ordered -->
+                    <div class="od-section-header">
+                        <h2 class="od-section-title">Products Ordered</h2>
+                        <span class="od-section-count">@Model.Count() item@(Model.Count() != 1 ? "s" : "")</span>
+                    </div>
+
+                    <div class="od-products-list">
+                        @foreach (var item in Model)
+                        {
+                            decimal lineTotal = (decimal)(item.products?.productPrice ?? 0) * item.quantity;
+
+                            <div class="od-product-row">
+                                <div class="od-product-thumb">
+                                    @if (!string.IsNullOrEmpty(item.products?.productImage))
+                                    {
+                                        <img src="@item.products.productImage" alt="@item.products.productName" loading="lazy" />
+                                    }
+                                    else
+                                    {
+                                        <div class="img-placeholder square" style="width:72px;height:72px;font-size:.6rem;">No Image</div>
+                                    }
+                                </div>
+                                <div class="od-product-info">
+                                    <p class="od-product-producer">@(item.products?.producers?.producerName ?? "Local Producer")</p>
+                                    <h3 class="od-product-name">@item.products?.productName</h3>
+                                    <p class="od-product-meta">
+                                        @item.quantity &times; £@item.products?.productPrice.ToString("0.00")
+                                        @if (!string.IsNullOrEmpty(item.products?.productUnit))
+                                        {
+                                            <span>(@item.products.productUnit.ToLower())</span>
+                                        }
+                                    </p>
+                                </div>
+                                <div class="od-product-total">£@lineTotal.ToString("0.00")</div>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+                <!-- /LEFT -->
+                <!-- ═══ RIGHT COLUMN ═══ -->
+                <div>
+                    <div class="od-summary-sticky">
+
+                        <!-- cart-summary: identical class & inner markup to the cart page -->
+                        <div class="cart-summary" role="region" aria-label="Order summary">
+                            <h3 class="cart-summary-title">Order Summary</h3>
+
+                            <div class="cart-summary-row">
+                                <span>Subtotal</span>
+                                <span>£@subtotal.ToString("0.00")</span>
+                            </div>
+
+                      
+                            <div class="cart-summary-row">
+                                <span>Loyalty Discount</span>
+                                <span class="text-success">− £@loyaltyDiscount.ToString("0.00")</span>
+                            </div>
+
+                            
+                            @if (order.delivery == true)
+                            {
+                                <div class="cart-summary-row">
+                                    <span>Delivery</span>
+                                    @if (deliveryFee > 0)
+                                    {
+                                        <span>£@deliveryFee.ToString("0.00")</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:#1a6b40;">Free</span>
+                                    }
+                                </div>
+                            }
+
+                            <div class="cart-summary-row total">
+                                <span>Total Paid</span>
+                                <span>£@grandTotal.ToString("0.00")</span>
+                            </div>
+
+                            <div class="cart-summary-meta">
+                                <p><strong style="color:var(--text);">Order Date:</strong> @order.orderDate.ToString("dd MMM yyyy")</p>
+                                <p>
+                                    <strong style="color:var(--text);">Method:</strong>
+                                    @(order.delivery == true ? "Home Delivery" : order.collection == true ? "Click & Collect" : "Unknown")
+                                </p>
+                            </div>
+
+                            <form asp-controller="shoppingCarts"
+                                  asp-action="Reorder"
+                                  asp-route-orderId="@order.ordersId"
+                                  method="post"
+                                  class="cart-summary-action">
+                                @Html.AntiForgeryToken()
+                                <button type="submit"
+                                        class="btn btn-primary btn-full"
+                                        aria-label="Reorder items from order #@order.ordersId">
+                                    ↩ Reorder These Items
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Loyalty note — same structure as cart page loyalty note -->
+                        <div class="od-loyalty-block">
+
+                            <div class="od-loyalty-header">
+                                <span class="od-loyalty-eyebrow">Loyalty Reward</span>
+                                <span class="od-loyalty-points">+@loyaltyPointsEarned</span>
+                            </div>
+
+                            <p class="od-loyalty-description">
+                                You earned <strong>@loyaltyPointsEarned points</strong> from this order —
+                                worth approximately <strong>£@((loyaltyPointsEarned / 1000m).ToString("0.00"))</strong>
+                                off a future purchase.
+                            </p>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /RIGHT -->
+
+            </div>
+
+            <div style="margin-top:3.5rem;">
+                <a asp-controller="orders" asp-action="Index" class="btn btn-ghost">← Back to My Orders</a>
+            </div>
+        }
+
+    </div>
+</section>

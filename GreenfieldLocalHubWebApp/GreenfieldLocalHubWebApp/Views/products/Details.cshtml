@@ -1,0 +1,190 @@
+﻿@model GreenfieldLocalHubWebApp.ViewModels.productDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.Product.productName;
+
+    var avail = Model.Product.productAvailability;
+    string availClass = avail ? "in" : "out";
+    string availLabel = avail ? "In Stock" : "Out of Stock";
+}
+
+@* ── Google Fonts ── *@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/products/details.css" asp-append-version="true" />
+}
+
+<div class="glh-detail-root">
+    <div class="container-fluid px-4 px-md-5" style="max-width:1320px;margin:0 auto;">
+
+        <!-- BREADCRUMB -->
+        <nav class="glh-breadcrumb" aria-label="Breadcrumb">
+            <a asp-action="Index" asp-controller="Home">Home</a>
+            <span class="glh-breadcrumb-sep">›</span>
+            <a asp-action="Index">Shop</a>
+            <span class="glh-breadcrumb-sep">›</span>
+            <span aria-current="page">@Model.Product.productName</span>
+        </nav>
+
+        <!-- MAINT DETAIL GRID -->
+        <div class="glh-detail-layout">
+
+            <!-- LEFT IMAGE -->
+            <div>
+                <div class="glh-detail-img-main">
+                    @if (!string.IsNullOrWhiteSpace(Model.Product.productImage))
+                    {
+                        <img src="@Model.Product.productImage"
+                             alt="@Model.Product.productName"
+                             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                        <span class="glh-detail-img-placeholder" style="display:none;">Image</span>
+                    }
+                    else
+                    {
+                        <span class="glh-detail-img-placeholder">Image</span>
+                    }
+                </div>
+            </div>
+
+            <!-- YOU MAY ALSO LIKE SECTION -->
+            <div>
+                <p class="glh-detail-eyebrow">
+                    @(Model.Product.producers?.producerName ?? "Local Producer")
+                    @if (Model.Product.categories != null)
+                    {
+                        <text> · @Model.Product.categories.categoryName</text>
+                    }
+                </p>
+
+                <h1 class="glh-detail-title">@Model.Product.productName</h1>
+
+                <div class="glh-detail-tags">
+                    <span class="glh-avail @availClass">@availLabel</span>
+                </div>
+
+                <p class="glh-detail-price">
+                    @Model.Product.productPrice.ToString("C")
+                </p>
+
+                <p class="glh-detail-desc">
+                    @Model.Product.productDescription
+                </p>
+
+                <!-- TRACEABILITY / STOCK INFO -->
+                <div class="glh-trace-box">
+                    <strong>Stock Information</strong>
+                    @Model.Product.stockQuantity unit@(Model.Product.stockQuantity == 1 ? "" : "s") currently available.
+                    @if (Model.Product.producers != null)
+                    {
+                        <p>Supplied by: @(Model.Product.producers.producerName == null ? "NULL" : Model.Product.producers.producerName)</p>
+                    }
+                </div>
+
+<!-- ADD TO CART -->
+<form asp-controller="shoppingCartItems" asp-action="Create" method="post">
+    <input type="hidden" name="productsId" value="@Model.Product.productsId" />
+
+    @if (Model.Product.stockQuantity > 0)
+    {
+        <div class="glh-detail-add">
+            <div class="glh-qty-ctrl">
+                <button type="button" class="glh-qty-btn" onclick="glhAdjustQty(-1)" aria-label="Decrease quantity">−</button>
+                <input type="number"
+                       id="glhQty"
+                       name="quantity"
+                       value="1"
+                       min="1"
+                       max="@Model.Product.stockQuantity"
+                       class="glh-qty-input"
+                       aria-label="Quantity" />
+                <button type="button" class="glh-qty-btn" onclick="glhAdjustQty(1)" aria-label="Increase quantity">+</button>
+            </div>
+            <button type="submit" class="glh-btn glh-btn-primary glh-btn-lg">
+                Add to Cart
+            </button>
+        </div>
+    }
+    else
+    {
+        <button type="button" class="glh-btn glh-btn-ghost glh-btn-lg" disabled style="opacity:.5;cursor:not-allowed;">
+            Out of Stock
+        </button>
+    }
+</form>
+                
+
+                <div class="glh-detail-shipping">
+                    <span>Home Delivery available</span>
+                    <span>Click &amp; Collect at GLH Hub</span>
+                    <span>Order by 8pm for next-day</span>
+                </div>
+            </div>
+        </div>
+
+
+        @if (Model.RelatedProducts != null && Model.RelatedProducts.Any())
+        {
+            <div class="glh-also-like">
+                <h2 class="glh-also-like-title">You May Also Like</h2>
+                <div class="glh-product-grid">
+                    @foreach (var related in Model.RelatedProducts)
+                    {
+                        string rAvailClass = related.productAvailability ? "in" : "out";
+                        string rAvailLabel = related.productAvailability ? "In Stock" : "Out of Stock";
+
+                        <a class="glh-product-card"
+                           asp-action="Details"
+                           asp-route-id="@related.productsId"
+                           aria-label="View @related.productName">
+                            <div class="glh-pc-img">
+                                <div class="glh-pc-img-inner">
+                                    @if (!string.IsNullOrWhiteSpace(related.productImage))
+                                    {
+                                        <img src="@related.productImage"
+                                             alt="@related.productName"
+                                             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                                        <span class="glh-pc-img-placeholder" style="display:none;">Image</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="glh-pc-img-placeholder">Image</span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="glh-pc-body">
+                                @if (related.producers != null)
+                                {
+                                    <p class="glh-pc-producer">@related.producers.producerName</p>
+                                }
+                                <h3 class="glh-pc-name">@related.productName</h3>
+                                <div class="glh-pc-footer">
+                                    <span class="glh-pc-price">@related.productPrice.ToString("C")</span>
+                                    <span class="glh-avail @rAvailClass">@rAvailLabel</span>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+
+        <!-- Only allows producers, admin and developer to manage the products-->
+        <div class="glh-admin-bar">
+            @if (User.IsInRole("Admin") || User.IsInRole("Developer") || (Model.Product.producers != null && !string.IsNullOrEmpty(User.Identity?.Name) && string.Equals(User.Identity.Name, Model.Product.producers.producerName, System.StringComparison.OrdinalIgnoreCase)))
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Product.productsId"
+                   class="glh-btn glh-btn-ghost glh-btn-sm">Edit</a>
+                   <a asp-action="Delete" asp-route-id="@Model.Product.productsId"
+                   class="glh-btn glh-btn-ghost glh-btn-sm">Delete</a>
+            }
+            <a asp-action="Index" class="glh-btn glh-btn-ghost glh-btn-sm">Back to shop</a>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/pages/products/details.js" asp-append-version="true"></script>
+}

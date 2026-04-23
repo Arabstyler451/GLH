@@ -1,0 +1,116 @@
+﻿@model IEnumerable<GreenfieldLocalHubWebApp.Models.address>
+@{
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    ViewData["Title"] = "My Addresses";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/addresses/index.css" asp-append-version="true" />
+}
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+    <div class="page-hero-inner">
+        <h1>Address Book</h1>
+        <p>Manage your saved delivery addresses.</p>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<section class="section">
+    <div class="container">
+        <div class="account-layout">
+
+
+            <!-- ADDRESS PANEL -->
+            <div>
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success" role="status">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+                @if (TempData["InfoMessage"] != null)
+                {
+                    <div class="alert alert-info" role="status">
+                        @TempData["InfoMessage"]
+                    </div>
+                }
+
+                @if (!Model.Any())
+                {
+                    <!-- EMPTY STATE -->
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                        </div>
+                        <h3>No addresses saved yet</h3>
+                        <p>Add a delivery address to speed up your checkout.</p>
+                        <a asp-controller="addresses" asp-action="Create" class="btn btn-primary">
+                            Add Your First Address
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="address-grid">
+    @foreach (var addr in Model)
+    {
+        <div class="address-card @(addr.IsDefault ? "is-default" : "")">
+            @if (addr.IsDefault)
+            {
+                <span class="address-card-badge">Default Address</span>
+            }
+            <p class="address-card-lines">
+                @addr.street<br>
+                @addr.city<br>
+                @addr.postalCode<br>
+                @addr.country
+            </p>
+            <div class="address-card-actions">
+                <a asp-controller="addresses"
+                   asp-action="Edit"
+                   asp-route-id="@addr.addressId"
+                   class="btn btn-ghost btn-sm">
+                    Edit
+                </a>
+                @if (!addr.IsDefault)
+                {
+                    <form asp-controller="addresses"
+                          asp-action="SetDefault"
+                          asp-route-id="@addr.addressId"
+                          method="post"
+                          style="display: inline;">
+                        <button type="submit" class="btn btn-ghost btn-sm">
+                            Set as Default
+                        </button>
+                    </form>
+                }
+                <form asp-controller="addresses"
+                   asp-action="Delete"
+                   asp-route-id="@addr.addressId"
+                   method="post"
+                   style="display: inline;">
+                   <input type="hidden" name="addressId" value="@addr.addressId" />
+                    <button type="submit" class="btn btn-danger btn-sm" aria-label="Remove @addr.addressId from address book">
+                        Remove
+                    </button>
+                </form>
+            </div>
+        </div>
+    }
+
+    <!-- ADD NEW ADDRESS CARD -->
+    <a asp-controller="addresses" asp-action="Create" class="address-card-new">
+        <div class="address-card-new-icon">+</div>
+        <p class="address-card-new-label">Add new address</p>
+    </a>
+</div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,336 @@
+.privacyPage {
+    color: var(--text);
+}
+
+.privacyHero {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 0 2.5rem;
+}
+
+.privacyHeroInner,
+.privacyContainer {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.privacyEyebrow,
+.privacySectionEyebrow {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--brown);
+}
+
+.privacyHeading {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 600;
+    color: var(--green-dark);
+    line-height: 1.2;
+    margin: .5rem 0 0;
+}
+
+.privacyLead {
+    color: var(--text-muted);
+    font-size: .98rem;
+    line-height: 1.7;
+    max-width: 760px;
+    margin-top: .75rem;
+}
+
+.privacyMetaList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.privacyMetaItem {
+    border: 1px solid var(--border);
+    background: var(--off-white);
+    padding: .9rem 1rem;
+    min-width: 220px;
+}
+
+.privacyMetaLabel {
+    display: block;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: .3rem;
+}
+
+.privacyMetaValue {
+    font-size: .88rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.55;
+}
+
+.privacyContainer {
+    padding-top: 2.5rem;
+}
+
+.privacySummaryPanel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.privacySummaryCard,
+.privacyFeatureCard,
+.privacyRightsCard,
+.privacyTimelineItem,
+.privacyContactCard,
+.privacyNoticeCard,
+.privacyListCard {
+    border: 1px solid var(--border);
+    background: var(--white);
+}
+
+.privacySummaryCard {
+    padding: 1.35rem 1.4rem;
+}
+
+.privacySummaryTitle,
+.privacySideTitle {
+    display: block;
+    font-size: .76rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--brown);
+    margin-bottom: .45rem;
+}
+
+.privacySummaryText,
+.privacyFeatureText,
+.privacyRightsText,
+.privacyTimelineText,
+.privacyNoticeText {
+    font-size: .86rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.privacyContentGrid {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+}
+
+.privacySidePanel {
+    position: sticky;
+    top: 6rem;
+}
+
+.privacySidePanelInner {
+    border: 1px solid var(--border);
+    background: var(--green-faint);
+    padding: 1.25rem;
+}
+
+.privacySideLink {
+    display: block;
+    font-size: .84rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    padding: .55rem 0;
+    border-bottom: 1px solid rgba(27,77,63,.08);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.privacySideLink:last-child {
+    border-bottom: none;
+}
+
+.privacySideLink:hover,
+.privacySideLink:focus {
+    color: var(--green);
+}
+
+.privacySections {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.privacySection {
+    border: 1px solid var(--border);
+    background: var(--white);
+    padding: 2rem;
+    scroll-margin-top: 7rem;
+}
+
+.privacySectionHeading {
+    font-family: var(--font-serif);
+    font-size: clamp(1.45rem, 2.6vw, 2.05rem);
+    font-weight: 600;
+    color: var(--green-dark);
+    line-height: 1.25;
+    margin: .55rem 0 0;
+}
+
+.privacyParagraph {
+    font-size: .93rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin: 1rem 0 0;
+}
+
+.privacyListCard {
+    margin-top: 1.15rem;
+    padding: 1.35rem 1.4rem;
+}
+
+.privacyListCardAccent {
+    background: var(--green-faint);
+}
+
+.privacyList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.privacyListItem {
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: .9rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: .85rem;
+}
+
+.privacyListItem:last-child {
+    margin-bottom: 0;
+}
+
+.privacyListItem::before {
+    content: "";
+    position: absolute;
+    top: .72rem;
+    left: 0;
+    width: 7px;
+    height: 7px;
+    background: var(--green);
+}
+
+.privacyFeatureGrid,
+.privacyRightsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.15rem;
+}
+
+.privacyFeatureCard,
+.privacyRightsCard {
+    padding: 1.35rem 1.4rem;
+}
+
+.privacyFeatureHeading,
+.privacyRightsHeading {
+    font-family: var(--font-serif);
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--green-dark);
+    margin: 0 0 .45rem;
+}
+
+.privacyTimeline {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.15rem;
+}
+
+.privacyTimelineItem {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1.25rem 1.4rem;
+    align-items: start;
+}
+
+.privacyTimelinePeriod {
+    display: inline-block;
+    font-size: .76rem;
+    font-weight: 700;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--brown);
+}
+
+.privacyContactCard {
+    background: var(--brown-faint);
+    padding: 1.4rem;
+    margin-top: 1.15rem;
+}
+
+.privacyContactLine {
+    font-size: .9rem;
+    color: var(--text);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.privacyNoticeCard {
+    background: var(--green-faint);
+    padding: 1.2rem 1.3rem;
+    margin-top: 1.1rem;
+}
+
+@media (max-width: 1080px) {
+    .privacySummaryPanel {
+        grid-template-columns: 1fr;
+    }
+
+    .privacyContentGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .privacySidePanel {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .privacyHero {
+        padding: 2.25rem 0 2rem;
+    }
+
+    .privacyHeroInner,
+    .privacyContainer {
+        padding: 0 1.5rem;
+    }
+
+    .privacySection {
+        padding: 1.5rem;
+    }
+
+    .privacyFeatureGrid,
+    .privacyRightsGrid,
+    .privacyTimelineItem {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 540px) {
+    .privacyMetaList {
+        flex-direction: column;
+    }
+
+    .privacyMetaItem {
+        min-width: 0;
+    }
+}

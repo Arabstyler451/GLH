@@ -1,0 +1,297 @@
+﻿@model GreenfieldLocalHubWebApp.Models.orders
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/orders/create.css" asp-append-version="true" />
+}
+
+
+<div class="glh-checkout-root">
+
+    <!-- Page hero -->
+    <div class="glh-page-hero">
+        <div class="glh-page-hero-inner">
+            <nav class="glh-breadcrumb" aria-label="Breadcrumb">
+                <a asp-controller="Home" asp-action="Index">Home</a>
+                <span class="glh-breadcrumb-sep">›</span>
+                <a asp-controller="ShoppingCarts" asp-action="Index">Basket</a>
+                <span class="glh-breadcrumb-sep">›</span>
+                <span aria-current="page">Checkout</span>
+            </nav>
+            <span class="glh-page-eyebrow">Secure Checkout</span>
+            <h1>Complete Your Order</h1>
+            <p>Choose your fulfilment method and confirm your delivery details below.</p>
+        </div>
+    </div>
+
+    <div class="glh-section">
+        <form asp-action="Create" method="post" id="checkoutForm">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="glh-alert-error" role="alert"></div>
+            <input type="hidden" name="shoppingCartId" value="@ViewBag.shoppingCartId" />
+            <input type="hidden" name="FulfilmentChoice" id="FulfilmentChoice" />
+
+            <div class="glh-checkout-grid">
+
+                <!-- LEFT COLUMN — form steps -->
+                <div>
+
+                    <!-- ── Step 1: Fulfilment Method ── -->
+                    <div class="glh-card">
+                        <div class="glh-card-header">
+                            <span class="glh-card-header-num">1</span>
+                            <h2>Fulfilment Method</h2>
+                        </div>
+                        <div class="glh-card-body">
+                            <p style="font-size:.83rem;color:var(--text-muted);margin-bottom:1.2rem;">
+                                Select how you would like to receive your order.
+                            </p>
+
+                            <div class="glh-fulfilment-grid">
+                                <!-- Home Delivery tile -->
+                                <label class="glh-fulfilment-option" id="tile-delivery" for="deliveryCheck">
+                                    <span class="glh-fulfilment-check" aria-hidden="true"></span>
+                                    <span class="glh-fulfilment-icon">
+                                        <i class="fas fa-truck"></i>
+                                    </span>
+                                    <span class="glh-fulfilment-title">Home Delivery</span>
+                                    <span class="glh-fulfilment-sub">
+                                        Delivered to your door.<br />
+                                        Next available: next business day.
+                                    </span>
+                                </label>
+
+                                <!-- Click & Collect tile -->
+                                <label class="glh-fulfilment-option" id="tile-collection" for="collectionCheck">
+                                    <span class="glh-fulfilment-check" aria-hidden="true"></span>
+                                    <span class="glh-fulfilment-icon">
+                                        <i class="fas fa-store"></i>
+                                    </span>
+                                    <span class="glh-fulfilment-title">Click &amp; Collect</span>
+                                    <span class="glh-fulfilment-sub">
+                                        Pick up from the GLH Hub.<br />
+                                        14 Market Square, Greenfield.
+                                    </span>
+                                </label>
+                            </div>
+                            
+
+                            <!-- Delivery type (shown when Home Delivery selected) -->
+                            <div id="deliveryTypeGroup" class="glh-conditional">
+                                <div class="glh-form-group">
+                                    <label asp-for="deliveryType" class="glh-form-label">Delivery Speed</label>
+                                    <div class="glh-select-wrap">
+                                        <select asp-for="deliveryType" class="glh-form-select" id="deliveryTypeSelect">
+                                            <option value="">Select delivery speed</option>
+                                            <option value="Standard">Standard (3–5 working days)</option>
+                                            <option value="First Class">First Class (1–2 working days)</option>
+                                            <option value="Next Day">Next Day (order by 8pm)</option>
+                                        </select>
+                                    </div>
+                                    <span asp-validation-for="deliveryType" class="glh-field-error"></span>
+                                </div>
+                                <div class="glh-info-box">
+                                    <strong>Delivery information</strong>
+                                    Free delivery on orders over £30. Standard delivery is £3.50.
+                                    Orders placed before 8pm qualify for next-day despatch.
+                                </div>
+                            </div>
+
+                            <!-- Collection date (shown when Click & Collect selected) -->
+                            <div id="orderCollectionDateGroup" class="glh-conditional">
+                                <div class="glh-form-group">
+                                    <label asp-for="orderCollectionDate" class="glh-form-label">Collection Date</label>
+                                    <input asp-for="orderCollectionDate"
+                                           type="date"
+                                           id="collectionDate"
+                                           class="glh-form-input" />
+                                    <p class="glh-form-hint">Earliest collection is 2 days from today. Collection hours: Mon–Fri 8am–6pm, Sat 8am–4pm.</p>
+                                    <span asp-validation-for="orderCollectionDate" class="glh-field-error"></span>
+                                </div>
+                                <div class="glh-info-box">
+                                    <strong>Collection address</strong>
+                                    GLH Hub · 14 Market Square · Greenfield · MK12 4AB<br />
+                                    Bring your order confirmation email or order number.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- ── Step 2: Delivery Address ── -->
+                    <div class="glh-card" id="addressCard">
+                        <div class="glh-card-header">
+                            <span class="glh-card-header-num">2</span>
+                            <h2>Delivery Address</h2>
+                        </div>
+                        <div class="glh-card-body">
+
+                            @if (ViewBag.HasAddresses == true)
+                            {
+                                <p style="font-size:.83rem;color:var(--text-muted);margin-bottom:1.2rem;">
+                                    Select a saved address or add a new one.
+                                </p>
+
+                                <!-- Address dropdown rendered as a styled select -->
+                                <div class="glh-form-group">
+                                    <label class="glh-form-label required" for="addressId">Saved Addresses</label>
+                                    <div class="glh-select-wrap">
+                                        @Html.DropDownListFor(
+                                                 model => model.addressId,
+                                                 (SelectList)ViewData["AddressId"],
+                                                 "— Select an address —",
+                                                 new
+                                                 {
+                                                     @class = "glh-form-select",
+                                                     id = "addressId",
+                                                     data_val = "true",
+                                                     data_val_required = "Please select a delivery address"
+                                                 })
+                                    </div>
+                                    <span asp-validation-for="addressId" class="glh-field-error"></span>
+                                </div>
+
+                                <a asp-controller="Addresses"
+                                   asp-action="Create"
+                                   asp-route-returnUrl="@Url.Action("Create", "Orders", new { shoppingCartId = ViewBag.shoppingCartId })"
+                                   class="glh-add-address-link">
+                                    + Add a new address
+                                </a>
+                            }
+                            else
+                            {
+                                <div class="glh-no-address">
+                                    <p>
+                                        You don't have any saved addresses yet.<br />
+                                        Please add your first delivery address to continue.
+                                    </p>
+                                    <a asp-controller="Addresses"
+                                       asp-action="Create"
+                                       asp-route-returnUrl="@Url.Action("Create", "Orders", new { shoppingCartId = ViewBag.shoppingCartId })"
+                                       class="glh-btn-place-order"
+                                       style="display:inline-flex;width:auto;padding:.75rem 1.75rem;text-decoration:none;">
+                                        Add Your First Address
+                                    </a>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+
+                    <!-- Back to cart -->
+                    <a asp-controller="ShoppingCarts"
+                       asp-action="Index"
+                       class="glh-back-link">
+                        ← Back to Basket
+                    </a>
+
+                </div>
+
+<!-- RIGHT COLUMN — order summary sidebar -->
+<div>
+    <div class="glh-summary-card order-summary" role="region" aria-label="Order summary">
+        <h2 class="glh-summary-title summary-title">Order Summary</h2>
+
+        @if (ViewBag.CartTotal != null)
+        {
+            <!-- Pass clean values to JS (only once) -->
+            <script id="checkout-data">
+window.checkoutData = {
+    subtotalBefore: @(((decimal)(ViewBag.SubtotalBeforeDiscount ?? 0m)).ToString(System.Globalization.CultureInfo.InvariantCulture)),
+    loyaltyDiscount: @(((decimal)(ViewBag.LoyaltyDiscount ?? 0m)).ToString(System.Globalization.CultureInfo.InvariantCulture)),
+    discountedSubtotal: @(((decimal)ViewBag.CartTotal).ToString(System.Globalization.CultureInfo.InvariantCulture)),
+    freeDeliveryThreshold: 30.00,
+    hasFreeDelivery: @((ViewBag.HasFreeDelivery == true).ToString().ToLower())
+};
+            </script>
+
+            <div id="summary-rows">
+                <div class="glh-summary-row summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal-before">£@(((decimal)(ViewBag.SubtotalBeforeDiscount ?? 0m)).ToString("0.00"))</span>
+                </div>
+
+                @if ((decimal)(ViewBag.LoyaltyDiscount ?? 0m) > 0)
+                {
+                    <div class="glh-summary-row summary-row" style="color:#1a6b40;">
+                        <span>Loyalty Discount</span>
+                        <span id="loyalty-discount">−£@(((decimal)(ViewBag.LoyaltyDiscount ?? 0m)).ToString("0.00"))</span>
+                    </div>
+                }
+
+                <div class="glh-summary-row summary-row">
+                    <span>Subtotal after discount</span>
+                    <span id="discounted-subtotal">£@(((decimal)ViewBag.CartTotal).ToString("0.00"))</span>
+                </div>
+
+                <div class="glh-summary-row summary-row">
+                    <span>Delivery</span>
+                    <span id="delivery-fee">—</span>
+                </div>
+
+                <div class="glh-summary-row summary-row total" style="margin-top:50px;">
+                    <span>Total</span>
+                    <span id="grand-total">£0.00</span>
+                </div>
+            </div>
+        }
+        else
+        {
+            <p style="font-size:.83rem;color:var(--text-muted);">
+                Unable to load basket totals. Please go back to your basket and try again.
+            </p>
+        }
+
+        <!-- Fulfilment summary -->
+        <div id="summaryFulfilment" style="margin-top:1.5rem;padding-top:1rem; solid var(--border);">
+            <p style="font-weight:600;color:var(--text);margin-bottom:.4rem;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;">Fulfilment</p>
+            <span id="summaryFulfilmentText" style="font-size:.875rem;">No method selected</span>
+        </div>
+        
+        <button type="submit"
+                id="placeOrderBtn"
+                class="glh-btn-place-order btn btn-primary"
+                style="margin-top:1.5rem;"
+                form="checkoutForm">
+            Place Order Securely
+        </button>
+
+        <p class="glh-ssl-note">SSL encrypted · Secure checkout</p>
+    </div>
+
+    <!-- Loyalty earn notice -->
+    <div class="glh-loyalty-earn">
+        <strong>Earn Loyalty Points</strong>
+        <p>Every order earns you points towards discounts on future shops with Greenfield Local Hub.</p>
+    </div>
+
+    <!-- Trust signals -->
+    <div class="glh-info-box" style="margin-top:1rem;">
+        <strong>Our Guarantee</strong>
+        Fresh produce delivered within 24 hours of harvest. Not happy? 
+        Contact us within 48 hours for a full refund or replacement.
+    </div>
+</div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    <script src="~/js/pages/orders/create.js" asp-append-version="true"></script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
