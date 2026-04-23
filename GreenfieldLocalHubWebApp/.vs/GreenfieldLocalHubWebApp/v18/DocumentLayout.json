@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\abdul\\Downloads\\GreenfieldLocalHubWebApp\\",
+  "WorkspaceRootPath": "C:\\Users\\abdul\\Downloads\\GLH\\GreenfieldLocalHubWebApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\abdul\\downloads\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\abdul\\downloads\\glh\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\abdul\\downloads\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\areas\\identity\\pages\\account\\manage\\personaldata.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\abdul\\downloads\\glh\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\areas\\identity\\pages\\account\\manage\\personaldata.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\areas\\identity\\pages\\account\\manage\\personaldata.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
@@ -36,9 +36,9 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "site.css",
-              "DocumentMoniker": "C:\\Users\\abdul\\Downloads\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\wwwroot\\css\\site.css",
+              "DocumentMoniker": "C:\\Users\\abdul\\Downloads\\GLH\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\wwwroot\\css\\site.css",
               "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\wwwroot\\css\\site.css",
-              "ToolTip": "C:\\Users\\abdul\\Downloads\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\abdul\\Downloads\\GLH\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\wwwroot\\css\\site.css",
               "RelativeToolTip": "GreenfieldLocalHubWebApp\\wwwroot\\css\\site.css",
               "ViewState": "AgIAAFsDAAAAAAAAAAAgwGcDAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
@@ -49,14 +49,13 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "PersonalData.cshtml",
-              "DocumentMoniker": "C:\\Users\\abdul\\Downloads\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Areas\\Identity\\Pages\\Account\\Manage\\PersonalData.cshtml",
+              "DocumentMoniker": "C:\\Users\\abdul\\Downloads\\GLH\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Areas\\Identity\\Pages\\Account\\Manage\\PersonalData.cshtml",
               "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Areas\\Identity\\Pages\\Account\\Manage\\PersonalData.cshtml",
-              "ToolTip": "C:\\Users\\abdul\\Downloads\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Areas\\Identity\\Pages\\Account\\Manage\\PersonalData.cshtml",
+              "ToolTip": "C:\\Users\\abdul\\Downloads\\GLH\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Areas\\Identity\\Pages\\Account\\Manage\\PersonalData.cshtml",
               "RelativeToolTip": "GreenfieldLocalHubWebApp\\Areas\\Identity\\Pages\\Account\\Manage\\PersonalData.cshtml",
               "ViewState": "AgIAAJkAAAAAAAAAAAAAALkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-04-23T16:08:51.842Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-23T16:08:51.842Z"
             }
           ]
         }
