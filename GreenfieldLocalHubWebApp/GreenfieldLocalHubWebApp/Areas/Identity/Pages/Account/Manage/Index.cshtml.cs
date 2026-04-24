@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -19,6 +19,7 @@ using GreenfieldLocalHubWebApp.Data;
 
 namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
 {
+    // Page model for the account management index page and its request handlers
     public class IndexModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -28,6 +29,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
         private readonly ApplicationDbContext _context;
 
 
+        // Constructor that receives the services needed by this page model
         public IndexModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
@@ -43,9 +45,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
 
         }
 
-        // =======================
-        // Profile Information
-        // =======================
+        // Profile information properties used to show and update the user's basic account details
         public string Username { get; set; }
 
         [TempData]
@@ -61,9 +61,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
             public string PhoneNumber { get; set; }
         }
 
-        // =======================
-        // Email Management
-        // =======================
+        // Email management properties used to show confirmation state and request an email change
         public string Email { get; set; }
         public bool IsEmailConfirmed { get; set; }
 
@@ -78,9 +76,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
             public string NewEmail { get; set; }
         }
 
-        // =======================
-        // Password Management
-        // =======================
+        // Password management properties used to change or set the user's account password
         public bool HasPassword { get; set; }
 
         [BindProperty]
@@ -109,7 +105,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
         }
 
 
-        // Load User Data
+        // Load the current user data needed to populate the profile page
         private async Task LoadAsync(IdentityUser user)
         {
             ViewData["CartItemCount"] = await GetCartItemCount();
@@ -134,7 +130,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
 
 
 
-        // GET: Profile Page
+        // Profile page request - loads the current user and displays their account details
         public async Task<IActionResult> OnGetAsync()
         {
             ViewData["CartItemCount"] = await GetCartItemCount();
@@ -154,7 +150,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
 
 
 
-        // POST: Update Profile
+        // Update profile request - saves the changed phone number and refreshes the signed-in user
         public async Task<IActionResult> OnPostUpdateProfileAsync()
         {
             ViewData["CartItemCount"] = await GetCartItemCount();
@@ -192,7 +188,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
 
 
 
-        // POST: Change Email
+        // Change email request - sends a confirmation link when the user enters a new email address
         public async Task<IActionResult> OnPostChangeEmailAsync()
         {
             ViewData["CartItemCount"] = await GetCartItemCount();
@@ -250,7 +246,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
 
 
 
-        // POST: Send Verification Email
+        // Send verification email request - sends a fresh confirmation link for the current email address
         public async Task<IActionResult> OnPostSendVerificationEmailAsync()
         {
             ViewData["CartItemCount"] = await GetCartItemCount();
@@ -296,7 +292,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
 
 
 
-        // POST: Change Password
+        // Change password request - validates and updates the user's existing account password
         public async Task<IActionResult> OnPostChangePasswordAsync()
         {
             ViewData["CartItemCount"] = await GetCartItemCount();
@@ -343,7 +339,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
 
 
 
-        // Controller method to display amount of items in the shopping cart
+        // Shopping cart count helper - returns the total number of items in the active user cart
         public async Task<int> GetCartItemCount()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -354,7 +350,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
 
             if (shoppingCart == null) return 0;
 
-            // Sum the quantity column to get total number of items in the shopping cart
+            // Sum the quantity column to get the total number of items in the shopping cart
             var totalItems = await _context.shoppingCartItems
                 .Where(sci => sci.shoppingCartId == shoppingCart.shoppingCartId)
                 .SumAsync(sci => sci.quantity);

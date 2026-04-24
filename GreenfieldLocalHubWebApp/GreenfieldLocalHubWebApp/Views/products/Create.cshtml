@@ -1,20 +1,23 @@
-﻿@model GreenfieldLocalHubWebApp.Models.products
+@model GreenfieldLocalHubWebApp.Models.products
 
 @{
     ViewData["Title"] = "Add Product";
 }
 
+<!-- Load external font resources used by the products create page -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
 
+<!-- Link the page-specific stylesheet for the products create page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/products/create.css" asp-append-version="true" />
 }
 
 <div class="glh-create-root">
 
-    <!-- PAGE HERO -->
+    <!-- Page hero section - introduces the products create page and gives visitors the main context -->
     <div class="glh-hero">
+        <!-- Page hero section - introduces the products create page and gives visitors the main context -->
         <div class="glh-hero-inner">
             <nav class="glh-breadcrumb" aria-label="Breadcrumb">
                 <a asp-controller="Home" asp-action="Index">Home</a>
@@ -30,7 +33,7 @@
 
     <div class="glh-section">
 
-        <!-- PROGRESS STEPS -->
+        <!-- Progress steps row - previews the product creation workflow -->
         <div class="glh-progress" aria-label="Form progress">
             <div class="glh-progress-step active">
                 <span class="glh-progress-dot">1</span>
@@ -48,16 +51,17 @@
             </div>
         </div>
 
+        <!-- Create form - collects the fields needed to add a new product -->
         <form asp-action="Create" method="post" id="createForm">
             @Html.AntiForgeryToken()
             <div asp-validation-summary="ModelOnly" class="glh-alert-error"></div>
 
             <div class="glh-grid">
 
-                <!-- LEFT COLUMN -->
+                <!-- Left column - contains the main details and form content for this page -->
                 <div>
 
-                    <!-- Card 1: Core Details -->
+                    <!-- Core details card - collects the main information for this product -->
                     <div class="glh-card">
                         <div class="glh-card-header">
                             <span class="glh-card-num">1</span>
@@ -100,7 +104,7 @@
                         </div>
                     </div>
 
-                    <!-- Card 2: Stock & Category -->
+                    <!-- Stock and category card - collects availability and grouping details for this product -->
                     <div class="glh-card">
                         <div class="glh-card-header">
                             <span class="glh-card-num">2</span>
@@ -147,7 +151,7 @@
                         </div>
                     </div>
 
-                    <!-- Card 3: Image -->
+                    <!-- Image card - lets the user provide or review the product image -->
                     <div class="glh-card">
                         <div class="glh-card-header">
                             <span class="glh-card-num">3</span>
@@ -177,6 +181,7 @@
                     </div>
 
 
+                    <!-- Conditional section - shows this block only when the matching page state is true -->
                     @if (User.IsInRole("Admin") || User.IsInRole("Developer"))
 {
     <div class="glh-card">
@@ -208,7 +213,7 @@
 
                 </div>
 
-                <!-- RIGHT COLUMN: SIDEBAR -->
+                <!-- Right column - contains the supporting summary and related actions -->
                 <aside>
                     <div class="glh-sidebar-card">
                         <h2 class="glh-sidebar-title">Before You Publish</h2>
@@ -262,6 +267,7 @@
 </div>
 
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
     <script src="~/js/pages/products/create.js" asp-append-version="true"></script>
     @{

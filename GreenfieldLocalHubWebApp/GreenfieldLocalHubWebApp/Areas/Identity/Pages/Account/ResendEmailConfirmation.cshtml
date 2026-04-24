@@ -1,9 +1,10 @@
-﻿@page
+@page
 @model ResendEmailConfirmationModel
 @{
     ViewData["Title"] = "Resend email confirmation";
 }
 
+<!-- Inline styles section - defines the page-specific styling for the account resend email confirmation page -->
 <style>
     .resendPage {
         max-width: 1320px;
@@ -143,6 +144,7 @@
         <div class="resendCardBody">
             <div class="row">
                 <div class="col-md-12">
+        <!-- Form section - collects and submits the fields for this account resend email confirmation workflow -->
         <form method="post">
             <div asp-validation-summary="All" class="text-danger statusMessage" role="alert"></div>
             <div class="form-floating mb-3 emailField">
@@ -158,6 +160,8 @@
     </div>
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
+    <!-- Partial view - renders shared markup used by this page -->
     <partial name="_ValidationScriptsPartial" />
 }

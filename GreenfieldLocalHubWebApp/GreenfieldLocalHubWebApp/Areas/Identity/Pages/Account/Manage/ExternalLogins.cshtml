@@ -1,23 +1,29 @@
-﻿@page
+@page
 @model ExternalLoginsModel
 @{
     ViewData["Title"] = "Manage your external logins";
     ViewData["ActivePage"] = ManageNavPages.ExternalLogins;
 }
 
+<!-- Partial view - renders shared markup used by this page -->
 <partial name="_StatusMessage" for="StatusMessage" />
+<!-- Conditional section - shows this block only when the matching page state is true -->
 @if (Model.CurrentLogins?.Count > 0)
 {
     <h3>Registered Logins</h3>
+    <!-- Account table - lists each record with its available actions -->
     <table class="table">
         <tbody>
+            <!-- Loop through each account record passed in from the controller -->
             @foreach (var login in Model.CurrentLogins)
             {
                 <tr>
                     <td id="@($"login-provider-{login.LoginProvider}")">@login.ProviderDisplayName</td>
                     <td>
+                        <!-- Conditional section - shows this block only when the matching page state is true -->
                         @if (Model.ShowRemoveButton)
                         {
+                            <!-- Form section - collects and submits the fields for this account management external logins workflow -->
                             <form id="@($"remove-login-{login.LoginProvider}")" asp-page-handler="RemoveLogin" method="post">
                                 <div>
                                     <input asp-for="@login.LoginProvider" name="LoginProvider" type="hidden" />
@@ -36,13 +42,16 @@
         </tbody>
     </table>
 }
+<!-- Conditional section - shows this block only when the matching page state is true -->
 @if (Model.OtherLogins?.Count > 0)
 {
     <h4>Add another service to log in.</h4>
     <hr />
+    <!-- Form section - collects and submits the fields for this account management external logins workflow -->
     <form id="link-login-form" asp-page-handler="LinkLogin" method="post" class="form-horizontal">
         <div id="socialLoginList">
             <p>
+                <!-- Loop through each account record passed in from the controller -->
                 @foreach (var provider in Model.OtherLogins)
                 {
                     <button id="@($"link-login-button-{provider.Name}")" type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>

@@ -1,11 +1,13 @@
-﻿@section Styles {
+<!-- Link the page-specific stylesheet for the about page -->
+@section Styles {
     <link rel="stylesheet" href="~/css/pages/home/about.css" asp-append-version="true" />
 }
 
-  <!-- About Page – all sections now stretch edge-to-edge -->
+  <!-- About page wrapper - contains the full cooperative story layout -->
   <div class="page active" id="page-about">
-    <!-- ========== PAGE HERO (EXACTLY AS ORIGINAL INDEX) ========== -->
+    <!-- ========== page hero (exactly as original index) ========== -->
     <div class="page-hero">
+      <!-- Page hero section - introduces the about page and gives visitors the main context -->
       <div class="page-hero-inner">
         <span class="page-eyebrow">Who We Are</span>
         <h1>About Greenfield Local Hub</h1>
@@ -13,7 +15,7 @@
       </div>
     </div>
 
-<!-- Section 1: Our Mission (two-col layout) — edge-to-edge background -->
+<!-- Content section - groups related about content together -->
 <section class="section section-green">
   <div class="section-inner">
     <div class="about-grid">
@@ -30,10 +32,10 @@
   </div>
 </section>
 
-    <!-- Section 2: Benefits of buying locally — full white background, single column but edge-to-edge -->
+    <!-- Content section - groups related about content together -->
     <section class="section" style="background:var(--white);">
       <div class="section-inner">
-        <!-- Using a centered single-column layout to keep it elegant, yet section is edge-to-edge -->
+        <!-- Centered content block - keeps the local benefits text easy to read -->
         <div style="max-width: 560px;">
           <span class="section-eyebrow">Why Local Matters</span>
           <h2 class="section-title">Benefits of buying locally</h2>
@@ -43,7 +45,7 @@
       </div>
     </section>
 
-    <!-- Section 3: Our Values — full width green-tinted background, edge-to-edge values grid -->
+    <!-- Content section - groups related about content together -->
     <section class="section section-green">
       <div class="section-inner">
         <div style="text-align:center;max-width:560px;margin:0 auto 3rem;">
@@ -86,5 +88,5 @@
     </section>
 
 
-<!-- Toast (matching index) -->
+<!-- Toast notification - provides temporary feedback for page-level actions -->
 <div id="toast" role="status" aria-live="polite">✓ Full-width layout applied — sections stretch edge-to-edge</div>

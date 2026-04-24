@@ -1,26 +1,31 @@
-﻿@model IEnumerable<GreenfieldLocalHubWebApp.Models.products>
+@model IEnumerable<GreenfieldLocalHubWebApp.Models.products>
 
 @{
     ViewData["Title"] = "Producer Dashboard";
 }
 
+<!-- Load external font resources used by the producer dashboard index page -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
 
+<!-- Link the page-specific stylesheet for the producer dashboard index page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/producerDashboard/index.css" asp-append-version="true" />
 }
 
-<!-- PRODUCER DASHBOARD HERO -->
+<!-- Page hero section - introduces the producer dashboard index page and gives visitors the main context -->
 <div class="pd-hero">
+    <!-- Page hero section - introduces the producer dashboard index page and gives visitors the main context -->
     <div class="pd-hero-inner">
         <div>
             <span class="pd-hero-eyebrow">Producer Dashboard &mdash; Restricted Access</span>
             <h1>Producer Dashboard</h1>
             <p class="pd-hero-sub">Manage your products, orders, and producer profile.</p>
         </div>
+        <!-- Page hero section - introduces the producer dashboard index page and gives visitors the main context -->
         <div class="pd-hero-actions">
             <a asp-controller="products" asp-action="Create" class="btn btn-brown">Add Product</a>
+                <!-- Form section - collects and submits the fields for this producer dashboard index workflow -->
                 <form asp-area="Identity" asp-page="/Account/Logout" method="post">
                     <button type="submit" class="btn btn-ghost-white">Sign out</button>
                 </form>
@@ -28,11 +33,11 @@
     </div>
 </div>
 
-<!-- DASHBOARD BODY -->
+<!-- Content wrapper - groups related producer dashboard index content together -->
 <div class="pd-section">
     <div class="pd-container">
 
-        <!-- ── STAT CARDS ── -->
+        <!-- Stat cards section - shows the main producer dashboard totals -->
         <div class="dash-grid" role="list" aria-label="Dashboard statistics">
             <div class="dash-stat" role="listitem">
                 <p class="dash-stat-label">Total Products</p>
@@ -58,7 +63,7 @@
             </div>
         </div>
 
-        <!-- ── TAB BAR ── -->
+        <!-- Tab bar section - lets the producer switch between products and orders -->
 <div class="tab-bar" role="tablist" aria-label="Dashboard sections">
     <button class="tab @(ViewBag.activeTab == "products" ? "active" : "")"
             role="tab"
@@ -70,8 +75,9 @@
             onclick="switchDashTab(this,'dtab-orders')">Order Management</button>
 </div>
 
-        <!-- PRODUCTS TAB -->
+        <!-- Content wrapper - groups related producer dashboard index content together -->
 <div id="dtab-products" class="dtab @(ViewBag.activeTab == "products" ? "active" : "")">
+            <!-- Conditional section - shows this block only when the matching page state is true -->
             @if (!Model.Any())
             {
                 <div class="empty-state">
@@ -89,6 +95,7 @@
                 </div>
 
 <div class="table-wrap">
+    <!-- Producer dashboard table - lists each record with its available actions -->
     <table class="data-table" role="table" aria-label="Product management table">
         <thead>
             <tr>
@@ -100,6 +107,7 @@
             </tr>
         </thead>
         <tbody id="products-tbody">
+            <!-- Loop through each producer dashboard record passed in from the controller -->
             @foreach (var item in Model.Take(5))
             {
                 var stockClass = item.stockQuantity == 0 ? "out"
@@ -111,6 +119,7 @@
                 <tr>
                     <td>
                         <div style="display:flex; align-items:center; gap:.85rem;">
+                            <!-- Conditional section - shows this block only when the matching page state is true -->
                             @if (!string.IsNullOrEmpty(item.productImage))
                             {
                                 <img src="@item.productImage"
@@ -150,6 +159,7 @@
                                asp-route-id="@item.productsId"
                                class="btn btn-ghost btn-sm">Edit</a>
 
+                            <!-- Form section - collects and submits the fields for this producer dashboard index workflow -->
                             <form asp-controller="products"
                                   asp-action="Delete"
                                   asp-route-id="@item.productsId"
@@ -175,7 +185,7 @@
             }
         </div>
 
-<!-- ORDERS TAB -->
+<!-- Content wrapper - groups related producer dashboard index content together -->
 <div id="dtab-orders" class="dtab @(ViewBag.activeTab == "orders" ? "active" : "")">
     @{
                 var orders = ViewBag.recentOrders as List<GreenfieldLocalHubWebApp.Models.orders>
@@ -184,6 +194,7 @@
                                  ?? new Dictionary<string, string>();
             }
 
+            <!-- Conditional section - shows this block only when the matching page state is true -->
             @if (!orders.Any())
             {
                 <div class="empty-state">
@@ -210,6 +221,7 @@
                 </div>
 
                 <div class="table-wrap">
+                    <!-- Producer dashboard table - lists each record with its available actions -->
                     <table class="data-table" role="table" aria-label="Order management table">
                         <thead>
                             <tr>
@@ -222,6 +234,7 @@
                             </tr>
                         </thead>
                         <tbody id="orders-tbody">
+                            <!-- Loop through each producer dashboard record passed in from the controller -->
                             @foreach (var order in orders)
                             {
                                 var statusClass = order.orderStatus?.ToLower() switch {
@@ -278,8 +291,10 @@
                                            asp-route-id="@order.ordersId"
                                            class="btn btn-ghost btn-sm">View</a>
 
+                                        <!-- Conditional section - shows this block only when the matching page state is true -->
                                         @if (nextStatus != null)
                                         {
+                                            <!-- Form section - collects and submits the fields for this producer dashboard index workflow -->
                                             <form asp-controller="producerDashboard"
                                                   asp-action="UpdateOrderStatus"
                                                   method="post" style="display:inline;">
@@ -309,6 +324,7 @@
     </div>
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
     <script src="~/js/pages/producerDashboard/index.js" asp-append-version="true"></script>
 }

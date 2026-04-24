@@ -1,11 +1,12 @@
-﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
+<!-- Inline styles section - defines the page-specific styling for the login partial page -->
 <style>
     .login-partial { display: flex; align-items: center; gap: .5rem; }
 
-    /* Signed-in state */
+    /* Page-specific styles */
     .nav-user-greeting {
         display: flex; align-items: center; gap: .6rem;
     }
@@ -38,7 +39,7 @@
     }
     .nav-logout-btn:hover { border-color: var(--green); color: var(--green); }
 
-    /* Signed-out state */
+    /* Page-specific styles */
     .nav-auth-links { display: flex; align-items: center; gap: .4rem; }
 
     .nav-auth-link {
@@ -57,6 +58,7 @@
 </style>
 
 <div class="login-partial">
+<!-- Conditional section - shows this block only when the matching page state is true -->
 @if (SignInManager.IsSignedIn(User))
 {
 <div class="nav-user-greeting">
@@ -68,6 +70,7 @@
     </a>
 </div>
 
+    <!-- Form section - collects and submits the fields for this login partial workflow -->
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post"style="margin:0;">
         <button type="submit" class="nav-logout-btn">Sign out</button>
     </form>

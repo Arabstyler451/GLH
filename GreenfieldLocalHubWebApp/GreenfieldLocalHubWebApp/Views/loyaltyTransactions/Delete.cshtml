@@ -1,4 +1,4 @@
-﻿@model GreenfieldLocalHubWebApp.Models.loyaltyTransaction
+@model GreenfieldLocalHubWebApp.Models.loyaltyTransaction
 
 @{
     ViewData["Title"] = "Delete";
@@ -10,6 +10,7 @@
 <div>
     <h4>loyaltyTransaction</h4>
     <hr />
+    <!-- Details list - shows the saved values for this loyalty transaction -->
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.loyaltyPoints)
@@ -43,6 +44,7 @@
         </dd>
     </dl>
     
+    <!-- Delete form - confirms removal of the selected loyalty transaction -->
     <form asp-action="Delete">
         <input type="hidden" asp-for="loyaltyTransactionId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

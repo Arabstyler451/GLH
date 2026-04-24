@@ -1,4 +1,4 @@
-﻿@using GreenfieldLocalHubWebApp.Models
+@using GreenfieldLocalHubWebApp.Models
 @model loyaltyAccount
 
 @{
@@ -6,6 +6,7 @@
     Layout = "_AccountLayout";
 }
 
+<!-- Link the page-specific stylesheet for the loyalty accounts index page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/loyaltyAccounts/index.css" asp-append-version="true" />
 }
@@ -13,7 +14,7 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-12">
-            <!-- Loyalty Card -->
+            <!-- Loyalty card -->
             <div class="loyalty-card">
                 <div class="loyalty-tier-label">@Model.loyaltyTier Member</div>
                 <div class="loyalty-points">@Model.pointsBalance.ToString("N0")</div>
@@ -27,7 +28,7 @@
                 </div>
             </div>
 
-            <!-- Stats Summary -->
+            <!-- Content wrapper - groups related loyalty accounts index content together -->
             <div class="row mb-4">
                 <div class="col-md-4">
                     <div class="stat-card">
@@ -49,11 +50,13 @@
                 </div>
             </div>
 
-            <!-- Redeem Offers Section -->
+            <!-- Content section - groups related loyalty accounts index content together -->
             <h3 class="mt-4 mb-3">Redeem Offers</h3>
             <div class="offer-grid">
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if (ViewBag.AvailableOffers != null && ViewBag.AvailableOffers.Count > 0)
                 {
+                    <!-- Loop through each loyalty account record passed in from the controller -->
                     @foreach (var offer in ViewBag.AvailableOffers)
                     {
                         <div class="offer-card">
@@ -61,6 +64,7 @@
                             <div class="offer-card-desc">@offer.Description</div>
                             <div class="offer-cost">@offer.PointsCost pts</div>
 
+                            <!-- Conditional section - shows this block only when the matching page state is true -->
                             @if (offer.IsRedeemed)
                             {
                                 // Already redeemed - show disabled button
@@ -96,9 +100,10 @@
                 }
             </div>
 
-            <!-- Recent Transactions -->
+            <!-- Action buttons - link to the available management tasks for this record -->
             <h3 class="mt-4 mb-3">Recent Transactions</h3>
             <div class="table-responsive">
+                <!-- Loyalty account table - lists each record with its available actions -->
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -110,13 +115,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- Conditional section - shows this block only when the matching page state is true -->
                         @if (ViewBag.RecentTransactions != null && ViewBag.RecentTransactions.Count > 0)
                         {
+                            <!-- Loop through each loyalty account record passed in from the controller -->
                             @foreach (var transaction in ViewBag.RecentTransactions)
                             {
                                 <tr>
                                     <td>@transaction.transactionDate.ToString("dd MMM yyyy HH:mm")</td>
                                     <td>
+                                        <!-- Conditional section - shows this block only when the matching page state is true -->
                                         @if (transaction.transactionType == "Earn")
                                         {
                                             <span class="badge bg-success">Earned</span>
@@ -130,6 +138,7 @@
                                         @(transaction.transactionType == "Earn" ? "+" : "-")@transaction.loyaltyPoints
                                     </td>
                                     <td>
+                                        <!-- Conditional section - shows this block only when the matching page state is true -->
                                         @if (transaction.ordersId != null && transaction.ordersId > 0)
                                         {
                                             <a href="@Url.Action("Details", "orders", new { id = transaction.ordersId })">#@transaction.ordersId</a>
@@ -140,6 +149,7 @@
                                         }
                                     </td>
                                     <td>
+                                        <!-- Conditional section - shows this block only when the matching page state is true -->
                                         @if (transaction.ordersId != null && transaction.ordersId > 0)
                                         {
                                             <a href="@Url.Action("Details", "orders", new { id = transaction.ordersId })" class="btn btn-sm btn-outline-primary">View Order</a>
@@ -162,7 +172,7 @@
                 </table>
             </div>
 
-            <!-- View All Transactions Link -->
+            <!-- Action buttons - link to the available management tasks for this record -->
             <div class="text-center mt-3">
                 <a asp-action="TransactionHistory" class="btn btn-outline-primary">View All Transactions</a>
             </div>

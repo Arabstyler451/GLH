@@ -1,20 +1,23 @@
-﻿@model GreenfieldLocalHubWebApp.Models.products
+@model GreenfieldLocalHubWebApp.Models.products
 
 @{
     ViewData["Title"] = "Delete Product";
 }
 
+<!-- Load external font resources used by the products delete page -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
 
+<!-- Link the page-specific stylesheet for the products delete page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/products/delete.css" asp-append-version="true" />
 }
 
 <div class="glh-delete-root">
 
-    <!-- PAGE HERO -->
+    <!-- Page hero section - introduces the products delete page and gives visitors the main context -->
     <div class="glh-hero">
+        <!-- Page hero section - introduces the products delete page and gives visitors the main context -->
         <div class="glh-hero-inner">
             <nav class="glh-breadcrumb" aria-label="Breadcrumb">
                 <a asp-controller="Home" asp-action="Index">Home</a>
@@ -31,7 +34,7 @@
 
     <div class="glh-section">
 
-        <!-- WARNING BANNER -->
+        <!-- Warning banner - explains the consequence before the delete action is confirmed -->
         <div class="glh-warning-banner" role="alert">
             <div class="glh-warning-icon">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -45,8 +48,9 @@
             </div>
         </div>
 
-        <!-- PRODUCT PREVIEW CARD -->
+        <!-- Product preview card - shows the product being reviewed before the action is confirmed -->
         <div class="glh-product-card">
+            <!-- Conditional section - shows this block only when the matching page state is true -->
             @if (!string.IsNullOrEmpty(Model.productImage))
             {
                 <img src="@Model.productImage"
@@ -61,6 +65,7 @@
             }
 
             <div class="glh-product-info">
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if (Model.categories != null)
                 {
                     <p class="glh-product-category">@Model.categories.categoryName</p>
@@ -88,6 +93,7 @@
                     </div>
                 </div>
 
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if (!string.IsNullOrEmpty(Model.productDescription))
                 {
                     <p style="font-size:.83rem;color:var(--text-muted);margin-top:1rem;
@@ -98,8 +104,9 @@
             </div>
         </div>
 
-        <!-- ACTION ROW -->
+        <!-- Action buttons - link to the available management tasks for this record -->
         <div class="glh-action-row">
+            <!-- Delete form - confirms removal of the selected product -->
             <form asp-action="Delete" method="post" style="display:inline;">
                 @Html.AntiForgeryToken()
                 <input type="hidden" asp-for="productsId" />

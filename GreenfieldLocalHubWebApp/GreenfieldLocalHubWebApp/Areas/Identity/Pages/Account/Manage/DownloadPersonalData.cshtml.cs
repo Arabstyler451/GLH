@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -15,11 +15,13 @@ using Microsoft.Extensions.Logging;
 
 namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
 {
+    // Page model for the account management download personal data page and its request handlers
     public class DownloadPersonalDataModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<DownloadPersonalDataModel> _logger;
 
+        // Constructor that receives the services needed by this page model
         public DownloadPersonalDataModel(
             UserManager<IdentityUser> userManager,
             ILogger<DownloadPersonalDataModel> logger)
@@ -28,11 +30,13 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
             _logger = logger;
         }
 
+        // Handles the initial page request for this workflow
         public IActionResult OnGet()
         {
             return NotFound();
         }
 
+        // Handles the submitted form and redirects or redisplays the page as needed
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);

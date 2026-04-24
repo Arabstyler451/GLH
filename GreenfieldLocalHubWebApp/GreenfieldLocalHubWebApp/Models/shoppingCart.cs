@@ -2,13 +2,20 @@
 {
     public class shoppingCart
     {
-        public int shoppingCartId { get; set; } //Primary key
-        public string UserId { get; set; } //Foreign key to AspNetUsers table for user association
-        public DateTime shoppingCartCreatedAt { get; set; } = DateTime.Now; //Timestamp for when the shopping cart was created
-        public bool shoppingCartStatus { get; set; } //Status to indicate if the cart is active (true) or checked out (false)
+        // Primary key
+        public int shoppingCartId { get; set; }
 
-        //Navigation property to represent the one-to-many relationship with shoppingCartItems
-        public ICollection<shoppingCartItems>? shoppingCartItems { get; set; } //A shopping cart can have multiple items, hence the collection
+        // Foreign key to AspNetUsers, identifies which user owns this shopping cart
+        public string UserId { get; set; }
+
+        // The date and time this shopping cart was created
+        public DateTime shoppingCartCreatedAt { get; set; } = DateTime.Now;
+
+        // True if the cart is active, false once it has been checked out
+        public bool shoppingCartStatus { get; set; }
+
+        // Navigation property to the items in this cart, nullable because a cart may exist before any products are added
+        public ICollection<shoppingCartItems>? shoppingCartItems { get; set; }
 
     }
 }

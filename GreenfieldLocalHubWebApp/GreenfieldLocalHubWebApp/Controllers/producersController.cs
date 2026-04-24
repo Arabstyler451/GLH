@@ -12,16 +12,19 @@ using System.Threading.Tasks;
 
 namespace GreenfieldLocalHubWebApp.Controllers
 {
+    // Handles all producer-related actions: viewing, creating, editing and deleting producers
     public class producersController : Controller
     {
+        // Holds the database connection used throughout this controller
         private readonly ApplicationDbContext _context;
 
+        // Receives the database context via dependency injection when the controller is created
         public producersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: producers
+        // Shows a list of all producers
         public async Task<IActionResult> Index()
         {
             ViewBag.CartItemCount = await GetCartItemCount();
@@ -29,7 +32,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(await _context.producers.ToListAsync());
         }
 
-        // GET: producers/Details/5
+        // Shows the full details of a single producer including their products
         public async Task<IActionResult> Details(int? id)
         {
             ViewBag.CartItemCount = await GetCartItemCount();
@@ -51,16 +54,14 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(producers);
         }
 
+        // Shows the producer creation page for admins and developers
         [Authorize(Roles = "Admin, Developer")]
-        // GET: producers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: producers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Processes the submitted producer form and saves a new producer
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, Developer")]
@@ -68,6 +69,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Save the producer to the database
                 _context.Add(producers);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -75,7 +77,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(producers);
         }
 
-        // GET: producers/Edit/5
+        // Shows the edit form for an existing producer
         [Authorize(Roles = "Producer, Admin, Developer")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -92,20 +94,20 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(producers);
         }
 
-        // POST: producers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Saves changes made to an existing producer
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Producer, Admin, Developer")]
         public async Task<IActionResult> Edit(int id, [Bind("producersId,producerName,producerEmail,producerPhone,producerDescription,producerLocation,producerImage")] producers producers)
         {
+            // Get the ID of the currently logged in user
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
             {
                 return Unauthorized();
             }
 
+            // Remove server-set fields from ModelState so they don't cause false validation errors
             ModelState.Remove("UserId");
 
 
@@ -123,6 +125,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+                    // If the producer no longer exists, return 404, otherwise rethrow the error
                     if (!producersExists(producers.producersId))
                     {
                         return NotFound();
@@ -137,7 +140,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(producers);
         }
 
-        // GET: producers/Delete/5
+        // Shows the delete confirmation page for a producer
         [Authorize(Roles = "Producer, Admin, Developer")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -156,7 +159,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(producers);
         }
 
-        // POST: producers/Delete/5
+        // Permanently deletes the producer from the database after confirmation
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Producer, Admin, Developer")]
@@ -172,6 +175,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Checks whether a producer with the given ID exists in the database
         private bool producersExists(int id)
         {
             return _context.producers.Any(e => e.producersId == id);
@@ -179,7 +183,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
 
 
-        // Controller method to display amount of items in the shopping cart
+        // Returns the total number of items currently in the logged in user's active shopping cart
         public async Task<int> GetCartItemCount()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -190,7 +194,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
             if (shoppingCart == null) return 0;
 
-            // Sum the quantity column to get total number of items in the shopping cart
+            // Sum quantities rather than counting rows so multi-quantity items are counted correctly
             var totalItems = await _context.shoppingCartItems
                 .Where(sci => sci.shoppingCartId == shoppingCart.shoppingCartId)
                 .SumAsync(sci => sci.quantity);

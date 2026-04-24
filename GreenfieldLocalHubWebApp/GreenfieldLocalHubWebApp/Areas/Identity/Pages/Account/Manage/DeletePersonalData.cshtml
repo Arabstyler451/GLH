@@ -1,4 +1,4 @@
-﻿@page
+@page
 @model DeletePersonalDataModel
 @{
     ViewData["Title"] = "Delete Personal Data";
@@ -14,8 +14,10 @@
 </div>
 
 <div>
+    <!-- Form section - collects and submits the fields for this account management delete personal data workflow -->
     <form id="delete-user" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+        <!-- Conditional section - shows this block only when the matching page state is true -->
         @if (Model.RequirePassword)
         {
             <div class="form-floating mb-3">
@@ -28,6 +30,8 @@
     </form>
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
+    <!-- Partial view - renders shared markup used by this page -->
     <partial name="_ValidationScriptsPartial" />
 }

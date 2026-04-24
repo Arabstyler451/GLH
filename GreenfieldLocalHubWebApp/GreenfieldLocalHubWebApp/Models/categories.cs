@@ -2,11 +2,14 @@
 {
     public class categories
     {
-        public int categoriesId { get; set; } // Primary key
-        public string categoryName { get; set; } // Name of the category, e.g., "Fruits and Vegetables", "Dairy Products", "Meat and Poultry", "Bakery Items etc."
+        // Primary key
+        public int categoriesId { get; set; }
+
+        // Name of the product category shown in the shop and filters
+        public string categoryName { get; set; }
 
         
-        // Navigation property to products, it's nullable because a category may be created before any products are added to it
-        public ICollection<products>? products { get; set; } // A category can have multiple products, but each product belongs to only one category
+        // Navigation property to products in this category, nullable because a category may exist before any products are added
+        public ICollection<products>? products { get; set; }
     }
 }

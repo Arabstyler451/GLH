@@ -1,10 +1,11 @@
-﻿@page
+@page
 @model PersonalDataModel
 @{
     ViewData["Title"] = "Personal Data";
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
+<!-- Inline styles section - defines the page-specific styling for the account management personal data page -->
 <style>
     .personalDataPage {
         padding: .5rem 0 2rem;
@@ -175,6 +176,7 @@
             </div>
 
             <div class="buttonRow">
+                <!-- Form section - collects and submits the fields for this account management personal data workflow -->
                 <form id="download-data" asp-page="DownloadPersonalData" method="post">
                     <button class="btn btn-primary downloadButton" type="submit">Download</button>
                 </form>
@@ -184,6 +186,8 @@
     </div>
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
+    <!-- Partial view - renders shared markup used by this page -->
     <partial name="_ValidationScriptsPartial" />
 }

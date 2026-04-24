@@ -1,4 +1,4 @@
-﻿@model GreenfieldLocalHubWebApp.ViewModels.contactEnquiryViewModel
+@model GreenfieldLocalHubWebApp.ViewModels.contactEnquiryViewModel
 
 @{
     ViewData["Title"] = "Contact Us";
@@ -7,14 +7,18 @@
     var success = TempData["ContactSuccess"] as string == "true";
 }
 
+<!-- Load external font resources used by the contact page -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
 
+<!-- Link the page-specific stylesheet for the contact page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/home/contact.css" asp-append-version="true" />
 }
 
+<!-- Page hero section - introduces the contact page and gives visitors the main context -->
 <div class="page-hero">
+    <!-- Page hero section - introduces the contact page and gives visitors the main context -->
     <div class="page-hero-inner">
         <span class="page-eyebrow">Get in Touch</span>
         <h1>Contact Us</h1>
@@ -25,13 +29,14 @@
 <div class="contact-wrap">
     <div class="contact-grid">
 
-        <!-- LEFT: FORM -->
+        <!-- Contact form column - lets visitors send a message to the hub -->
         <div>
             <h2 style="font-family:var(--font-serif);font-size:1.4rem;
                        color:var(--green-dark);margin-bottom:1.4rem;">
                 Send a Message
             </h2>
 
+            <!-- Conditional section - shows this block only when the matching page state is true -->
             @if (success)
             {
                 <div class="alert-success" role="alert">
@@ -39,11 +44,12 @@
                 </div>
             }
 
+            <!-- Form section - collects and submits the fields for this contact workflow -->
             <form asp-controller="Home" asp-action="Contact" method="post" novalidate>
                 @Html.AntiForgeryToken()
                 <div asp-validation-summary="ModelOnly" class="alert-error"></div>
 
-                <!-- Name row -->
+                <!-- Name row - groups the first and last name fields together -->
                 <div class="form-row">
                     <div class="form-group">
                         <label asp-for="FirstName" class="form-label">First Name</label>
@@ -59,7 +65,7 @@
                     </div>
                 </div>
 
-                <!-- Email -->
+                <!-- Email field - collects the visitor email address for the form -->
                 <div class="form-group">
                     <label asp-for="Email" class="form-label">Email Address</label>
                     <input asp-for="Email" type="email" class="form-input"
@@ -67,7 +73,7 @@
                     <span asp-validation-for="Email" class="field-error"></span>
                 </div>
 
-                <!-- Subject + Producer row -->
+                <!-- Subject and producer row - groups the enquiry topic with an optional producer choice -->
                 <div class="form-row">
                     <div class="form-group">
                         <label asp-for="Subject" class="form-label">Subject</label>
@@ -88,6 +94,7 @@
                         </label>
                         <select asp-for="ProducerId" class="form-select">
                             <option value="">— No specific producer —</option>
+                            <!-- Loop through each home record passed in from the controller -->
                             @foreach (var p in producers)
                             {
                                 <option value="@p.producersId">@p.producerName</option>
@@ -96,7 +103,7 @@
                     </div>
                 </div>
 
-                <!-- Message -->
+                <!-- Message field - collects the main enquiry text from the visitor -->
                 <div class="form-group">
                     <label asp-for="Message" class="form-label">Message</label>
                     <textarea asp-for="Message" class="form-textarea"
@@ -108,7 +115,7 @@
             </form>
         </div>
 
-        <!-- RIGHT: FIND US -->
+        <!-- Find us column - shows the hub location, hours and contact details -->
         <div>
             <h2 style="font-family:var(--font-serif);font-size:1.4rem;
                        color:var(--green-dark);margin-bottom:1.6rem;">
@@ -170,6 +177,8 @@
     </div>
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
+    <!-- Validation partial - enables client-side validation for this form -->
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

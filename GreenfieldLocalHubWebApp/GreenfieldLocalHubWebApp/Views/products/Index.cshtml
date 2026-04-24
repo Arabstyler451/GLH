@@ -1,19 +1,22 @@
-﻿@model IEnumerable<GreenfieldLocalHubWebApp.Models.products>
+@model IEnumerable<GreenfieldLocalHubWebApp.Models.products>
 
 
 @{
     ViewData["Title"] = "Shop";
 }
 
+<!-- Link the page-specific stylesheet for the products index page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/products/index.css" asp-append-version="true" />
 }
 
+<!-- Load external font resources used by the products index page -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
 
-<!-- PAGE HERO -->
+<!-- Page hero section - introduces the products index page and gives visitors the main context -->
 <div class="page-hero">
+    <!-- Page hero section - introduces the products index page and gives visitors the main context -->
     <div class="page-hero-inner">
         <span class="page-eyebrow">Our Products</span>
         <h1>Shop Local Produce</h1>
@@ -21,10 +24,10 @@
     </div>
 </div>
 
-<!-- SHOP CONTENT -->
+<!-- Content wrapper - groups related products index content together -->
 <div class="shop-section">
 
-    <!-- TOP BAR: Create New (Producer only) -->
+    <!-- Conditional section - shows this block only when the matching page state is true -->
     @if (User.IsInRole("Producer"))
     {
         <div class="shop-topbar">
@@ -35,7 +38,7 @@
         </div>
     }
 
-    <!-- FILTER BAR -->
+    <!-- Filter section - lets visitors narrow the records shown on the page -->
     <div class="filter-bar">
 
         <!-- Search -->
@@ -58,12 +61,13 @@
             </div>
         </form>
 
-        <!-- Filter by Category -->
+        <!-- Filter by category -->
         <form method="get" asp-action="FilterProducts" style="display:contents;">
             <input type="hidden" name="stockFilter" value="@ViewBag.CurrentStockFilter" />
             <input type="hidden" name="sortBy" value="@ViewBag.CurrentSort" />
             <select name="categoryId" class="form-select" style="max-width:190px;" aria-label="Filter by category" onchange="this.form.submit()">
                 <option value="">All Categories</option>
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if (ViewBag.Categories != null)
                 {
                     foreach (var category in ViewBag.Categories)
@@ -77,7 +81,7 @@
             </select>
         </form>
 
-        <!-- Stock Filter -->
+        <!-- Stock filter -->
         <form method="get" asp-action="FilterProducts" style="display:contents;">
             <input type="hidden" name="categoryId" value="@ViewBag.CurrentCategoryId" />
             <input type="hidden" name="sortBy" value="@ViewBag.CurrentSort" />
@@ -105,10 +109,10 @@
         <span class="filter-count">Showing @Model.Count() products</span>
     </div>
 
-    <!-- PRODUCT GRID -->
+    <!-- Product grid - displays the available products as clickable cards -->
     <div class="product-grid-gap">
 
-        <!-- SEARCH NOT FOUND ERROR MESSAGE -->
+        <!-- Search results notice - appears when no products match the current filters -->
         @if (!Model.Any())
         {
             <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 2rem;">
@@ -124,15 +128,17 @@
         }
 
 
+        <!-- Loop through each product record passed in from the controller -->
         @foreach (var item in Model)
         {
 
             <article class="product-card" data-product-id="@item.productsId">
 
-                <!-- IMAGE -->
+                <!-- Image area - shows the record image or a visual placeholder -->
                 <div class="pc-wrap">
                     <div class="pc-img">
                         <div class="pc-img-inner">
+                            <!-- Conditional section - shows this block only when the matching page state is true -->
                             @if (!string.IsNullOrEmpty(item.productImage))
                             {
                                 <img src="@item.productImage" alt="@item.productName" />
@@ -143,14 +149,16 @@
                             }
                         </div>
                     </div>
+                    <!-- Conditional section - shows this block only when the matching page state is true -->
                     @if (item.stockQuantity > 0 && item.stockQuantity <= 5)
                     {
                         <span class="pc-badge" style="background:var(--brown);">Low Stock</span>
                     }
                 </div>
 
-                <!-- BODY -->
+                <!-- Body -->
                 <div class="pc-body">
+                    <!-- Conditional section - shows this block only when the matching page state is true -->
                     @if (item.producers != null)
                     {
                         <p class="pc-producer">@item.producers.producerName</p>
@@ -158,12 +166,13 @@
                     <h3 class="pc-name">@Html.DisplayFor(modelItem => item.productName)</h3>
                     <p class="pc-desc">@Html.DisplayFor(modelItem => item.productDescription)</p>
 
-                    <!-- PRICE + AVAILABILITY -->
+                    <!-- Price and availability row - shows the current product price and stock status -->
                     <div class="pc-footer">
                         <span class="pc-price">
                             £@item.productPrice.ToString("0.00")
                             <small class="price-unit">/ @item.productUnit</small>
                         </span>
+                        <!-- Conditional section - shows this block only when the matching page state is true -->
                         @if (item.stockQuantity > 10)
                         {
                             <span class="pc-avail in">In Stock</span>
@@ -178,8 +187,9 @@
                         }
                     </div>
 
-                    <!-- ACTIONS -->
+                    <!-- Action buttons - link to the available management tasks for this record -->
                     <div class="pc-actions">
+                        <!-- Conditional section - shows this block only when the matching page state is true -->
                         @if (User.IsInRole("Producer") || User.IsInRole("Admin") || User.IsInRole("Developer"))
                         {
                             <a asp-action="Edit" asp-route-id="@item.productsId" class="btn btn-ghost">
@@ -190,9 +200,11 @@
                             </a>
                         }
 
+                        <!-- Form section - collects and submits the fields for this products index workflow -->
                         <form asp-controller="shoppingCartItems" asp-action="Create" method="post" style="flex:1;display:flex;gap:.4rem;align-items:center;">
                             <input type="hidden" name="productsId" value="@item.productsId" />
 
+                            <!-- Conditional section - shows this block only when the matching page state is true -->
                             @if (item.stockQuantity > 0)
                             {
                                 <input type="number"
@@ -224,6 +236,7 @@
 </div>
 
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
     <script src="~/js/pages/products/index.js" asp-append-version="true"></script>
 }

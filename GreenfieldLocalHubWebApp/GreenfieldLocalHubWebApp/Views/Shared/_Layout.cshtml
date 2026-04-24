@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,6 +7,7 @@
     <script type="importmap"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Load external font resources used by the layout page -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
 
@@ -14,16 +15,17 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GreenfieldLocalHubWebApp.styles.css" asp-append-version="true" />
 
+    <!-- Content section - groups related layout content together -->
     @RenderSection("Styles", required: false)
 
 
 </head>
 <body>
 
-    <!-- SKIP LINK -->
+    <!-- Skip link - lets keyboard users jump directly to the main content -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- ACCESSIBILITY BAR -->
+    <!-- Accessibility bar - provides quick controls for contrast, reading and text size -->
     <div class="a11y-bar" role="toolbar" aria-label="Accessibility tools">
         <button class="a11y-btn" onclick="toggleHighContrast()">High Contrast</button>
         <button class="a11y-btn" onclick="toggleDarkMode()">Dark Mode</button>
@@ -33,11 +35,11 @@
         <button class="a11y-btn" onclick="resetAccessibility()">Reset</button>
     </div>
 
-    <!-- HEADER -->
+    <!-- Content section - groups related layout content together -->
     <header role="banner">
         <nav class="nav-inner" aria-label="Main navigation">
 
-            <!-- Logo -->
+            <!-- Logo link - returns visitors to the home page -->
             <a class="nav-logo" asp-area="" asp-controller="Home" asp-action="Index" aria-label="Greenfield Local Hub home">
                 <div class="nav-logo-text">
                     <strong>Greenfield Local Hub</strong>
@@ -45,25 +47,26 @@
                 </div>
             </a>
 
-            <!-- Nav links -->
+            <!-- Navigation links - provide access to the main public pages -->
             <div class="nav-links" role="list">
                 <a class="nav-link" role="listitem" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                 <a class="nav-link" role="listitem" asp-area="" asp-controller="products" asp-action="Index">Shop</a>
                 <a class="nav-link" role="listitem" asp-area="" asp-controller="producers" asp-action="Index">Producers</a>
                 <a class="nav-link" role="listitem" asp-area="" asp-controller="Home" asp-action="About">About Us</a>
                 <a class="nav-link" role="listitem" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if (User.Identity.IsAuthenticated && User.IsInRole("Producer"))
                 {
                     <a class="nav-link" role="listitem" asp-area="" asp-controller="producerDashboard" asp-action="Index">Producer Dashboard</a>
                 }
             </div>
 
-            <!-- Right-side actions -->
+            <!-- Action buttons - link to the available management tasks for this record -->
             <div class="nav-actions">
                 <div class="nav-divider" aria-hidden="true"></div>
 
-                <!-- Cart icon -->
-                <!-- Cart icon -->
+                <!-- Cart icon button - links to the shopping cart and shows the current item count -->
+                <!-- Cart icon button - links to the shopping cart and shows the current item count -->
                 <a class="nav-icon-btn" asp-area="" asp-controller="shoppingCarts" asp-action="Index" aria-label="Shopping cart">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
                         <circle cx="9" cy="21" r="1" />
@@ -73,10 +76,10 @@
                     <span class="cart-badge" aria-label="items in cart">@(ViewBag.CartItemCount ?? 0)</span>
                 </a>
 
-                <!-- Login partial -->
+                <!-- Login partial - renders the signed-in or signed-out account controls -->
                 <partial name="_LoginPartial" />
 
-                <!-- Mobile hamburger -->
+                <!-- Mobile menu button - opens and closes the mobile navigation drawer -->
                 <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleMobileNav(this)">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <line x1="3" y1="6" x2="21" y2="6" />
@@ -88,7 +91,7 @@
 
         </nav>
 
-        <!-- Mobile nav drawer (hidden by default) -->
+        <!-- Mobile navigation drawer - shows the main links on smaller screens -->
         <div id="mobile-nav" style="display:none; border-top:1px solid var(--border); background:var(--white); padding:.75rem 2rem 1rem;" aria-label="Mobile navigation">
             <a style="display:block;padding:.55rem 0;font-size:.9rem;font-weight:500;color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border);" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
             <a style="display:block;padding:.55rem 0;font-size:.9rem;font-weight:500;color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border);" asp-area="" asp-controller="products" asp-action="Index">Shop</a>
@@ -98,14 +101,15 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
+    <!-- Content wrapper - groups related layout content together -->
     <div class="site-main">
         <main id="main-content" role="main">
+            <!-- Render body call - outputs the content for the current page -->
             @RenderBody()
         </main>
     </div>
 
-    <!-- FOOTER -->
+    <!-- Content section - groups related layout content together -->
     <footer role="contentinfo">
         <div class="footer-inner">
             <div>
@@ -148,10 +152,10 @@
         </div>
     </footer>
 
-    <!-- TOAST NOTIFICATION -->
+    <!-- Toast notification - provides temporary feedback for page-level actions -->
     <div id="toast" role="status" aria-live="polite"></div>
 
-    <!-- SCRIPTS -->
+    <!-- Content section - groups related layout content together -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

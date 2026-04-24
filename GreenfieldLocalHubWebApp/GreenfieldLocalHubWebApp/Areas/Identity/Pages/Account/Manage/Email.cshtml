@@ -1,4 +1,4 @@
-﻿@page
+@page
 @model EmailModel
 @{
     ViewData["Title"] = "Manage Email";
@@ -6,11 +6,14 @@
 }
 
 <h3>@ViewData["Title"]</h3>
+<!-- Partial view - renders shared markup used by this page -->
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
     <div class="col-md-6">
+        <!-- Form section - collects and submits the fields for this account management email workflow -->
         <form id="email-form" method="post">
             <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+            <!-- Conditional section - shows this block only when the matching page state is true -->
             @if (Model.IsEmailConfirmed)
             {
                 <div class="form-floating mb-3 input-group">
@@ -39,6 +42,8 @@
     </div>
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
+    <!-- Partial view - renders shared markup used by this page -->
     <partial name="_ValidationScriptsPartial" />
 }

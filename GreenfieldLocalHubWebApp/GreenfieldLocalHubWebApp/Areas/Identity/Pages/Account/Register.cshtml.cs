@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -21,6 +21,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
 {
+    // Page model for the account register page and its request handlers
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -30,6 +31,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
+        // Constructor that receives the services needed by this page model
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
@@ -100,12 +102,14 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
         }
 
 
+        // Handles the initial page load and prepares the data shown to the user
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
+        // Handles the submitted form and redirects or redisplays the page as needed
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
@@ -154,6 +158,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
             return Page();
         }
 
+        // Create a new Identity user instance for account registration flows
         private IdentityUser CreateUser()
         {
             try
@@ -168,6 +173,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
             }
         }
 
+        // Resolve the email store used to save and confirm account email addresses
         private IUserEmailStore<IdentityUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)

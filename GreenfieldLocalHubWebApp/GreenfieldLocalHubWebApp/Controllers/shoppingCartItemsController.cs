@@ -11,16 +11,19 @@ using System.Security.Claims;
 
 namespace GreenfieldLocalHubWebApp.Controllers
 {
+    // Handles all shopping cart item actions: viewing, creating, editing, deleting and updating quantities
     public class shoppingCartItemsController : Controller
     {
+        // Holds the database connection used throughout this controller
         private readonly ApplicationDbContext _context;
 
+        // Receives the database context via dependency injection when the controller is created
         public shoppingCartItemsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: shoppingCartItems
+        // Shows a list of all shopping cart items with their related products and carts
         public async Task<IActionResult> Index()
         {
             ViewBag.CartItemCount = await GetCartItemCount();
@@ -29,7 +32,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: shoppingCartItems/Details/5
+        // Shows the full details of a single shopping cart item
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -49,7 +52,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(shoppingCartItems);
         }
 
-        // GET: shoppingCartItems/Create
+        // Shows the shopping cart item creation page with product and cart options
         public IActionResult Create()
         {
             ViewData["productsId"] = new SelectList(_context.products, "productsId", "productsId");
@@ -57,16 +60,15 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View();
         }
 
-        // POST: shoppingCartItems/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Adds the selected product to the current user's active shopping cart
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int productsId, int quantity = 1)
         {
-            // Clamp quantity to a valid range
+            // Keep the submitted quantity within a valid range
             if (quantity < 1) quantity = 1;
 
+            // Load the product being added to the cart
             var product = await _context.products.FirstOrDefaultAsync(p => p.productsId == productsId);
 
             if (product == null)
@@ -74,6 +76,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 return NotFound();
             }
 
+            // Get the ID of the currently logged in user
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (userId == null)
@@ -81,6 +84,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
 
+            // Find the active shopping cart for this user, or create one if needed
             var shoppingCart = await _context.shoppingCart
                 .FirstOrDefaultAsync(c => c.UserId == userId && c.shoppingCartStatus == true);
 
@@ -96,13 +100,13 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 await _context.SaveChangesAsync();
             }
 
+            // Check whether this product is already in the active shopping cart
             var shoppingCartItem = await _context.shoppingCartItems
                 .FirstOrDefaultAsync(sc => sc.shoppingCartId == shoppingCart.shoppingCartId && sc.productsId == productsId);
 
             if (shoppingCartItem != null)
             {
-                // Add the chosen quantity on top of whatever is already in the cart,
-                // but never exceed available stock
+                // Add the chosen quantity without exceeding available stock
                 shoppingCartItem.quantity = Math.Min(
                     shoppingCartItem.quantity + quantity,
                     product.stockQuantity
@@ -110,6 +114,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             }
             else
             {
+                // Add a new cart line for products that are not already in the cart
                 shoppingCartItem = new shoppingCartItems
                 {
                     shoppingCartId = shoppingCart.shoppingCartId,
@@ -119,12 +124,13 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 _context.shoppingCartItems.Add(shoppingCartItem);
             }
 
+            // Save the updated cart item to the database
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "products");
         }
 
-        // GET: shoppingCartItems/Edit/5
+        // Shows the edit form for an existing shopping cart item
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -142,9 +148,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(shoppingCartItems);
         }
 
-        // POST: shoppingCartItems/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Saves changes made to an existing shopping cart item
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("shoppingCartItemsId,shoppingCartId,productsId,unitPrice,quantity")] shoppingCartItems shoppingCartItems)
@@ -163,6 +167,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+                    // If the cart item no longer exists, return 404, otherwise rethrow the error
                     if (!shoppingCartItemsExists(shoppingCartItems.shoppingCartItemsId))
                     {
                         return NotFound();
@@ -179,7 +184,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(shoppingCartItems);
         }
 
-        // GET: shoppingCartItems/Delete/5
+        // Shows the delete confirmation page for a shopping cart item
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -199,7 +204,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(shoppingCartItems);
         }
 
-        // POST: shoppingCartItems/Delete/5
+        // Permanently deletes the shopping cart item from the database after confirmation
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -214,16 +219,19 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return RedirectToAction("Index", "shoppingCarts");
         }
 
+        // Checks whether a shopping cart item with the given ID exists in the database
         private bool shoppingCartItemsExists(int id)
         {
             return _context.shoppingCartItems.Any(e => e.shoppingCartItemsId == id);
         }
 
 
+        // Updates the quantity of a shopping cart item from the cart page controls
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateQuantity(int shoppingCartItemsId, int change)
         {
+            // Load the cart item with product data so stock limits can be checked
             var item = await _context.shoppingCartItems
                 .Include(i => i.products)
                 .FirstOrDefaultAsync(i => i.shoppingCartItemsId == shoppingCartItemsId);
@@ -233,17 +241,18 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
             var newQty = item.quantity + change;
 
+            // Remove the cart item entirely if the quantity drops to zero
             if (newQty <= 0)
             {
-                // Remove the item entirely if quantity drops to zero
                 _context.shoppingCartItems.Remove(item);
             }
             else
             {
-                // Cap at available stock
+                // Cap the updated quantity at the available stock level
                 item.quantity = Math.Min(newQty, item.products?.stockQuantity ?? newQty);
             }
 
+            // Save the updated quantity to the database
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "shoppingCarts");
@@ -252,7 +261,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
 
 
-        // Controller method to display amount of items in the shopping cart
+        // Returns the total number of items currently in the logged in user's active shopping cart
         public async Task<int> GetCartItemCount()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -263,7 +272,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
             if (shoppingCart == null) return 0;
 
-            // Sum the quantity column to get total number of items in the shopping cart
+            // Sum quantities rather than counting rows so multi-quantity items are counted correctly
             var totalItems = await _context.shoppingCartItems
                 .Where(sci => sci.shoppingCartId == shoppingCart.shoppingCartId)
                 .SumAsync(sci => sci.quantity);

@@ -12,22 +12,25 @@ using System.Threading.Tasks;
 
 namespace GreenfieldLocalHubWebApp.Controllers
 {
+    // Handles all address-related actions: viewing, creating, editing, deleting and setting default addresses
     public class addressesController : Controller
     {
+        // Holds the database connection used throughout this controller
         private readonly ApplicationDbContext _context;
 
+        // Receives the database context via dependency injection when the controller is created
         public addressesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: addresses
+        // Shows the current user's saved addresses and keeps one address marked as default
         public async Task<IActionResult> Index()
         {
             ViewBag.CartItemCount = await GetCartItemCount();
             ViewData["Layout"] = "_AccountLayout";
 
-            // Get the currently logged-in user's ID
+            // Get the ID of the currently logged in user
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (userId == null)
@@ -35,13 +38,14 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 return Unauthorized();
             }
 
+            // Load this user's addresses with the default and newest addresses first
             var addresses = _context.address
                    .Where(a => a.UserId == userId)
-                   .OrderByDescending(a => a.IsDefault)  // moves default address to the top
-                   .ThenByDescending(a => a.createdDate)  //sort the newest addresses added first
+                   .OrderByDescending(a => a.IsDefault)
+                   .ThenByDescending(a => a.createdDate)
                    .ToList();
 
-            // Check if there's only one address and it's not already set as default
+            // If the user only has one address, make it the default address
             if (addresses.Count == 1 && !addresses[0].IsDefault)
             {
                 addresses[0].IsDefault = true;
@@ -49,10 +53,9 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            // Ensure there's at least one default address
+            // If no address is marked as default, set the newest address as default
             if (addresses.Any() && !addresses.Any(a => a.IsDefault))
             {
-                // If no address is marked as default, set the most recent as default
                 addresses[0].IsDefault = true;
                 _context.address.Update(addresses[0]);
                 await _context.SaveChangesAsync();
@@ -61,7 +64,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(addresses);
         }
 
-        // GET: addresses/Details/5
+        // Shows the full details of a single address
         public async Task<IActionResult> Details(int? id)
         {
             ViewBag.CartItemCount = await GetCartItemCount();
@@ -81,7 +84,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(address);
         }
 
-        // GET: addresses/Create
+        // Shows the address creation page and keeps the checkout return URL if one was provided
         public IActionResult Create(string returnUrl = null)
         {
             ViewBag.CartItemCount = GetCartItemCount();
@@ -89,20 +92,21 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View();
         }
 
-        // POST: addresses/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Processes the submitted address form and saves a new address
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("addressId,street,city,postalCode,country")] address address, string returnUrl = null)
         {
 
+            // Get the ID of the currently logged in user
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (userId == null)
             {
                 return Unauthorized();
             }
+
+            // Set fields that should never come from the form
             address.UserId = userId;
             ModelState.Remove("UserId");
 
@@ -111,6 +115,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
             if (ModelState.IsValid)
             {
+                // Save the address to the database
                 _context.Add(address);
                 await _context.SaveChangesAsync();
 
@@ -127,7 +132,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(address);
         }
 
-        // GET: addresses/Edit/5
+        // Shows the edit form for an existing address
         public async Task<IActionResult> Edit(int? id)
         {
             ViewBag.CartItemCount = await GetCartItemCount();
@@ -145,21 +150,22 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(address);
         }
 
-        // POST: addresses/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Saves changes made to an existing address
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("addressId,street,city,postalCode,country")] address address)
         {
             ViewBag.CartItemCount = await GetCartItemCount();
 
+            // Get the ID of the currently logged in user
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (userId == null)
             {
                 return Unauthorized();
             }
+
+            // Set fields that should never come from the form
             address.UserId = userId;
             ModelState.Remove("UserId");
 
@@ -177,6 +183,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+                    // If the address no longer exists, return 404, otherwise rethrow the error
                     if (!addressExists(address.addressId))
                     {
                         return NotFound();
@@ -191,7 +198,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(address);
         }
 
-        // GET: addresses/Delete/5
+        // Shows the delete confirmation page for an address
         public async Task<IActionResult> Delete(int? id)
         {
             ViewBag.CartItemCount = await GetCartItemCount();
@@ -213,13 +220,14 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
 
 
-        // POST: addresses/Delete/5
+        // Permanently deletes the address from the database after confirmation
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             ViewBag.CartItemCount = await GetCartItemCount();
 
+            // Get the ID of the currently logged in user
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
             {
@@ -236,7 +244,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 return NotFound();
             }
 
-            // Check if this address is used in any orders
+            // Check whether this address is linked to any existing orders
             var linkedOrders = address.orders?.Where(o => o.addressId == id).ToList();
 
             if (linkedOrders != null && linkedOrders.Any())
@@ -255,7 +263,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             }
             else
             {
-                // No orders linked - safe to delete directly
+                // Delete the address directly when there are no linked orders
                 _context.address.Remove(address);
                 await _context.SaveChangesAsync();
                 TempData["Success"] = "Address deleted successfully.";
@@ -280,18 +288,21 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Checks whether an address with the given ID exists in the database
         private bool addressExists(int id)
         {
             return _context.address.Any(e => e.addressId == id);
         }
 
 
-        // Controller method to set an address as default for the user
+        // Sets one address as the current user's default address
         [HttpPost]
         public IActionResult SetDefault(int id)
         {
-            // Get all addresses for the current user
+            // Get the ID of the currently logged in user
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Load all saved addresses for this user
             var addresses = _context.address.Where(a => a.UserId == userId).ToList();
 
             // Find the address to set as default
@@ -316,7 +327,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
         }
 
 
-        // Controller method to display amount of items in the shopping cart
+        // Returns the total number of items currently in the logged in user's active shopping cart
         public async Task<int> GetCartItemCount()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -327,7 +338,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
             if (shoppingCart == null) return 0;
 
-            // Sum the quantity column to get total number of items in the shopping cart
+            // Sum quantities rather than counting rows so multi-quantity items are counted correctly
             var totalItems = await _context.shoppingCartItems
                 .Where(sci => sci.shoppingCartId == shoppingCart.shoppingCartId)
                 .SumAsync(sci => sci.quantity);

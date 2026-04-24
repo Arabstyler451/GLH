@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -11,12 +11,14 @@ using Microsoft.Extensions.Logging;
 
 namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
 {
+    // Page model for the account management two factor authentication page and its request handlers
     public class TwoFactorAuthenticationModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<TwoFactorAuthenticationModel> _logger;
 
+        // Constructor that receives the services needed by this page model
         public TwoFactorAuthenticationModel(
             UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<TwoFactorAuthenticationModel> logger)
         {
@@ -57,6 +59,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
+        // Handles the initial page load and prepares the data shown to the user
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -77,6 +80,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        // Handles the submitted form and redirects or redisplays the page as needed
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);

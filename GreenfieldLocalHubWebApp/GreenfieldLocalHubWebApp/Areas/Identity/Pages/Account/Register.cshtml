@@ -1,15 +1,16 @@
-﻿@page
+@page
 @model RegisterModel
 @{
     ViewData["Title"] = "Create Account";
 }
 
-@* ── Google Fonts ── *@
+<!-- Load external font resources used by the account register page -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
 
+<!-- Inline styles section - defines the page-specific styling for the account register page -->
 <style>
-    /* ── Full-page centred layout ── */
+    /* Page-specific styles */
     .glh-auth-page {
         min-height: calc(100vh - 73px);
         background: var(--surface-subtle);
@@ -21,7 +22,7 @@
         color: var(--text);
     }
 
-    /* ── Auth card ── */
+    /* Page-specific styles */
     .glh-auth-box {
         background: var(--surface-elevated);
         padding: 2.8rem;
@@ -31,7 +32,7 @@
         box-shadow: var(--shadow-md);
     }
 
-    /* ── Logo bar ── */
+    /* Page-specific styles */
     .glh-auth-logo-bar {
         display: flex;
         align-items: center;
@@ -47,7 +48,7 @@
         color: var(--green-dark);
     }
 
-    /* ── Headings ── */
+    /* Page-specific styles */
     .glh-auth-title {
         font-family: var(--font-serif);
         font-size: 1.7rem;
@@ -62,7 +63,7 @@
         margin-bottom: 2rem;
     }
 
-    /* ── Validation summary ── */
+    /* Page-specific styles */
     .glh-validation-summary {
         background: #fde8e8;
         border-left: 3px solid #a0281e;
@@ -80,14 +81,14 @@
         margin-top: .3rem;
     }
 
-    /* ── Two-column name row ── */
+    /* Page-specific styles */
     .glh-form-row {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
     }
 
-    /* ── Form elements ── */
+    /* Page-specific styles */
     .glh-form-group { margin-bottom: 1.2rem; }
 
     .glh-form-label {
@@ -125,7 +126,7 @@
         margin-top: .35rem;
     }
 
-    /* ── Terms checkbox ── */
+    /* Page-specific styles */
     .glh-terms {
         display: flex;
         align-items: flex-start;
@@ -147,7 +148,7 @@
     .glh-terms a { color: var(--green); font-weight: 600; text-decoration: none; }
     .glh-terms a:hover { text-decoration: underline; }
 
-    /* ── Primary button ── */
+    /* Page-specific styles */
     .glh-btn-primary {
         display: flex;
         align-items: center;
@@ -167,7 +168,7 @@
     }
     .glh-btn-primary:hover { background: var(--green-light); color: #fff; }
 
-    /* ── Divider ── */
+    /* Page-specific styles */
     .glh-divider {
         display: flex;
         align-items: center;
@@ -186,7 +187,7 @@
         background: var(--border);
     }
 
-    /* ── External provider buttons ── */
+    /* Page-specific styles */
     .glh-ext-btn {
         display: flex;
         align-items: center;
@@ -207,7 +208,7 @@
     }
     .glh-ext-btn:hover { border-color: var(--green); color: var(--green); }
 
-    /* ── No external providers notice ── */
+    /* Page-specific styles */
     .glh-ext-notice {
         font-size: .82rem;
         color: var(--text-muted);
@@ -219,7 +220,7 @@
     }
     .glh-ext-notice a { color: var(--green); font-weight: 500; }
 
-    /* ── Footer ── */
+    /* Page-specific styles */
     .glh-auth-footer {
         text-align: center;
         font-size: .83rem;
@@ -235,7 +236,7 @@
     }
     .glh-auth-footer a:hover { text-decoration: underline; }
 
-    /* ── Responsive ── */
+    /* Page-specific styles */
     @@media (max-width: 480px) {
         .glh-auth-box { padding: 2rem 1.4rem; }
         .glh-form-row { grid-template-columns: 1fr; }
@@ -252,22 +253,22 @@
     <div class="glh-auth-page">
         <div class="glh-auth-box">
 
-            <!-- Logo bar -->
+            <!-- Logo bar - shows the Greenfield Local Hub brand above the form -->
             <div class="glh-auth-logo-bar">
                 <span class="glh-auth-logo-name">Greenfield Local Hub</span>
             </div>
 
-            <!-- Heading -->
+            <!-- Heading block - introduces the form and supporting context -->
             <h1 class="glh-auth-title">Create an Account</h1>
             <p class="glh-auth-sub">Join GLH and start shopping local today</p>
 
-            <!-- Validation summary -->
+            <!-- Summary section - highlights the key details before the full page content -->
             <div asp-validation-summary="ModelOnly" class="glh-validation-summary" role="alert"></div>
 
-            <!-- Registration form -->
+            <!-- Registration form - collects the fields needed to create an account -->
             <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
 
-                <!-- Email -->
+                <!-- Email field - collects the visitor email address for the form -->
                 <div class="glh-form-group">
                     <label asp-for="Input.Email" class="glh-form-label">Email Address</label>
                     <input asp-for="Input.Email"
@@ -279,7 +280,7 @@
                     <span asp-validation-for="Input.Email" class="glh-field-error"></span>
                 </div>
 
-                <!-- Password -->
+                <!-- Password field - collects the account password securely -->
                 <div class="glh-form-group">
                     <label asp-for="Input.Password" class="glh-form-label">Password</label>
                     <input asp-for="Input.Password"
@@ -292,7 +293,7 @@
                     <span asp-validation-for="Input.Password" class="glh-field-error"></span>
                 </div>
 
-                <!-- Confirm password -->
+                <!-- Confirm password field - checks that the repeated password matches -->
                 <div class="glh-form-group">
                     <label asp-for="Input.ConfirmPassword" class="glh-form-label">Confirm Password</label>
                     <input asp-for="Input.ConfirmPassword"
@@ -304,7 +305,7 @@
                     <span asp-validation-for="Input.ConfirmPassword" class="glh-field-error"></span>
                 </div>
 
-                <!-- Terms & conditions -->
+                <!-- Terms checkbox - asks the visitor to accept the terms and privacy policy -->
                 <div class="glh-terms">
                     <input type="checkbox" id="reg-terms" name="AgreeToTerms" value="true" />
                     <label for="reg-terms">
@@ -321,14 +322,16 @@
 
             </form>
 
-            <!-- External providers -->
+            <!-- Conditional section - shows this block only when the matching page state is true -->
             @if ((Model.ExternalLogins?.Count ?? 0) > 0)
             {
                 <div class="glh-divider">or register with</div>
+                <!-- Form section - collects and submits the fields for this account register workflow -->
                 <form id="external-account"
                       asp-page="./ExternalLogin"
                       asp-route-returnUrl="@Model.ReturnUrl"
                       method="post">
+                    <!-- Loop through each account record passed in from the controller -->
                     @foreach (var provider in Model.ExternalLogins!)
                     {
                         <button type="submit"
@@ -342,7 +345,7 @@
                 </form>
             }
 
-            <!-- Sign-in footer link -->
+            <!-- Footer links - provide alternate account navigation options -->
             <div class="glh-auth-footer">
                 Already have an account? <a asp-page="./Login">Sign in</a>
             </div>
@@ -351,6 +354,8 @@
     </div>
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
+    <!-- Partial view - renders shared markup used by this page -->
     <partial name="_ValidationScriptsPartial" />
 }

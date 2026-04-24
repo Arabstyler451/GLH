@@ -10,22 +10,25 @@ using GreenfieldLocalHubWebApp.Models;
 
 namespace GreenfieldLocalHubWebApp.Controllers
 {
+    // Handles all category-related actions: viewing, creating, editing and deleting categories
     public class categoriesController : Controller
     {
+        // Holds the database connection used throughout this controller
         private readonly ApplicationDbContext _context;
 
+        // Receives the database context via dependency injection when the controller is created
         public categoriesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: categories
+        // Shows a list of all product categories
         public async Task<IActionResult> Index()
         {
             return View(await _context.categories.ToListAsync());
         }
 
-        // GET: categories/Details/5
+        // Shows the full details of a single category
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,21 +46,20 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(categories);
         }
 
-        // GET: categories/Create
+        // Shows the category creation page
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: categories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Processes the submitted category form and saves a new category
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("categoriesId,categoryName")] categories categories)
         {
             if (ModelState.IsValid)
             {
+                // Save the category to the database
                 _context.Add(categories);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -65,7 +67,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(categories);
         }
 
-        // GET: categories/Edit/5
+        // Shows the edit form for an existing category
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,9 +83,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(categories);
         }
 
-        // POST: categories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Saves changes made to an existing category
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("categoriesId,categoryName")] categories categories)
@@ -102,6 +102,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+                    // If the category no longer exists, return 404, otherwise rethrow the error
                     if (!categoriesExists(categories.categoriesId))
                     {
                         return NotFound();
@@ -116,7 +117,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(categories);
         }
 
-        // GET: categories/Delete/5
+        // Shows the delete confirmation page for a category
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,7 +135,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(categories);
         }
 
-        // POST: categories/Delete/5
+        // Permanently deletes the category from the database after confirmation
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -149,6 +150,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Checks whether a category with the given ID exists in the database
         private bool categoriesExists(int id)
         {
             return _context.categories.Any(e => e.categoriesId == id);

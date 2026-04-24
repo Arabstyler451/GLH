@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GreenfieldLocalHubWebApp.Models.loyaltyTransaction>
+@model IEnumerable<GreenfieldLocalHubWebApp.Models.loyaltyTransaction>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,6 +9,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<!-- Loyalty transaction table - lists each record with its available actions -->
 <table class="table">
     <thead>
         <tr>
@@ -31,6 +32,7 @@
         </tr>
     </thead>
     <tbody>
+<!-- Loop through each loyalty transaction record passed in from the controller -->
 @foreach (var item in Model) {
         <tr>
             <td>

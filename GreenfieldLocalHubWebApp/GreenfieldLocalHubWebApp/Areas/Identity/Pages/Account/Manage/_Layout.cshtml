@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 
 @{
@@ -19,8 +19,9 @@
         : char.ToUpper(userName[0]) + userName.Substring(1);
 }
 
+<!-- Inline styles section - defines the page-specific styling for the account management layout page -->
 <style>
-    /* ── PAGE HERO ── */
+    /* Page-specific styles */
     .account-page-hero {
         background: var(--surface-base);
         border-bottom: 1px solid var(--border);
@@ -58,7 +59,7 @@
         line-height: 1.65;
     }
 
-    /* ── MAIN SECTION ── */
+    /* Page-specific styles */
     .account-section {
         padding: 4rem 2rem 5rem;
     }
@@ -68,7 +69,7 @@
         margin: 0 auto;
     }
 
-    /* ── TWO-COLUMN LAYOUT ── */
+    /* Page-specific styles */
     .account-layout {
         display: grid;
         grid-template-columns: 220px 1fr;
@@ -76,7 +77,7 @@
         align-items: start;
     }
 
-    /* ── RESPONSIVE ── */
+    /* Page-specific styles */
     @@media (max-width: 768px) {
         .account-layout {
             grid-template-columns: 1fr;
@@ -88,8 +89,9 @@
     }
 </style>
 
-<!-- PAGE HERO -->
+<!-- Page hero section - introduces the account management layout page and gives visitors the main context -->
 <div class="account-page-hero">
+    <!-- Page hero section - introduces the account management layout page and gives visitors the main context -->
     <div class="account-page-hero-inner">
         <span class="account-page-eyebrow">My Account</span>
         <h1>Welcome back, @greeting</h1>
@@ -97,16 +99,17 @@
     </div>
 </div>
 
-<!-- ACCOUNT BODY -->
+<!-- Content wrapper - groups related account management layout content together -->
 <div class="account-section">
     <div class="account-container">
         <div class="account-layout">
 
-            <!-- SIDEBAR -->
+            <!-- Partial view - renders shared markup used by this page -->
             <partial name="_ManageNav" />
 
-            <!-- PAGE CONTENT -->
+            <!-- Page content area - renders the selected account management page -->
             <div>
+                <!-- Render body call - outputs the content for the current page -->
                 @RenderBody()
             </div>
 
@@ -114,6 +117,7 @@
     </div>
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
     @RenderSection("Scripts", required: false)
 }

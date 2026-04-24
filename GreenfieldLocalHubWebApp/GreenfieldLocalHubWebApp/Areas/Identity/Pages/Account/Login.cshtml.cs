@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -17,11 +17,13 @@ using Microsoft.Extensions.Logging;
 
 namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
 {
+    // Page model for the account login page and its request handlers
     public class LoginModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
+        // Constructor that receives the services needed by this page model
         public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
@@ -84,6 +86,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
+        // Handles the initial page load and prepares the data shown to the user
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
@@ -101,6 +104,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
+        // Handles the submitted form and redirects or redisplays the page as needed
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");

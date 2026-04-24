@@ -12,28 +12,34 @@ using System.Threading.Tasks;
 namespace GreenfieldLocalHubWebApp.Controllers
 {
     [Authorize]
+    // Handles loyalty account actions: dashboard, offer redemption, transactions and account management
     public class loyaltyAccountsController : Controller
     {
+        // Holds the database connection used throughout this controller
         private readonly ApplicationDbContext _context;
 
+        // Receives the database context via dependency injection when the controller is created
         public loyaltyAccountsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
 
-        // GET: loyaltyAccounts - This is your Dashboard
+        // Shows the current user's loyalty dashboard with points, tier progress and available offers
         public async Task<IActionResult> Index()
         {
             ViewBag.CartItemCount = await GetCartItemCount();
             ViewData["Layout"] = "_AccountLayout";
 
+            // Get the ID of the currently logged in user
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            // Load the user's loyalty account with its transaction history
             var loyaltyAccount = await _context.loyaltyAccount
                 .Include(l => l.loyaltyTransaction)
                 .FirstOrDefaultAsync(l => l.UserId == userId);
 
+            // If the user has no loyalty account yet, create one at Bronze tier
             if (loyaltyAccount == null)
             {
                 loyaltyAccount = new loyaltyAccount
@@ -53,17 +59,17 @@ namespace GreenfieldLocalHubWebApp.Controllers
                     .FirstOrDefaultAsync(l => l.UserId == userId);
             }
 
-            // Redeemed = permanent history (cannot redeem again)
+            // Build the permanent redeemed offer history
             var redeemedList = string.IsNullOrEmpty(loyaltyAccount.redeemedOffers)
                 ? new List<string>()
                 : loyaltyAccount.redeemedOffers.Split(',').ToList();
 
-            // Get consumed offers
+            // Build the consumed offer list so used offers do not reappear
             var consumedList = string.IsNullOrEmpty(loyaltyAccount.ConsumedOffers)
                 ? new List<string>()
                 : loyaltyAccount.ConsumedOffers.Split(',').ToList();
 
-            // Prepare dashboard data
+            // Prepare dashboard totals, tier progress and recent activity
             var pointsMonetaryValue = loyaltyAccount.pointsBalance / 100m;
             var pointsToNextTier = GetPointsToNextTier(loyaltyAccount.pointsBalance, loyaltyAccount.loyaltyTier);
             var nextTierName = GetNextTierName(loyaltyAccount.loyaltyTier);
@@ -92,11 +98,12 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(loyaltyAccount);
         }
 
-        // POST: loyaltyAccounts/RedeemOffer
+        // Processes a loyalty offer redemption and adds the offer to the user's active offers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RedeemOffer(string offerTitle, int pointsCost)
         {
+            // Get the ID of the currently logged in user
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var loyaltyAccount = await _context.loyaltyAccount.FirstOrDefaultAsync(l => l.UserId == userId);
 
@@ -106,11 +113,12 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            // Build the permanent redeemed offer history
             var redeemedList = string.IsNullOrEmpty(loyaltyAccount.redeemedOffers)
                 ? new List<string>()
                 : loyaltyAccount.redeemedOffers.Split(',').ToList();
 
-            // Remove from consumed list if it exists (allows re-redeeming)
+            // Remove the offer from consumed offers if it is being redeemed again
             var consumedList = string.IsNullOrEmpty(loyaltyAccount.ConsumedOffers)
                 ? new List<string>()
                 : loyaltyAccount.ConsumedOffers.Split(',').ToList();
@@ -122,10 +130,10 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 loyaltyAccount.ConsumedOffers = string.Join(",", consumedList);
             }
 
-            // Store old tier before changes
+            // Store the old tier before deducting points
             var oldTier = loyaltyAccount.loyaltyTier;
 
-            // === Create redemption transaction ===
+            // Create a redemption transaction record
             var transaction = new loyaltyTransaction
             {
                 loyaltyAccountId = loyaltyAccount.loyaltyAccountId,
@@ -137,14 +145,14 @@ namespace GreenfieldLocalHubWebApp.Controllers
             loyaltyAccount.pointsBalance -= pointsCost;
             loyaltyAccount.loyaltyTier = GetLoyaltyTier(loyaltyAccount.pointsBalance);
 
-            // Add to permanent history if not already there
+            // Add the offer to redeemed history if it is not already there
             if (!redeemedList.Contains(offerTitle))
             {
                 redeemedList.Add(offerTitle);
                 loyaltyAccount.redeemedOffers = string.Join(",", redeemedList);
             }
 
-            // Add to ACTIVE offers
+            // Add the offer to active offers so it can be used at checkout
             var activeList = string.IsNullOrEmpty(loyaltyAccount.ActiveOffers)
                 ? new List<string>()
                 : loyaltyAccount.ActiveOffers.Split(',').ToList();
@@ -168,7 +176,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
 
 
-        // Call this AFTER a successful order is placed if a loyalty offer was used
+        // Moves a used loyalty offer from active to consumed after an order is placed
         public async Task ConsumeActiveOfferAsync(string userId, string offerTitle, int orderId)
         {
             var loyaltyAccount = await _context.loyaltyAccount
@@ -176,7 +184,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
             if (loyaltyAccount == null) return;
 
-            // Remove from ActiveOffers
+            // Remove the offer from the user's active offers
             var activeList = string.IsNullOrEmpty(loyaltyAccount.ActiveOffers)
                 ? new List<string>()
                 : loyaltyAccount.ActiveOffers.Split(',').ToList();
@@ -187,7 +195,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             {
                 loyaltyAccount.ActiveOffers = string.Join(",", activeList);
 
-                // Add to ConsumedOffers to prevent re-display
+                // Add the offer to consumed offers so it does not appear again
                 var consumedList = string.IsNullOrEmpty(loyaltyAccount.ConsumedOffers)
                     ? new List<string>()
                     : loyaltyAccount.ConsumedOffers.Split(',').ToList();
@@ -198,11 +206,11 @@ namespace GreenfieldLocalHubWebApp.Controllers
                     loyaltyAccount.ConsumedOffers = string.Join(",", consumedList);
                 }
 
-                // OPTIONAL: Create a consumption transaction record
+                // Create a consumption transaction linked to the order
                 var consumptionTransaction = new loyaltyTransaction
                 {
                     loyaltyAccountId = loyaltyAccount.loyaltyAccountId,
-                    ordersId = orderId,  // Link to the order
+                    ordersId = orderId,
                     loyaltyPoints = 0,
                     transactionType = "Consume",
                     transactionDate = DateTime.Now
@@ -214,12 +222,13 @@ namespace GreenfieldLocalHubWebApp.Controllers
             }
         }
 
-        // GET: loyaltyAccounts/TransactionHistory
+        // Shows the current user's loyalty transaction history with filtering and pagination
         public async Task<IActionResult> TransactionHistory(int? page, string transactionType = null)
         {
             ViewBag.CartItemCount = await GetCartItemCount();
             ViewData["Layout"] = "_AccountLayout";
 
+            // Get the ID of the currently logged in user
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var loyaltyAccount = await _context.loyaltyAccount
                 .FirstOrDefaultAsync(l => l.UserId == userId);
@@ -230,20 +239,20 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            // Build query
+            // Build the transaction query for this loyalty account
             var query = _context.loyaltyTransaction
                 .Where(t => t.loyaltyAccountId == loyaltyAccount.loyaltyAccountId)
                 .Include(t => t.orders)
                 .AsQueryable();
 
-            // Apply filter
+            // Apply the selected transaction type filter
             if (!string.IsNullOrEmpty(transactionType) && transactionType != "All")
             {
                 query = query.Where(t => t.transactionType == transactionType);
                 ViewBag.CurrentType = transactionType;
             }
 
-            // Pagination
+            // Apply pagination to the transaction list
             int pageSize = 15;
             int pageNumber = page ?? 1;
             var transactions = await query
@@ -262,10 +271,11 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(transactions);
         }
 
-        // GET: loyaltyAccounts/GetPointsBalance (API for checkout)
+        // Returns the current user's loyalty points as JSON for checkout
         [HttpGet]
         public async Task<IActionResult> GetPointsBalance()
         {
+            // Get the ID of the currently logged in user
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var loyaltyAccount = await _context.loyaltyAccount
                 .FirstOrDefaultAsync(l => l.UserId == userId);
@@ -283,10 +293,11 @@ namespace GreenfieldLocalHubWebApp.Controllers
             });
         }
 
-        // POST: loyaltyAccounts/ApplyPoints (for checkout)
+        // Applies loyalty points as a checkout discount and stores the discount in session
         [HttpPost]
         public async Task<IActionResult> ApplyPoints(int pointsToRedeem)
         {
+            // Get the ID of the currently logged in user
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var loyaltyAccount = await _context.loyaltyAccount
                 .FirstOrDefaultAsync(l => l.UserId == userId);
@@ -295,7 +306,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             {
                 decimal discount = pointsToRedeem / 100m;
 
-                // Store in session for checkout (this part is kept as it's unrelated to offers)
+                // Store the redeemed points and discount amount for checkout
                 HttpContext.Session.SetInt32("RedeemedPoints", pointsToRedeem);
                 HttpContext.Session.SetString("LoyaltyDiscount", discount.ToString());
 
@@ -310,8 +321,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return Json(new { success = false, message = "Insufficient points" });
         }
 
-        // === Other actions remain unchanged (Details, Create, Edit, Delete, etc.) ===
-        // GET: loyaltyAccounts/Details/5
+        // Shows the full details of a single loyalty account
         public async Task<IActionResult> Details(int? id)
         {
             ViewBag.CartItemCount = await GetCartItemCount();
@@ -324,6 +334,8 @@ namespace GreenfieldLocalHubWebApp.Controllers
             if (loyaltyAccount == null) return NotFound();
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Only the account owner or an admin can view this loyalty account
             if (loyaltyAccount.UserId != userId && !User.IsInRole("Admin"))
             {
                 return Forbid();
@@ -332,16 +344,17 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(loyaltyAccount);
         }
 
-        // GET: loyaltyAccounts/Create
+        // Shows the loyalty account creation page
         public IActionResult Create() => View();
 
-        // POST: loyaltyAccounts/Create
+        // Processes the submitted loyalty account form and saves a new account
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("loyaltyAccountId,UserId,pointsBalance,loyaltyTier")] loyaltyAccount loyaltyAccount)
         {
             if (ModelState.IsValid)
             {
+                // Save the loyalty account to the database
                 _context.Add(loyaltyAccount);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -349,7 +362,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(loyaltyAccount);
         }
 
-        // GET: loyaltyAccounts/Edit/5
+        // Shows the edit form for an existing loyalty account
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -357,12 +370,13 @@ namespace GreenfieldLocalHubWebApp.Controllers
             var loyaltyAccount = await _context.loyaltyAccount.FindAsync(id);
             if (loyaltyAccount == null) return NotFound();
 
+            // Only admins can edit loyalty accounts directly
             if (!User.IsInRole("Admin")) return Forbid();
 
             return View(loyaltyAccount);
         }
 
-        // POST: loyaltyAccounts/Edit/5
+        // Saves changes made to an existing loyalty account
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("loyaltyAccountId,UserId,pointsBalance,loyaltyTier")] loyaltyAccount loyaltyAccount)
@@ -378,6 +392,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+                    // If the loyalty account no longer exists, return 404, otherwise rethrow the error
                     if (!loyaltyAccountExists(loyaltyAccount.loyaltyAccountId))
                         return NotFound();
                     throw;
@@ -387,7 +402,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(loyaltyAccount);
         }
 
-        // GET: loyaltyAccounts/Delete/5
+        // Shows the delete confirmation page for a loyalty account
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -397,12 +412,13 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
             if (loyaltyAccount == null) return NotFound();
 
+            // Only admins can delete loyalty accounts directly
             if (!User.IsInRole("Admin")) return Forbid();
 
             return View(loyaltyAccount);
         }
 
-        // POST: loyaltyAccounts/Delete/5
+        // Permanently deletes the loyalty account from the database after confirmation
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -416,12 +432,13 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Checks whether a loyalty account with the given ID exists in the database
         private bool loyaltyAccountExists(int id)
         {
             return _context.loyaltyAccount.Any(e => e.loyaltyAccountId == id);
         }
 
-        // Controller method to display amount of items in the shopping cart
+        // Returns the total number of items currently in the logged in user's active shopping cart
         public async Task<int> GetCartItemCount()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -432,12 +449,13 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
             if (shoppingCart == null) return 0;
 
+            // Sum quantities rather than counting rows so multi-quantity items are counted correctly
             return await _context.shoppingCartItems
                 .Where(sci => sci.shoppingCartId == shoppingCart.shoppingCartId)
                 .SumAsync(sci => sci.quantity);
         }
 
-        // ==================== HELPER METHODS ====================
+        // Calculates the user's loyalty tier from their current points balance
         private string GetLoyaltyTier(int pointsBalance)
         {
             if (pointsBalance >= 5000) return "Platinum";
@@ -446,6 +464,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return "Bronze";
         }
 
+        // Calculates how many points are needed to reach the next loyalty tier
         private int GetPointsToNextTier(int currentPoints, string currentTier)
         {
             return currentTier switch
@@ -458,6 +477,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             };
         }
 
+        // Returns the name of the next loyalty tier
         private string GetNextTierName(string currentTier)
         {
             return currentTier switch
@@ -470,6 +490,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             };
         }
 
+        // Calculates the user's progress through their current loyalty tier
         private int GetTierProgress(int currentPoints, string currentTier)
         {
             return currentTier switch
@@ -482,6 +503,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             };
         }
 
+        // Builds the list of loyalty offers and marks which ones are available to redeem
         private List<LoyaltyOfferViewModel> GetAvailableOffers(int pointsBalance, List<string> redeemedOffers, List<string> consumedOffers)
         {
             var allOffers = new List<LoyaltyOfferViewModel>
@@ -534,7 +556,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return allOffers;
         }
 
-        // ViewModel for offers
+        // Represents a loyalty offer displayed on the dashboard
         public class LoyaltyOfferViewModel
         {
             public string Title { get; set; }

@@ -1,4 +1,4 @@
-﻿@model GreenfieldLocalHubWebApp.Models.loyaltyTransaction
+@model GreenfieldLocalHubWebApp.Models.loyaltyTransaction
 
 @{
     ViewData["Title"] = "Create";
@@ -10,6 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <!-- Create form - collects the fields needed to add a new loyalty transaction -->
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -46,6 +47,8 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
+    <!-- Validation partial - enables client-side validation for this form -->
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

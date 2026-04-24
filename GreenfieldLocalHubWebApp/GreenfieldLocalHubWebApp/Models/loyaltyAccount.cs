@@ -2,18 +2,33 @@
 {
     public class loyaltyAccount
     {
-        public int loyaltyAccountId { get; set; } // Primary Key
-        public string UserId { get; set; } // Foreign Key to AspNetUsers, for linking personalised loyalty account to user
-        public int pointsBalance { get; set; } // Total points available for redemption, updated with each transaction
-        public string loyaltyTier { get; set; } // Bronze, Silver, Gold, Platinum
-        public string redeemedOffers { get; set; } = string.Empty; // Stores redeemed vouchers/offers, used to prevent reuse and track offer history
-        public string ActiveOffers { get; set; } = string.Empty; // Stores currently active vouchers/offers, used to display available offers to the user and manage offer lifecycle
-        public string ConsumedOffers { get; set; } = string.Empty; // Stores offers that have been redeemed and used, used for tracking offer usage and preventing reuse
-        public string? PendingOffer { get; set; } // Offer the user has chosen to apply at checkout, null = none selected
+        // Primary key
+        public int loyaltyAccountId { get; set; }
+
+        // Foreign key to AspNetUsers, identifies which user owns this loyalty account
+        public string UserId { get; set; }
+
+        // Current points available for the user to redeem
+        public int pointsBalance { get; set; }
+
+        // Current loyalty tier for the user, such as Bronze, Silver, Gold or Platinum
+        public string loyaltyTier { get; set; }
+
+        // Permanent record of offers the user has redeemed
+        public string redeemedOffers { get; set; } = string.Empty;
+
+        // Offers the user has redeemed and can still apply to an order
+        public string ActiveOffers { get; set; } = string.Empty;
+
+        // Offers the user has already used on an order
+        public string ConsumedOffers { get; set; } = string.Empty;
+
+        // Offer the user has selected to apply at checkout, nullable because no offer may be selected
+        public string? PendingOffer { get; set; }
 
 
 
-        // Navigation property for related loyalty transactions
-        public ICollection<loyaltyTransaction>? loyaltyTransaction { get; set; } // One-to-many relationship: one loyalty account can have multiple transactions
+        // Navigation property to the transactions for this account, nullable because an account may exist before any transactions are recorded
+        public ICollection<loyaltyTransaction>? loyaltyTransaction { get; set; }
     }
 }

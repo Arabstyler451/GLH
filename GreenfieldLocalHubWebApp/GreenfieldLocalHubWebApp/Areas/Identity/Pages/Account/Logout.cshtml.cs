@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -12,17 +12,20 @@ using Microsoft.Extensions.Logging;
 
 namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
 {
+    // Page model for the account logout page and its request handlers
     public class LogoutModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
 
+        // Constructor that receives the services needed by this page model
         public LogoutModel(SignInManager<IdentityUser> signInManager, ILogger<LogoutModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
         }
 
+        // Handles the submitted form and redirects or redisplays the page as needed
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();

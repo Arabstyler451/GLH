@@ -14,16 +14,19 @@ using System.Threading.Tasks;
 
 namespace GreenfieldLocalHubWebApp.Controllers
 {
+    // Handles all product-related actions: viewing, creating, editing, deleting, searching and filtering products
     public class productsController : Controller
     {
+        // Holds the database connection used throughout this controller
         private readonly ApplicationDbContext _context;
 
+        // Receives the database context via dependency injection when the controller is created
         public productsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: products
+        // Shows a list of products - what the user sees depends on their role
         public async Task<IActionResult> Index()
         {
             
@@ -33,9 +36,10 @@ namespace GreenfieldLocalHubWebApp.Controllers
             ViewBag.Categories = await _context.categories.OrderBy(c => c.categoryName).ToListAsync();
 
 
-            // Check if the user is in the "producer" role
+            // Producers only see products that belong to them
             if (User.IsInRole("Producer"))
             {
+                // Get the ID of the currently logged in user
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
                 if(userId == null)
@@ -43,7 +47,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                     return Unauthorized();
                 }
 
-                // Find the producer associated with the current user
+                // Find the producer profile that belongs to this user
                 var producer = await _context.producers.FirstOrDefaultAsync(p => p.UserId == userId);
 
                 if (producer == null)
@@ -51,19 +55,19 @@ namespace GreenfieldLocalHubWebApp.Controllers
                     return NotFound();
                 }
 
-                // Retrieve products associated with the producer
+                // Load all products owned by this producer
                 var producerProducts = await _context.products.Where(p => p.producersId == producer.producersId).Include(p => p.producers).ToListAsync();
                 return View(producerProducts);
             }
             else
             {
-                // If the user is not a producer, show all products
+                // Other users see every product in the catalogue
                 var allProducts = await _context.products.Include(p => p.categories).Include(p => p.producers).ToListAsync();
                 return View(allProducts);
             }
         }
 
-        // GET: products/Details/5
+        // Shows the full details of a single product with related product suggestions
         public async Task<IActionResult> Details(int? id)
         {
             ViewBag.CartItemCount = await GetCartItemCount();
@@ -82,8 +86,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 return NotFound();
             }
 
-            // Build the "You May Also Like" list:
-            //   same category, different product, max 4 items
+            // Build a related product list using the same category
             var related = new List<products>();
             if (products.categories != null)
             {
@@ -106,33 +109,34 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(viewModel);
         }
 
+        // Shows the product creation page with category and producer options
         [Authorize(Roles = "Producer, Admin, Developer")]
         public IActionResult Create()
         {
+            // Load category options for the product form
             ViewBag.categoriesId = new SelectList(_context.categories, "categoriesId", "categoryName");
 
-            // Only admins/developers need to pick a producer manually
+            // Admins and developers can manually choose the producer
             if (User.IsInRole("Admin") || User.IsInRole("Developer"))
                 ViewBag.producersId = new SelectList(_context.producers, "producersId", "producerName");
 
             return View();
         }
 
-        // POST: products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Processes the submitted product form and saves a new product
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Producer, Admin, Developer")]
         public async Task<IActionResult> Create([Bind("productsId,producersId,categoriesId,productName,productDescription,stockQuantity,productPrice,productAvailability,productImage,productUnit")] products products)
         {
+            // Remove navigation properties from ModelState so they don't cause false validation errors
             ModelState.Remove("producers");
             ModelState.Remove("categories");
 
-            // For producers, always override producersId with their own —
-            // never trust what the form posts
+            // For producers, always use their own producer ID instead of trusting the posted value
             if (User.IsInRole("Producer"))
             {
+                // Get the producer profile for the logged in user
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var producer = await _context.producers
                     .FirstOrDefaultAsync(p => p.UserId == userId);
@@ -142,11 +146,12 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 products.producersId = producer.producersId;
             }
 
-            // producersId is now set so remove it from ModelState validation
+            // Remove producer ID from ModelState because it has been set server-side
             ModelState.Remove("producersId");
 
             if (ModelState.IsValid)
             {
+                // Save the product to the database
                 _context.Add(products);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "producerDashboard", new { activeTab = "products" });
@@ -157,8 +162,8 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(products);
         }
 
+        // Shows the edit form for an existing product
         [Authorize(Roles = "Producer, Admin, Developer")]
-        // GET: products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -175,9 +180,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(products);
         }
 
-        // POST: products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Saves changes made to an existing product
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Producer, Admin, Developer")]
@@ -186,6 +189,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             if (id != products.productsId)
                 return NotFound();
 
+            // Get the ID of the currently logged in user
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
                 return Unauthorized();
@@ -195,7 +199,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             if (existing == null)
                 return NotFound();
 
-            // Security check: ensure this product belongs to the current producer
+            // Find the producer profile that belongs to this user
             var producer = await _context.producers
                 .FirstOrDefaultAsync(p => p.UserId == userId);
 
@@ -218,6 +222,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             existing.productUnit = products.productUnit;
             existing.productUnit = products.productUnit;
 
+            // Remove navigation properties from ModelState so they don't cause false validation errors
             ModelState.Remove("producersId");
             ModelState.Remove("producers");
             ModelState.Remove("categories");
@@ -239,6 +244,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+                    // If the product no longer exists, return 404, otherwise rethrow the error
                     if (!productsExists(products.productsId))
                         return NotFound();
                     throw;
@@ -252,7 +258,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
         }
 
 
-        // GET: products/Delete/5
+        // Shows the delete confirmation page for a product
         [Authorize(Roles = "Producer, Admin, Developer")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -273,7 +279,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(products);
         }
 
-        // POST: Products/Delete/5
+        // Permanently deletes the product from the database after confirmation
         [Authorize(Roles = "Producer, Admin, Developer")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -290,7 +296,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Only the owner/producer of this product can delete it
+            // Only the producer who owns this product can delete it
             if (products.producers.UserId != userId)
             {
                 return Forbid();
@@ -302,6 +308,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return RedirectToAction("Index", "producerDashboard", new { activeTab = "products" });
         }
 
+        // Checks whether a product with the given ID exists in the database
         private bool productsExists(int id)
         {
             return _context.products.Any(e => e.productsId == id);
@@ -310,7 +317,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
 
 
-        // Controller method to display amount of items in the shopping cart
+        // Returns the total number of items currently in the logged in user's active shopping cart
         public async Task<int> GetCartItemCount()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -321,7 +328,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
             if (shoppingCart == null) return 0;
 
-            // Sum the quantity column to get total number of items in the shopping cart
+            // Sum quantities rather than counting rows so multi-quantity items are counted correctly
             var totalItems = await _context.shoppingCartItems
                 .Where(sci => sci.shoppingCartId == shoppingCart.shoppingCartId)
                 .SumAsync(sci => sci.quantity);
@@ -330,7 +337,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
         }
 
 
-        // GET: /Products/AvailableProducts
+        // Shows only products that are currently marked as available
         public async Task<IActionResult> AvailableProducts()
         {
             var availableProducts = await _context.products
@@ -344,6 +351,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
 
 
+        // Searches and filters products using query text, category, stock, sorting and pagination
         public async Task<IActionResult> Search(
             string query,
             int? categoryId,
@@ -352,26 +360,28 @@ namespace GreenfieldLocalHubWebApp.Controllers
             int page = 1,
             int pageSize = 12)
         {
-            // Load categories for dropdowns
+            // Load categories for the filter dropdown
             ViewBag.Categories = await _context.categories
                 .OrderBy(c => c.categoryName)
                 .ToListAsync();
 
+            // Store current filter values to maintain state in the view
             ViewBag.CurrentQuery = query;
             ViewBag.CurrentCategoryId = categoryId;
             ViewBag.CurrentStockFilter = stockFilter;
             ViewBag.CurrentSort = sortBy;
             ViewBag.CurrentPage = page;
 
-            // Start building the query
+            // Start building the product query with related category and producer data
             IQueryable<products> productsQuery = _context.products
                 .AsNoTracking()
                 .Include(p => p.categories)
                 .Include(p => p.producers);
 
-            // Role-based filtering for Producers
+            // Producers only search products that belong to them
             if (User.IsInRole("Producer"))
             {
+                // Find the producer profile that belongs to this user
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var producer = await _context.producers
                     .FirstOrDefaultAsync(p => p.UserId == userId);
@@ -383,7 +393,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 }
             }
 
-            // Apply search query across multiple fields
+            // Apply the search text across product, category and producer fields
             if (!string.IsNullOrWhiteSpace(query))
             {
                 query = query.Trim().ToLower();
@@ -395,14 +405,14 @@ namespace GreenfieldLocalHubWebApp.Controllers
                     p.producers.producerName.ToLower().Contains(query));
             }
 
-            // Apply category filter
+            // Apply the selected category filter
             if (categoryId.HasValue && categoryId.Value > 0)
             {
                 productsQuery = productsQuery
                     .Where(p => p.categoriesId == categoryId.Value);
             }
 
-            // Apply stock filter
+            // Apply the selected stock filter
             if (!string.IsNullOrEmpty(stockFilter))
             {
                 productsQuery = stockFilter switch
@@ -414,7 +424,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 };
             }
 
-            // Apply sorting
+            // Apply the selected sort order
             productsQuery = sortBy switch
             {
                 "price_asc" => productsQuery.OrderBy(p => p.productPrice),
@@ -424,7 +434,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 _ => productsQuery.OrderBy(p => p.productName)
             };
 
-            // Pagination
+            // Apply pagination to the filtered product list
             var totalItems = await productsQuery.CountAsync();
 
             var products = await productsQuery
@@ -444,6 +454,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
 
 
 
+        // Filters products by stock, category and sort order
         public async Task<IActionResult> FilterProducts(string stockFilter, int? categoryId, string sortBy)
         {
             ViewBag.CartItemCount = await GetCartItemCount();
@@ -456,11 +467,13 @@ namespace GreenfieldLocalHubWebApp.Controllers
             ViewBag.CurrentSort = sortBy;
             ViewBag.CurrentStockFilter = stockFilter;
 
+            // Start building the product query with related category and producer data
             IQueryable<products> query = _context.products.Include(p => p.categories).Include(p => p.producers);
 
-            // Apply role-based filtering first
+            // Producers only filter products that belong to them
             if (User.IsInRole("Producer"))
             {
+                // Get the ID of the currently logged in user
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
                 if (userId == null)
@@ -468,6 +481,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                     return Unauthorized();
                 }
 
+                // Find the producer profile that belongs to this user
                 var producer = await _context.producers.FirstOrDefaultAsync(p => p.UserId == userId);
 
                 if (producer == null)
@@ -478,13 +492,13 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 query = query.Where(p => p.producersId == producer.producersId);
             }
 
-            // Apply category filter
+            // Apply the selected category filter
             if (categoryId.HasValue && categoryId.Value > 0)
             {
                 query = query.Where(p => p.categoriesId == categoryId.Value);
             }
 
-            // Apply stock filter
+            // Apply the selected stock filter
             if (!string.IsNullOrEmpty(stockFilter))
             {
                 switch (stockFilter)
@@ -501,7 +515,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 }
             }
 
-            // Apply sorting
+            // Apply the selected sort order
             switch (sortBy)
             {
                 case "price_asc":

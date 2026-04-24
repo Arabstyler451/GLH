@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GreenfieldLocalHubWebApp.Models.producers>
+@model IEnumerable<GreenfieldLocalHubWebApp.Models.producers>
 
 @{
     ViewData["Title"] = "Producers";
@@ -6,12 +6,14 @@
     var isAdminOrDev = User.IsInRole("Admin") || User.IsInRole("Developer");
 }
 
+<!-- Link the page-specific stylesheet for the producers index page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/producers/index.css" asp-append-version="true" />
 }
 
-<!-- PAGE HERO -->
+<!-- Page hero section - introduces the producers index page and gives visitors the main context -->
 <div class="page-hero">
+    <!-- Page hero section - introduces the producers index page and gives visitors the main context -->
     <div class="page-hero-inner">
         <span class="page-eyebrow">Our Community</span>
         <h1>Meet Our Producers</h1>
@@ -19,11 +21,11 @@
     </div>
 </div>
 
-<!-- MAIN SECTION -->
+<!-- Content section - groups related producers index content together -->
 <section class="section">
     <div class="container">
 
-        <!-- Toolbar -->
+        <!-- Content wrapper - groups related producers index content together -->
         <div class="producer-toolbar">
             <input type="search"
                    class="form-input producer-search"
@@ -31,16 +33,19 @@
                    aria-label="Search producers"
                    id="producerSearch">
 
+            <!-- Conditional section - shows this block only when the matching page state is true -->
             @if (isAdminOrDev)
             {
                 <a asp-action="Create" class="btn btn-primary btn-sm">+ Add New Producer</a>
             }
         </div>
 
+        <!-- Conditional section - shows this block only when the matching page state is true -->
         @if (!Model.Any())
         {
             <div class="producer-empty">
                 <p class="producer-empty-note">No producers found.</p>
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if (isAdminOrDev)
                 {
                     <a asp-action="Create" class="producer-empty-link">Add the first one.</a>
@@ -50,6 +55,7 @@
         else
         {
             <div class="producer-grid" id="producerGrid">
+                <!-- Loop through each producer record passed in from the controller -->
                 @foreach (var item in Model)
                 {
                     <article class="producer-card"
@@ -57,8 +63,9 @@
                              role="region"
                              aria-label="@item.producerName">
 
-                        <!-- Image -->
+                        <!-- Image area - shows the record image or a visual placeholder -->
                         <div class="producer-img">
+                            <!-- Conditional section - shows this block only when the matching page state is true -->
                             @if (!string.IsNullOrWhiteSpace(item.producerImage))
                             {
                                 <img src="@item.producerImage" alt="@item.producerName">
@@ -69,10 +76,10 @@
                             }
                         </div>
 
-                        <!-- Name -->
+                        <!-- Name area - shows the primary record label -->
                         <h3 class="producer-name">@item.producerName</h3>
 
-                        <!-- Description -->
+                        <!-- Description area - shows the short supporting text -->
                         @if (!string.IsNullOrWhiteSpace(item.producerDescription))
                         {
                             <p class="producer-desc">@item.producerDescription</p>
@@ -82,25 +89,29 @@
                             <p class="producer-desc producer-empty-desc">No description provided.</p>
                         }
 
-                        <!-- Info tags -->
+                        <!-- Info tags row - highlights key contact and location details -->
                         <div class="producer-tags">
+                            <!-- Conditional section - shows this block only when the matching page state is true -->
                             @if (!string.IsNullOrWhiteSpace(item.producerLocation))
                             {
                                 <span class="tag"> @item.producerLocation</span>
                             }
+                            <!-- Conditional section - shows this block only when the matching page state is true -->
                             @if (!string.IsNullOrWhiteSpace(item.producerPhone))
                             {
                                 <span class="tag"> @item.producerPhone</span>
                             }
+                            <!-- Conditional section - shows this block only when the matching page state is true -->
                             @if (!string.IsNullOrWhiteSpace(item.producerEmail))
                             {
                                 <span class="tag"> @item.producerEmail</span>
                             }
                         </div>
 
-                        <!-- Actions -->
+                        <!-- Action buttons - link to the available management tasks for this record -->
                         <div class="producer-actions">
                             <a asp-action="Details" asp-route-id="@item.producersId" class="btn btn-outline btn-sm">View Details</a>
+                            <!-- Conditional section - shows this block only when the matching page state is true -->
                             @if (isAdminOrDev)
                             {
                                 <a asp-action="Edit" asp-route-id="@item.producersId" class="btn btn-ghost btn-sm">Edit</a>
@@ -122,6 +133,7 @@
     </div>
 </section>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
     <script src="~/js/pages/producers/index.js" asp-append-version="true"></script>
 }

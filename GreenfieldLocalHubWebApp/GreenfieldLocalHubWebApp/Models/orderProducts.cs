@@ -5,14 +5,26 @@ namespace GreenfieldLocalHubWebApp.Models
 {
     public class orderProducts
     {
-        public int orderProductsId { get; set; } // Primary Key
-        public int ordersId { get; set; } // Foreign key to orders, stores the order that this product is part of
-        public int productsId { get; set; } // Foreign key to products, stores the product that is part of this order
-        public int quantity { get; set; } // Stores the quantity of this product that is part of this order
-        public float unitPrice { get; set; } // Stores the price of this product at the time of the order, in case the price changes in the future
+        // Primary key
+        public int orderProductsId { get; set; }
 
-        public orders orders { get; set; } // Navigation properties for orders
-        public products products { get; set; } // Navigation properties for products
+        // Foreign key to the order this line item belongs to
+        public int ordersId { get; set; }
+
+        // Foreign key to the product included in this order line
+        public int productsId { get; set; }
+
+        // Quantity of this product included in the order
+        public int quantity { get; set; }
+
+        // Price of the product at the time of ordering, kept even if the product price later changes
+        public float unitPrice { get; set; }
+
+        // Navigation property to the order this line item belongs to
+        public orders orders { get; set; }
+
+        // Navigation property to the product included in this order line
+        public products products { get; set; }
 
     }
 }

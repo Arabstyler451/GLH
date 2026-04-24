@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -14,10 +14,12 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
 {
+    // Page model for the account confirm email page and its request handlers
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
 
+        // Constructor that receives the services needed by this page model
         public ConfirmEmailModel(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
@@ -29,6 +31,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
         /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
+        // Handles the initial page load and prepares the data shown to the user
         public async Task<IActionResult> OnGetAsync(string userId, string code)
         {
             if (userId == null || code == null)

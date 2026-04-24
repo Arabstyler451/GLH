@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GreenfieldLocalHubWebApp.Models.categories>
+@model IEnumerable<GreenfieldLocalHubWebApp.Models.categories>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,6 +9,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<!-- Category table - lists each record with its available actions -->
 <table class="table">
     <thead>
         <tr>
@@ -19,6 +20,7 @@
         </tr>
     </thead>
     <tbody>
+<!-- Loop through each category record passed in from the controller -->
 @foreach (var item in Model) {
         <tr>
             <td>

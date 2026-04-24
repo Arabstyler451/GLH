@@ -1,4 +1,4 @@
-﻿@page
+@page
 @model LoginWithRecoveryCodeModel
 @{
     ViewData["Title"] = "Recovery code verification";
@@ -12,6 +12,7 @@
 </p>
 <div class="row">
     <div class="col-md-4">
+        <!-- Form section - collects and submits the fields for this account login with recovery code workflow -->
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
@@ -24,6 +25,8 @@
     </div>
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
+    <!-- Partial view - renders shared markup used by this page -->
     <partial name="_ValidationScriptsPartial" />
 }

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -14,12 +14,14 @@ using Microsoft.Extensions.Logging;
 
 namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
 {
+    // Page model for the account login with2fa page and its request handlers
     public class LoginWith2faModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<LoginWith2faModel> _logger;
 
+        // Constructor that receives the services needed by this page model
         public LoginWith2faModel(
             SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager,
@@ -73,6 +75,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
             public bool RememberMachine { get; set; }
         }
 
+        // Handles the initial page load and prepares the data shown to the user
         public async Task<IActionResult> OnGetAsync(bool rememberMe, string returnUrl = null)
         {
             // Ensure the user has gone through the username & password screen first
@@ -89,6 +92,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
             return Page();
         }
 
+        // Handles the submitted form and redirects or redisplays the page as needed
         public async Task<IActionResult> OnPostAsync(bool rememberMe, string returnUrl = null)
         {
             if (!ModelState.IsValid)

@@ -2,11 +2,15 @@
     ViewData["Title"] = "Terms & Conditions";
 }
 
+<!-- Link the page-specific stylesheet for the terms page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/home/terms.css" asp-append-version="true" />
 }
 
+<!-- Terms page wrapper that contains the full terms and conditions layout -->
 <div class="termsPage">
+
+    <!-- Terms hero section - introduces the page and explains what the terms cover -->
     <section class="termsHero" aria-labelledby="termsHeading">
         <div class="termsHeroInner">
             <span class="termsEyebrow">Terms &amp; Conditions</span>
@@ -16,6 +20,7 @@
                 Local Hub, place orders, receive deliveries or collections, and participate in our community-owned
                 farmers market.
             </p>
+            <!-- Key terms details shown as quick reference information for visitors -->
             <div class="termsMetaList" aria-label="Terms details">
                 <div class="termsMetaItem">
                     <span class="termsMetaLabel">Last Updated</span>
@@ -29,7 +34,10 @@
         </div>
     </section>
 
+    <!-- Main terms container that holds the summary cards, navigation and legal sections -->
     <div class="termsContainer">
+
+        <!-- Summary panel section - highlights the most important themes before the full terms -->
         <section class="termsSummaryPanel" aria-label="Summary of key terms">
             <div class="termsSummaryCard">
                 <span class="termsSummaryTitle">Local Cooperative</span>
@@ -45,7 +53,10 @@
             </div>
         </section>
 
+        <!-- Content grid section - places the page navigation beside the full terms content -->
         <div class="termsContentGrid">
+
+            <!-- Side navigation panel - links to each terms section on the page -->
             <aside class="termsSidePanel" aria-label="Terms navigation">
                 <div class="termsSidePanelInner">
                     <p class="termsSideTitle">On This Page</p>
@@ -62,7 +73,10 @@
                 </div>
             </aside>
 
+            <!-- Terms sections wrapper containing each detailed legal topic -->
             <div class="termsSections">
+
+                <!-- Contract section - explains when the customer or membership agreement begins -->
                 <section class="termsSection" id="ourContractWithYou">
                     <span class="termsSectionEyebrow">Contract</span>
                     <h2 class="termsSectionHeading">Our Contract With You</h2>
@@ -79,9 +93,11 @@
                     </p>
                 </section>
 
+                <!-- Cooperative membership section - outlines the rules and expectations for members -->
                 <section class="termsSection" id="cooperativeMembershipRules">
                     <span class="termsSectionEyebrow">Membership</span>
                     <h2 class="termsSectionHeading">Cooperative Membership Rules</h2>
+                    <!-- Feature cards summarising the main membership responsibilities and rights -->
                     <div class="termsFeatureGrid">
                         <article class="termsFeatureCard">
                             <h3 class="termsFeatureHeading">Voting Rights</h3>
@@ -102,6 +118,7 @@
                     </div>
                 </section>
 
+                <!-- Ordering and payments section - explains how products, prices and payments are handled -->
                 <section class="termsSection" id="orderingAndPayments">
                     <span class="termsSectionEyebrow">Orders</span>
                     <h2 class="termsSectionHeading">Ordering And Payments</h2>
@@ -110,6 +127,7 @@
                         seasonal and farm-supplied goods may occasionally vary. If a listed item is unavailable, we may
                         contact you about substitution, partial fulfilment, or refund options.
                     </p>
+                    <!-- Order requirements list showing the key payment and account information rules -->
                     <div class="termsListCard">
                         <ul class="termsList">
                             <li class="termsListItem">Prices are shown in pounds sterling and include VAT where applicable.</li>
@@ -120,6 +138,7 @@
                     </div>
                 </section>
 
+                <!-- Delivery and collection section - explains how local fulfilment windows work -->
                 <section class="termsSection" id="deliveryAndCollection">
                     <span class="termsSectionEyebrow">Fulfilment</span>
                     <h2 class="termsSectionHeading">Delivery And Collection</h2>
@@ -128,6 +147,7 @@
                         and collection windows are estimates and may vary because of harvest schedules, producer dispatch
                         timing, traffic conditions, weather, or operational demand.
                     </p>
+                    <!-- Timeline cards describing the main delivery, collection and inspection steps -->
                     <div class="termsTimeline">
                         <article class="termsTimelineItem">
                             <span class="termsTimelinePeriod">Home Delivery</span>
@@ -144,6 +164,7 @@
                     </div>
                 </section>
 
+                <!-- Returns and refunds section - explains cancellation rights and faulty goods protections -->
                 <section class="termsSection" id="returnsAndRefunds">
                     <span class="termsSectionEyebrow">Returns</span>
                     <h2 class="termsSectionHeading">Returns And Refunds</h2>
@@ -152,6 +173,7 @@
                         many distance purchases include a 14-day cooling-off period, but this does not usually apply to
                         goods that are liable to deteriorate or expire rapidly, including many fresh food items sold through our market.
                     </p>
+                    <!-- Notice card highlighting statutory refund rights under UK consumer law -->
                     <div class="termsNoticeCard">
                         <p class="termsNoticeText">
                             If goods are faulty, not as described, unfit for purpose, or otherwise not in line with your
@@ -165,6 +187,7 @@
                     </p>
                 </section>
 
+                <!-- Quality of goods section - explains the expected legal standards for products -->
                 <section class="termsSection" id="qualityOfGoods">
                     <span class="termsSectionEyebrow">Consumer Rights</span>
                     <h2 class="termsSectionHeading">Quality Of Goods</h2>
@@ -173,6 +196,7 @@
                         including that goods are of satisfactory quality, fit for purpose, and as described, taking into
                         account the nature of local, seasonal, and handmade food products where relevant.
                     </p>
+                    <!-- Feature cards showing the three main quality standards customers can expect -->
                     <div class="termsFeatureGrid termsFeatureGridTight">
                         <article class="termsFeatureCard">
                             <h3 class="termsFeatureHeading">Satisfactory Quality</h3>
@@ -189,6 +213,7 @@
                     </div>
                 </section>
 
+                <!-- Liability section - sets out what liability is and is not limited by the terms -->
                 <section class="termsSection" id="liability">
                     <span class="termsSectionEyebrow">Liability</span>
                     <h2 class="termsSectionHeading">Liability</h2>
@@ -204,6 +229,7 @@
                     </p>
                 </section>
 
+                <!-- Dispute resolution section - explains how concerns and unresolved disputes are handled -->
                 <section class="termsSection" id="disputeResolution">
                     <span class="termsSectionEyebrow">Disputes</span>
                     <h2 class="termsSectionHeading">Dispute Resolution</h2>
@@ -218,6 +244,7 @@
                     </p>
                 </section>
 
+                <!-- Changes to terms section - explains how updates to the terms will be published -->
                 <section class="termsSection" id="changesToTerms">
                     <span class="termsSectionEyebrow">Updates</span>
                     <h2 class="termsSectionHeading">Changes To Terms</h2>
@@ -232,9 +259,11 @@
                     </p>
                 </section>
 
+                <!-- Governing law section - explains which UK laws apply to these terms -->
                 <section class="termsSection" id="governingLaw">
                     <span class="termsSectionEyebrow">Law</span>
                     <h2 class="termsSectionHeading">Governing Law</h2>
+                    <!-- Notice card showing the jurisdiction and local court rights for UK consumers -->
                     <div class="termsNoticeCard termsNoticeCardGreen">
                         <p class="termsNoticeText">
                             These Terms are governed by the laws of England and Wales. If you are a consumer resident in

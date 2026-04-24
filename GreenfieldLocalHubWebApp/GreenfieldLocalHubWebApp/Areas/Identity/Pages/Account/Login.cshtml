@@ -1,16 +1,17 @@
-﻿@page
+@page
 @model LoginModel
 
 @{
     ViewData["Title"] = "Sign In";
 }
 
-@* ── Google Fonts ── *@
+<!-- Load external font resources used by the account login page -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
 
+<!-- Inline styles section - defines the page-specific styling for the account login page -->
 <style>
-    /* ── Full-page centred layout ── */
+    /* Page-specific styles */
     .glh-auth-page {
         min-height: calc(100vh - 73px);
         background: var(--surface-subtle);
@@ -22,7 +23,7 @@
         color: var(--text);
     }
 
-    /* ── Auth card ── */
+    /* Page-specific styles */
     .glh-auth-box {
         background: var(--surface-elevated);
         padding: 2.8rem;
@@ -32,7 +33,7 @@
         box-shadow: var(--shadow-md);
     }
 
-    /* ── Logo bar ── */
+    /* Page-specific styles */
     .glh-auth-logo-bar {
         display: flex;
         align-items: center;
@@ -48,7 +49,7 @@
         color: var(--green-dark);
     }
 
-    /* ── Headings ── */
+    /* Page-specific styles */
     .glh-auth-title {
         font-family: var(--font-serif);
         font-size: 1.7rem;
@@ -63,7 +64,7 @@
         margin-bottom: 2rem;
     }
 
-    /* ── Form elements ── */
+    /* Page-specific styles */
     .glh-form-group { margin-bottom: 1.2rem; }
 
     .glh-form-label {
@@ -97,7 +98,7 @@
         border-color: #c0392b;
     }
 
-    /* ── Validation ── */
+    /* Page-specific styles */
     .glh-validation-summary {
         background: #fde8e8;
         border-left: 3px solid #a0281e;
@@ -115,7 +116,7 @@
         margin-top: .3rem;
     }
 
-    /* ── Remember me checkbox ── */
+    /* Page-specific styles */
     .glh-remember {
         display: flex;
         align-items: center;
@@ -134,7 +135,7 @@
         flex-shrink: 0;
     }
 
-    /* ── Forgot password link (right-aligned) ── */
+    /* Page-specific styles */
     .glh-forgot-row {
         text-align: right;
         margin-top: -.3rem;
@@ -149,7 +150,7 @@
     }
     .glh-forgot-row a:hover { color: var(--green-light); text-decoration: underline; }
 
-    /* ── Primary button ── */
+    /* Page-specific styles */
     .glh-btn-primary {
         display: flex;
         align-items: center;
@@ -169,7 +170,7 @@
     }
     .glh-btn-primary:hover { background: var(--green-light); color: #fff; }
 
-    /* ── Divider ── */
+    /* Page-specific styles */
     .glh-divider {
         display: flex;
         align-items: center;
@@ -188,7 +189,7 @@
         background: var(--border);
     }
 
-    /* ── External login buttons ── */
+    /* Page-specific styles */
     .glh-ext-btn {
         display: flex;
         align-items: center;
@@ -209,7 +210,7 @@
     }
     .glh-ext-btn:hover { border-color: var(--green); color: var(--green); }
 
-    /* ── Footer links ── */
+    /* Page-specific styles */
     .glh-auth-footer {
         text-align: center;
         font-size: .83rem;
@@ -225,7 +226,7 @@
     }
     .glh-auth-footer a:hover { text-decoration: underline; }
 
-    /* ── No external providers notice ── */
+    /* Page-specific styles */
     .glh-ext-notice {
         font-size: .82rem;
         color: var(--text-muted);
@@ -248,19 +249,20 @@
     <div class="glh-auth-page">
         <div class="glh-auth-box">
 
-            <!-- Logo bar -->
+            <!-- Logo bar - shows the Greenfield Local Hub brand above the form -->
             <div class="glh-auth-logo-bar">
                 <span class="glh-auth-logo-name">Greenfield Local Hub</span>
             </div>
 
-            <!-- Heading -->
+            <!-- Heading block - introduces the form and supporting context -->
             <h1 class="glh-auth-title">Welcome Back</h1>
             <p class="glh-auth-sub">Sign in to your account</p>
 
-            <!-- Validation summary -->
+            <!-- Content section - groups related account login content together -->
             @{
                 var hasErrors = !ViewData.ModelState.IsValid;
             }
+            <!-- Conditional section - shows this block only when the matching page state is true -->
             @if (hasErrors)
             {
                 <div class="glh-validation-summary" role="alert">
@@ -269,7 +271,7 @@
                 </div>
             }
 
-            <!-- Local login form -->
+            <!-- Local login form - collects the email, password and remember-me choice -->
             <form id="account" method="post">
                 <AntiForgeryToken />
 
@@ -309,14 +311,16 @@
                 </button>
             </form>
 
-            <!-- External logins -->
+            <!-- Conditional section - shows this block only when the matching page state is true -->
             @if ((Model.ExternalLogins?.Count ?? 0) > 0)
             {
                 <div class="glh-divider">or continue with</div>
+                <!-- Form section - collects and submits the fields for this account login workflow -->
                 <form id="external-account"
                       asp-page="./ExternalLogin"
                       asp-route-returnUrl="@Model.ReturnUrl"
                       method="post">
+                    <!-- Loop through each account record passed in from the controller -->
                     @foreach (var provider in Model.ExternalLogins!)
                     {
                         <button type="submit"
@@ -330,7 +334,7 @@
                 </form>
             }
 
-            <!-- Footer links -->
+            <!-- Footer links - provide alternate account navigation options -->
             <div class="glh-auth-footer">
                 New to GLH? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Create an account</a>
                 <br />
@@ -341,6 +345,8 @@
     </div>
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
+    <!-- Partial view - renders shared markup used by this page -->
     <partial name="_ValidationScriptsPartial" />
 }

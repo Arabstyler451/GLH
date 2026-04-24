@@ -1,12 +1,13 @@
-﻿@page
+@page
 @model IndexModel
 @{
     ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
+<!-- Inline styles section - defines the page-specific styling for the account management index page -->
 <style>
-    /* ── Page hero ── */
+    /* Page-specific styles */
     .prof-page-hero {
         background: var(--surface-base);
         border-bottom: 1px solid var(--border);
@@ -40,14 +41,14 @@
         font-family: var(--font-sans);
     }
 
-    /* ── Content wrapper — single column, constrained width ── */
+    /* Page-specific styles */
     .prof-content {
         max-width: 680px;
         font-family: var(--font-sans);
         padding-bottom: 3rem;
     }
 
-    /* ── Panel title ── */
+    /* Page-specific styles */
     .prof-panel-title {
         font-family: var(--font-serif);
         font-size: 1.5rem;
@@ -55,7 +56,7 @@
         margin-bottom: 1.4rem;
     }
 
-    /* ── Info summary grid ── */
+    /* Page-specific styles */
     .prof-info-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -85,7 +86,7 @@
             color: var(--text);
         }
 
-    /* Email confirmed badge inline */
+    /* Page-specific styles */
     .prof-email-confirmed {
         display: inline-flex;
         align-items: center;
@@ -102,7 +103,7 @@
             text-transform: uppercase;
         }
 
-    /* ── Section sub-heading ── */
+    /* Page-specific styles */
     .prof-section-heading {
         font-size: 1rem;
         font-weight: 600;
@@ -117,7 +118,7 @@
         margin: 2rem 0;
     }
 
-    /* ── Form elements ── */
+    /* Page-specific styles */
     .prof-form-group {
         margin-bottom: 1.2rem;
     }
@@ -210,7 +211,7 @@
         margin-bottom: 1.4rem;
     }
 
-    /* Verify email link */
+    /* Page-specific styles */
     .prof-verify-link {
         display: inline-block;
         font-size: .78rem;
@@ -231,7 +232,7 @@
             text-decoration: underline;
         }
 
-    /* ── Alerts ── */
+    /* Page-specific styles */
     .prof-alert {
         padding: .9rem 1.2rem;
         font-size: .85rem;
@@ -255,7 +256,7 @@
             font-weight: 600;
         }
 
-    /* ── Buttons ── */
+    /* Page-specific styles */
     .prof-btn-primary {
         display: inline-flex;
         align-items: center;
@@ -282,7 +283,7 @@
             cursor: not-allowed;
         }
 
-    /* ── Password strength meter ── */
+    /* Page-specific styles */
     .pw-strength-bar {
         height: 4px;
         background: var(--border);
@@ -340,20 +341,21 @@
     }
 </style>
 
-<!-- Page Hero -->
+<!-- Page hero section - introduces the account management index page and gives visitors the main context -->
 <div class="prof-page-hero">
     <span class="prof-eyebrow">My Account</span>
     <h1>@ViewData["Title"]</h1>
     <p>Manage your profile information, email address, and password.</p>
 </div>
 
+<!-- Partial view - renders shared markup used by this page -->
 <partial name="_StatusMessage" for="StatusMessage" />
 
 <div class="prof-content">
 
     <h2 class="prof-panel-title">My Profile</h2>
 
-    <!-- Read-only summary cards -->
+    <!-- Content grid section - arranges related page content into columns -->
     <div class="prof-info-grid">
         <div class="prof-info-item">
             <label>Username</label>
@@ -362,6 +364,7 @@
         <div class="prof-info-item">
             <label>Email</label>
             <p>
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if (Model.IsEmailConfirmed)
                 {
                     <span class="prof-email-confirmed">
@@ -385,11 +388,10 @@
         </div>
     </div>
 
-    <!-- ══════════════════════════════════
-         SECTION 1 — Profile Information
-    ══════════════════════════════════ -->
+    <!-- Content section - groups related account management index content together -->
     <h3 class="prof-section-heading">Update Profile Details</h3>
 
+    <!-- Form section - collects and submits the fields for this account management index workflow -->
     <form id="profile-form" method="post" asp-page-handler="UpdateProfile">
         <div asp-validation-summary="ModelOnly" class="prof-validation-summary" role="alert"></div>
 
@@ -419,16 +421,16 @@
 
     <hr class="prof-section-divider" />
 
-    <!-- ══════════════════════════════════
-         SECTION 2 — Email Management
-    ══════════════════════════════════ -->
+    <!-- Content section - groups related account management index content together -->
     <h3 class="prof-section-heading">Manage Email Address</h3>
 
+    <!-- Form section - collects and submits the fields for this account management index workflow -->
     <form id="email-form" method="post">
         <div asp-validation-summary="All" class="prof-validation-summary" role="alert"></div>
 
         <div class="prof-form-group">
             <label asp-for="Email" class="prof-form-label">Current Email</label>
+            <!-- Conditional section - shows this block only when the matching page state is true -->
             @if (Model.IsEmailConfirmed)
             {
                 <div class="prof-input-with-badge">
@@ -473,13 +475,12 @@
 
     <hr class="prof-section-divider" />
 
-    <!-- ══════════════════════════════════
-         SECTION 3 — Change Password
-    ══════════════════════════════════ -->
+    <!-- Conditional section - shows this block only when the matching page state is true -->
     @if (Model.HasPassword)
     {
         <h3 class="prof-section-heading">Change Password</h3>
 
+        <!-- Form section - collects and submits the fields for this account management index workflow -->
         <form id="change-password-form" method="post" asp-page-handler="ChangePassword">
             <div asp-validation-summary="ModelOnly" class="prof-validation-summary" role="alert"></div>
 
@@ -546,7 +547,9 @@
 
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
+    <!-- Partial view - renders shared markup used by this page -->
     <partial name="_ValidationScriptsPartial" />
 
     <script>

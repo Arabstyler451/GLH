@@ -1,5 +1,6 @@
-﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
+<!-- Content section - groups related account layout content together -->
 @RenderSection("Styles", required: false)
 
 @{
@@ -15,12 +16,14 @@
         : char.ToUpper(userName[0]) + userName.Substring(1);
 }
 
+<!-- Link the page-specific stylesheet for the account layout page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/accountLayout.css" asp-append-version="true" />
 }
 
-<!-- PAGE HERO -->
+<!-- Page hero section - introduces the account layout page and gives visitors the main context -->
 <div class="account-page-hero">
+    <!-- Page hero section - introduces the account layout page and gives visitors the main context -->
     <div class="account-page-hero-inner">
         <span class="account-page-eyebrow">My Account</span>
         <h1>Welcome back, @greeting</h1>
@@ -28,16 +31,17 @@
     </div>
 </div>
 
-<!-- ACCOUNT BODY -->
+<!-- Content wrapper - groups related account layout content together -->
 <div class="account-section">
     <div class="account-container">
         <div class="account-layout">
 
-            <!-- SIDEBAR -->
+            <!-- Partial view - renders shared markup used by this page -->
             <partial name="~/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml" />
 
-            <!-- PAGE CONTENT -->
+            <!-- Page content area - renders the selected account management page -->
             <div>
+                <!-- Render body call - outputs the content for the current page -->
                 @RenderBody()
             </div>
 
@@ -45,6 +49,7 @@
     </div>
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
     @RenderSection("Scripts", required: false)
 }

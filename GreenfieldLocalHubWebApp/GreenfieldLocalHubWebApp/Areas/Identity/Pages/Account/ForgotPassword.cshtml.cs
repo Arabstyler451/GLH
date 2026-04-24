@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -16,11 +16,13 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
 {
+    // Page model for the account forgot password page and its request handlers
     public class ForgotPasswordModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
 
+        // Constructor that receives the services needed by this page model
         public ForgotPasswordModel(UserManager<IdentityUser> userManager, IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -49,6 +51,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
             public string Email { get; set; }
         }
 
+        // Handles the submitted form and redirects or redisplays the page as needed
         public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)

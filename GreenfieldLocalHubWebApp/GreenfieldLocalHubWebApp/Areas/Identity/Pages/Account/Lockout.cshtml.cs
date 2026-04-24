@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -12,6 +12,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
     ///     directly from your code. This API may change or be removed in future releases.
     /// </summary>
     [AllowAnonymous]
+    // Page model for the account lockout page and its request handlers
     public class LockoutModel : PageModel
     {
         /// <summary>

@@ -1,4 +1,4 @@
-﻿@model GreenfieldLocalHubWebApp.ViewModels.productDetailsViewModel
+@model GreenfieldLocalHubWebApp.ViewModels.productDetailsViewModel
 
 @{
     ViewData["Title"] = Model.Product.productName;
@@ -8,10 +8,11 @@
     string availLabel = avail ? "In Stock" : "Out of Stock";
 }
 
-@* ── Google Fonts ── *@
+<!-- Load external font resources used by the products details page -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
 
+<!-- Link the page-specific stylesheet for the products details page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/products/details.css" asp-append-version="true" />
 }
@@ -19,7 +20,7 @@
 <div class="glh-detail-root">
     <div class="container-fluid px-4 px-md-5" style="max-width:1320px;margin:0 auto;">
 
-        <!-- BREADCRUMB -->
+        <!-- Content section - groups related products details content together -->
         <nav class="glh-breadcrumb" aria-label="Breadcrumb">
             <a asp-action="Index" asp-controller="Home">Home</a>
             <span class="glh-breadcrumb-sep">›</span>
@@ -28,12 +29,13 @@
             <span aria-current="page">@Model.Product.productName</span>
         </nav>
 
-        <!-- MAINT DETAIL GRID -->
+        <!-- Maint detail grid -->
         <div class="glh-detail-layout">
 
-            <!-- LEFT IMAGE -->
+            <!-- Left column - contains the main details and form content for this page -->
             <div>
                 <div class="glh-detail-img-main">
+                    <!-- Conditional section - shows this block only when the matching page state is true -->
                     @if (!string.IsNullOrWhiteSpace(Model.Product.productImage))
                     {
                         <img src="@Model.Product.productImage"
@@ -48,10 +50,11 @@
                 </div>
             </div>
 
-            <!-- YOU MAY ALSO LIKE SECTION -->
+            <!-- Content wrapper - groups related products details content together -->
             <div>
                 <p class="glh-detail-eyebrow">
                     @(Model.Product.producers?.producerName ?? "Local Producer")
+                    <!-- Conditional section - shows this block only when the matching page state is true -->
                     @if (Model.Product.categories != null)
                     {
                         <text> · @Model.Product.categories.categoryName</text>
@@ -72,20 +75,22 @@
                     @Model.Product.productDescription
                 </p>
 
-                <!-- TRACEABILITY / STOCK INFO -->
+                <!-- Traceability panel - shows producer, category and stock information for the product -->
                 <div class="glh-trace-box">
                     <strong>Stock Information</strong>
                     @Model.Product.stockQuantity unit@(Model.Product.stockQuantity == 1 ? "" : "s") currently available.
+                    <!-- Conditional section - shows this block only when the matching page state is true -->
                     @if (Model.Product.producers != null)
                     {
                         <p>Supplied by: @(Model.Product.producers.producerName == null ? "NULL" : Model.Product.producers.producerName)</p>
                     }
                 </div>
 
-<!-- ADD TO CART -->
+<!-- Add to cart form - lets customers choose a quantity and add the product to their basket -->
 <form asp-controller="shoppingCartItems" asp-action="Create" method="post">
     <input type="hidden" name="productsId" value="@Model.Product.productsId" />
 
+    <!-- Conditional section - shows this block only when the matching page state is true -->
     @if (Model.Product.stockQuantity > 0)
     {
         <div class="glh-detail-add">
@@ -124,11 +129,13 @@
         </div>
 
 
+        <!-- Conditional section - shows this block only when the matching page state is true -->
         @if (Model.RelatedProducts != null && Model.RelatedProducts.Any())
         {
             <div class="glh-also-like">
                 <h2 class="glh-also-like-title">You May Also Like</h2>
                 <div class="glh-product-grid">
+                    <!-- Loop through each product record passed in from the controller -->
                     @foreach (var related in Model.RelatedProducts)
                     {
                         string rAvailClass = related.productAvailability ? "in" : "out";
@@ -140,6 +147,7 @@
                            aria-label="View @related.productName">
                             <div class="glh-pc-img">
                                 <div class="glh-pc-img-inner">
+                                    <!-- Conditional section - shows this block only when the matching page state is true -->
                                     @if (!string.IsNullOrWhiteSpace(related.productImage))
                                     {
                                         <img src="@related.productImage"
@@ -154,6 +162,7 @@
                                 </div>
                             </div>
                             <div class="glh-pc-body">
+                                <!-- Conditional section - shows this block only when the matching page state is true -->
                                 @if (related.producers != null)
                                 {
                                     <p class="glh-pc-producer">@related.producers.producerName</p>
@@ -170,8 +179,9 @@
             </div>
         }
 
-        <!-- Only allows producers, admin and developer to manage the products-->
+        <!-- Content wrapper - groups related products details content together -->
         <div class="glh-admin-bar">
+            <!-- Conditional section - shows this block only when the matching page state is true -->
             @if (User.IsInRole("Admin") || User.IsInRole("Developer") || (Model.Product.producers != null && !string.IsNullOrEmpty(User.Identity?.Name) && string.Equals(User.Identity.Name, Model.Product.producers.producerName, System.StringComparison.OrdinalIgnoreCase)))
             {
                 <a asp-action="Edit" asp-route-id="@Model.Product.productsId"
@@ -185,6 +195,7 @@
     </div>
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
     <script src="~/js/pages/products/details.js" asp-append-version="true"></script>
 }

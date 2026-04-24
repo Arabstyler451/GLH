@@ -1,18 +1,21 @@
-﻿@model GreenfieldLocalHubWebApp.Models.producers
+@model GreenfieldLocalHubWebApp.Models.producers
 
 @{
     ViewData["Title"] = "Producer Details";
 }
 
+<!-- Load external font resources used by the producers details page -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
 
+<!-- Link the page-specific stylesheet for the producers details page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/producers/details.css" asp-append-version="true" />
 }
 
-<!-- Breadcrumb hero -->
+<!-- Page hero section - introduces the producers details page and gives visitors the main context -->
 <div class="pd-page-hero">
+    <!-- Page hero section - introduces the producers details page and gives visitors the main context -->
     <div class="pd-page-hero-inner">
         <nav class="pd-breadcrumb" aria-label="Breadcrumb">
             <a asp-action="Index" asp-controller="Home">Home</a>
@@ -24,11 +27,13 @@
     </div>
 </div>
 
+<!-- Content section - groups related producers details content together -->
 <section class="pd-section">
     <div class="pd-container">
 
-        <!-- Full-width hero image -->
+        <!-- Full-width hero image - shows the producer image or a fallback placeholder -->
         <div class="pd-hero-image">
+            <!-- Conditional section - shows this block only when the matching page state is true -->
             @if (!string.IsNullOrWhiteSpace(Model?.producerImage))
             {
                 <img src="@Model.producerImage" alt="@Model.producerName" />
@@ -39,10 +44,10 @@
             }
         </div>
 
-        <!-- Sidebar + main body -->
+        <!-- Producer detail layout - places the sidebar information beside the main story content -->
         <div class="pd-layout">
 
-            <!-- LEFT: info card -->
+            <!-- Left column - contains the main details and form content for this page -->
             <div class="pd-sidebar">
                 <h1 class="pd-producer-name">@Model?.producerName</h1>
                 <p class="pd-producer-type">@Model?.producerLocation</p>
@@ -61,7 +66,7 @@
                 <a class="pd-btn-primary" href="/Home/Contact">Contact Us</a>
             </div>
 
-            <!-- RIGHT: story + stats + products -->
+            <!-- Right column - contains the supporting summary and related actions -->
             <div>
                 <span class="pd-eyebrow">Our Story</span>
                 <h2 class="pd-story-title">About @Model?.producerName</h2>
@@ -82,12 +87,14 @@
                     </div>
                 </div>
 
-                <!-- Products from this producer -->
+                <!-- Content section - groups related producers details content together -->
                 <h3 class="pd-products-title">Products from @Model?.producerName</h3>
 
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if (Model?.products != null && Model.products.Any())
                 {
                     <div class="pd-product-grid">
+                        <!-- Loop through each producer record passed in from the controller -->
                         @foreach (var product in Model.products)
                         {
                             string availClass = product.productAvailability ? "in" : "out";
@@ -100,6 +107,7 @@
                                aria-label="View @product.productName">
                                 <div class="pd-pc-img">
                                     <div class="pd-pc-img-inner">
+                                        <!-- Conditional section - shows this block only when the matching page state is true -->
                                         @if (!string.IsNullOrWhiteSpace(product.productImage))
                                         {
                                             <img src="@product.productImage"

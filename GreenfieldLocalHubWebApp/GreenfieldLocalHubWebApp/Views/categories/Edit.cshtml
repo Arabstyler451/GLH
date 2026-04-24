@@ -1,4 +1,4 @@
-﻿@model GreenfieldLocalHubWebApp.Models.categories
+@model GreenfieldLocalHubWebApp.Models.categories
 
 @{
     ViewData["Title"] = "Edit";
@@ -10,6 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <!-- Edit form - lets the user update the saved category details -->
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="categoriesId" />
@@ -29,6 +30,8 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
+    <!-- Validation partial - enables client-side validation for this form -->
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

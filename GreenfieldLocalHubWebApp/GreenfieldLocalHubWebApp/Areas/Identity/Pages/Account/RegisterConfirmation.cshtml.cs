@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -15,11 +15,13 @@ using Microsoft.AspNetCore.WebUtilities;
 namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
+    // Page model for the account register confirmation page and its request handlers
     public class RegisterConfirmationModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _sender;
 
+        // Constructor that receives the services needed by this page model
         public RegisterConfirmationModel(UserManager<IdentityUser> userManager, IEmailSender sender)
         {
             _userManager = userManager;
@@ -44,6 +46,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
         /// </summary>
         public string EmailConfirmationUrl { get; set; }
 
+        // Handles the initial page load and prepares the data shown to the user
         public async Task<IActionResult> OnGetAsync(string email, string returnUrl = null)
         {
             if (email == null)

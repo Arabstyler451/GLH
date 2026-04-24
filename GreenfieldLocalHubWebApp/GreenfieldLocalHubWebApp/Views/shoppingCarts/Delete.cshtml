@@ -1,4 +1,4 @@
-﻿@model GreenfieldLocalHubWebApp.Models.shoppingCart
+@model GreenfieldLocalHubWebApp.Models.shoppingCart
 
 @{
     ViewData["Title"] = "Delete";
@@ -10,6 +10,7 @@
 <div>
     <h4>shoppingCart</h4>
     <hr />
+    <!-- Details list - shows the saved values for this shopping cart -->
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.UserId)
@@ -31,6 +32,7 @@
         </dd>
     </dl>
     
+    <!-- Delete form - confirms removal of the selected shopping cart -->
     <form asp-action="Delete">
         <input type="hidden" asp-for="shoppingCartId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

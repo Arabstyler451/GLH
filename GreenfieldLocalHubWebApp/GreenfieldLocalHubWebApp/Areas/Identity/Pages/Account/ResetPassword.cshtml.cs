@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -14,10 +14,12 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
 {
+    // Page model for the account reset password page and its request handlers
     public class ResetPasswordModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
 
+        // Constructor that receives the services needed by this page model
         public ResetPasswordModel(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
@@ -71,6 +73,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
 
         }
 
+        // Handles the initial page request for this workflow
         public IActionResult OnGet(string code = null)
         {
             if (code == null)
@@ -87,6 +90,7 @@ namespace GreenfieldLocalHubWebApp.Areas.Identity.Pages.Account
             }
         }
 
+        // Handles the submitted form and redirects or redisplays the page as needed
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

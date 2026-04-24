@@ -1,4 +1,4 @@
-﻿@page
+@page
 @using Microsoft.AspNetCore.Http.Features
 @model TwoFactorAuthenticationModel
 @{
@@ -6,9 +6,11 @@
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
+<!-- Load external font resources used by the account management two factor authentication page -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
 
+<!-- Inline styles section - defines the page-specific styling for the account management two factor authentication page -->
 <style>
     .glh-2fa-root {
         --red:         #a0281e;
@@ -20,7 +22,7 @@
         max-width: 680px;
     }
 
-    /* ── Page title ── */
+    /* Page-specific styles */
     .glh-2fa-title {
         font-family: var(--font-serif);
         font-size: 1.5rem;
@@ -31,7 +33,7 @@
         border-bottom: 1px solid var(--border);
     }
 
-    /* ── Alert banners ── */
+    /* Page-specific styles */
     .glh-alert {
         display: flex;
         align-items: flex-start;
@@ -76,7 +78,7 @@
     .glh-alert a { color: inherit; font-weight: 600; text-decoration: underline; }
     .glh-alert a:hover { opacity: .8; }
 
-    /* ── Status card (2FA enabled) ── */
+    /* Page-specific styles */
     .glh-status-card {
         background: var(--surface-elevated);
         border: 1px solid var(--border);
@@ -124,7 +126,7 @@
     }
     .glh-status-value.off { color: var(--text-muted); }
 
-    /* ── Section headings ── */
+    /* Page-specific styles */
     .glh-section-heading {
         font-size: .72rem;
         font-weight: 700;
@@ -143,7 +145,7 @@
         background: var(--border);
     }
 
-    /* ── Action cards ── */
+    /* Page-specific styles */
     .glh-action-list { display: flex; flex-direction: column; gap: .75rem; }
     .glh-action-item {
         background: var(--surface-elevated);
@@ -190,7 +192,7 @@
         line-height: 1.45;
     }
 
-    /* ── Buttons ── */
+    /* Page-specific styles */
     .glh-btn {
         display: inline-flex;
         align-items: center;
@@ -245,6 +247,7 @@
 
 <div class="glh-2fa-root">
 
+    <!-- Partial view - renders shared markup used by this page -->
     <partial name="_StatusMessage" for="StatusMessage" />
 
     <h2 class="glh-2fa-title">Two-Factor Authentication</h2>
@@ -252,11 +255,13 @@
     @{
         var consentFeature = HttpContext.Features.Get<ITrackingConsentFeature>();
 
+        <!-- Conditional section - shows this block only when the matching page state is true -->
         @if (consentFeature?.CanTrack ?? true)
         {
+            <!-- Conditional section - shows this block only when the matching page state is true -->
             @if (Model.Is2faEnabled)
             {
-                <!-- 2FA STATUS: ENABLED -->
+                <!-- Panel section - groups related information in a focused content block -->
                 <div class="glh-status-card">
                     <div class="glh-status-indicator">
                         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -270,7 +275,7 @@
                     </div>
                 </div>
 
-                <!-- RECOVERY CODE ALERTS -->
+                <!-- Recovery code alerts - warn the user when recovery codes are low or missing -->
                 @if (Model.RecoveryCodesLeft == 0)
                 {
                     <div class="glh-alert glh-alert-danger">
@@ -308,10 +313,11 @@
                     </div>
                 }
 
-                <!-- 2FA MANAGEMENT ACTIONS -->
+                <!-- Action buttons - link to the available management tasks for this record -->
                 <p class="glh-section-heading">Manage 2FA</p>
                 <div class="glh-action-list">
 
+                    <!-- Conditional section - shows this block only when the matching page state is true -->
                     @if (Model.IsMachineRemembered)
                     {
                         <div class="glh-action-item">
@@ -322,6 +328,7 @@
                                 <p class="glh-action-title">Forget this browser</p>
                                 <p class="glh-action-sub">You will be prompted for 2FA on your next login from this device.</p>
                             </div>
+                            <!-- Form section - collects and submits the fields for this account management two factor authentication workflow -->
                             <form method="post" style="display:inline;">
                                 <button type="submit" class="glh-btn glh-btn-amber">Forget</button>
                             </form>
@@ -354,7 +361,7 @@
             }
             else
             {
-                <!-- 2FA STATUS: DISABLED -->
+                <!-- Panel section - groups related information in a focused content block -->
                 <div class="glh-status-card">
                     <div class="glh-status-indicator off">
                         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -368,9 +375,10 @@
                 </div>
             }
 
-            <!-- AUTHENTICATOR APP SECTION -->
+            <!-- Content section - groups related account management two factor authentication content together -->
             <p class="glh-section-heading">Authenticator App</p>
             <div class="glh-action-list">
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if (!Model.HasAuthenticator)
                 {
                     <div class="glh-action-item">
@@ -428,6 +436,8 @@
     }
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
+    <!-- Partial view - renders shared markup used by this page -->
     <partial name="_ValidationScriptsPartial" />
 }

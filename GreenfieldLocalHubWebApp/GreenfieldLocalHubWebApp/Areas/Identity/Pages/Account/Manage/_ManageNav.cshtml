@@ -1,4 +1,4 @@
-﻿@inject SignInManager<IdentityUser> SignInManager
+@inject SignInManager<IdentityUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 
@@ -17,6 +17,7 @@
     var isAddressBook = controller == "addresses";
 }
 
+<!-- Inline styles section - defines the page-specific styling for the account management manage nav page -->
 <style>
     .account-layout {
         display: grid;
@@ -62,7 +63,7 @@
 
 
 <div class="account-nav">
-    <!-- Profile (now includes email and password management) -->
+    <!-- Profile navigation link - opens the combined profile, email and password page -->
     <a class="account-nav-item @ManageNavPages.IndexNavClass(ViewContext)" id="profile" href="/Identity/Account/Manage/Index">
         <span class="nav-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -102,7 +103,7 @@
 
 
 
-    <!-- CUSTOM MVC LINKS --> 
+    <!-- Custom account links - connect the account area to orders, loyalty and address pages --> 
 
     <a class="account-nav-item @(isOrders ? "active" : "")" asp-area="" asp-controller="orders" asp-action="Index">
         <span class="nav-icon">

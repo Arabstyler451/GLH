@@ -2765,7 +2765,6 @@ C:\Users\abdul\Downloads\GLH\GreenfieldLocalHubWebApp\GreenfieldLocalHubWebApp\o
 C:\Users\abdul\Downloads\GLH\GreenfieldLocalHubWebApp\GreenfieldLocalHubWebApp\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\abdul\Downloads\GLH\GreenfieldLocalHubWebApp\GreenfieldLocalHubWebApp\obj\Debug\net9.0\staticwebassets.build.endpoints.json
 C:\Users\abdul\Downloads\GLH\GreenfieldLocalHubWebApp\GreenfieldLocalHubWebApp\obj\Debug\net9.0\swae.build.ex.cache
-C:\Users\abdul\Downloads\GLH\GreenfieldLocalHubWebApp\GreenfieldLocalHubWebApp\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\abdul\Downloads\GLH\GreenfieldLocalHubWebApp\GreenfieldLocalHubWebApp\obj\Debug\net9.0\Greenfie.CCF1237A.Up2Date
 C:\Users\abdul\Downloads\GLH\GreenfieldLocalHubWebApp\GreenfieldLocalHubWebApp\obj\Debug\net9.0\GreenfieldLocalHubWebApp.dll
 C:\Users\abdul\Downloads\GLH\GreenfieldLocalHubWebApp\GreenfieldLocalHubWebApp\obj\Debug\net9.0\refint\GreenfieldLocalHubWebApp.dll

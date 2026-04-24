@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GreenfieldLocalHubWebApp.Models.shoppingCartItems>
+@model IEnumerable<GreenfieldLocalHubWebApp.Models.shoppingCartItems>
 
 @{
     ViewData["Title"] = "Your Shopping Cart";
@@ -7,15 +7,18 @@
     var pendingOffer = ViewBag.PendingOffer as string;
 }
 
+<!-- Load external font resources used by the shopping carts index page -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
 
+<!-- Link the page-specific stylesheet for the shopping carts index page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/shoppingCarts/index.css" asp-append-version="true" />
 }
 
-<!-- PAGE HERO -->
+<!-- Page hero section - introduces the shopping carts index page and gives visitors the main context -->
 <div class="page-hero">
+    <!-- Page hero section - introduces the shopping carts index page and gives visitors the main context -->
     <div class="page-hero-inner">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a asp-controller="products" asp-action="Index">Shop</a>
@@ -27,12 +30,13 @@
     </div>
 </div>
 
-<!-- CART CONTENT -->
+<!-- Content wrapper - groups related shopping carts index content together -->
 <div class="cart-section">
 
+    <!-- Conditional section - shows this block only when the matching page state is true -->
     @if (!Model.Any())
     {
-        <!-- EMPTY STATE -->
+        <!-- Content wrapper - groups related shopping carts index content together -->
         <div class="empty-cart">
             <div class="empty-cart-icon">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -52,8 +56,9 @@
     {
         <div class="cart-layout">
 
-            <!-- LEFT: CART ITEMS -->
+            <!-- Left column - contains the main details and form content for this page -->
             <div>
+                <!-- Shopping cart table - lists each record with its available actions -->
                 <table class="cart-table" role="table" aria-label="Shopping cart items">
                     <thead>
                         <tr>
@@ -65,12 +70,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- Loop through each shopping cart record passed in from the controller -->
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <!-- PRODUCT -->
+                                <!-- Product details area - shows the item image, name and producer -->
                                 <td>
                                     <div class="cart-product">
+                                        <!-- Conditional section - shows this block only when the matching page state is true -->
                                         @if (!string.IsNullOrEmpty(item.products?.productImage))
                                         {
                                             <div class="cart-product-thumb">
@@ -83,6 +90,7 @@
                                         }
                                         <div class="cart-product-info">
                                             <strong>@item.products?.productName</strong>
+                                            <!-- Conditional section - shows this block only when the matching page state is true -->
                                             @if (item.products?.categories != null)
                                             {
                                                 <small>@item.products.categories.categoryName</small>
@@ -91,14 +99,15 @@
                                     </div>
                                 </td>
 
-                                <!-- UNIT PRICE -->
+                                <!-- Unit price column - shows the price for a single item -->
                                 <td>
                                     <span class="cart-price">£@item.products?.productPrice.ToString("0.00")</span>
                                 </td>
 
-                                <!-- QTY -->
+                                <!-- Quantity controls - let the customer adjust how many items to order -->
                                 <td>
                                     <div style="display:flex;align-items:center;gap:.4rem;">
+                                        <!-- Form section - collects and submits the fields for this shopping carts index workflow -->
                                         <form asp-controller="shoppingCartItems" asp-action="UpdateQuantity" method="post" style="display:contents;">
                                             <input type="hidden" name="shoppingCartItemsId" value="@item.shoppingCartItemsId" />
                                             <input type="hidden" name="change" value="-1" />
@@ -107,6 +116,7 @@
 
                                         <span class="cart-qty">@item.quantity</span>
 
+                                        <!-- Form section - collects and submits the fields for this shopping carts index workflow -->
                                         <form asp-controller="shoppingCartItems" asp-action="UpdateQuantity" method="post" style="display:contents;">
                                             <input type="hidden" name="shoppingCartItemsId" value="@item.shoppingCartItemsId" />
                                             <input type="hidden" name="change" value="1" />
@@ -115,15 +125,16 @@
                                     </div>
                                 </td>
 
-                                <!-- LINE TOTAL -->
+                                <!-- Line total column - shows the subtotal for this basket row -->
                                 <td>
                                     <span class="cart-line-total">
                                         £@((item.products != null ? item.products.productPrice * item.quantity : 0).ToString("0.00"))
                                     </span>
                                 </td>
 
-                                <!-- REMOVE -->
+                                <!-- Remove action - lets the customer delete this item from the basket -->
                                 <td class="cart-item-actions">
+                                    <!-- Form section - collects and submits the fields for this shopping carts index workflow -->
                                     <form asp-controller="shoppingCartItems"
                                           asp-action="Delete"
                                           asp-route-id="@item.shoppingCartItemsId"
@@ -140,7 +151,7 @@
                     </tbody>
                 </table>
 
-                <!-- CONTINUE SHOPPING -->
+                <!-- Continue shopping link - returns the customer to the product catalogue -->
                 <div style="margin-top:1.25rem;">
                     <a asp-controller="products" asp-action="Index" class="btn btn-ghost btn-inline" style="width:auto;display:inline-flex;">
                         ← Continue Shopping
@@ -148,7 +159,7 @@
                 </div>
             </div>
 
-            <!-- RIGHT: ORDER SUMMARY -->
+            <!-- Side navigation panel - links to the related sections on this page -->
             <aside>
                 <div class="order-summary">
                     <h2 class="summary-title">Order Summary</h2>
@@ -173,6 +184,7 @@
                         <span>£@(((float)(ViewBag.total ?? 0f)).ToString("0.00"))</span>
                     </div>
 
+                    <!-- Conditional section - shows this block only when the matching page state is true -->
                     @if (activeOffersList.Any())
                     {
                         <div style="margin-bottom:1.25rem; padding-bottom:1.25rem; border-bottom:1px solid var(--border);">
@@ -181,6 +193,7 @@
                                 Loyalty Offer
                             </p>
 
+                            <!-- Form section - collects and submits the fields for this shopping carts index workflow -->
                             <form asp-controller="shoppingCarts" asp-action="ApplyOffer" method="post">
                                 @Html.AntiForgeryToken()
                                 <div style="display:flex; gap:.5rem; align-items:stretch;">
@@ -199,6 +212,7 @@
                                         }
                                         <option value="none" selected="@noneSelected">— No offer —</option>
 
+                                        <!-- Loop through each shopping cart record passed in from the controller -->
                                         @foreach (var offer in activeOffersList)
                                         {
                                             var isSelected = (pendingOffer == offer);
@@ -214,6 +228,7 @@
                                 </div>
                             </form>
 
+                            <!-- Conditional section - shows this block only when the matching page state is true -->
                             @if (!string.IsNullOrEmpty(pendingOffer))
                             {
                                 <p style="margin-top:.6rem; font-size:.78rem; color:#1a6b40; font-weight:500;">
@@ -235,7 +250,7 @@
                         </a>
                     </div>
 
-                    <!-- TRUST STRIP -->
+                    <!-- Trust strip row - reinforces delivery, traceability and producer support -->
                     <div class="trust-strip">
                         <div class="trust-item">
                             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>

@@ -1,4 +1,4 @@
-﻿@using GreenfieldLocalHubWebApp.Models
+@using GreenfieldLocalHubWebApp.Models
 @model List<loyaltyTransaction>
 
 @{
@@ -6,6 +6,7 @@
     Layout = "_AccountLayout";
 }
 
+<!-- Link the page-specific stylesheet for the loyalty accounts transaction history page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/loyaltyAccounts/transactionHistory.css" asp-append-version="true" />
 }
@@ -17,9 +18,10 @@
         <a asp-action="Index" class="btn btn-outline-primary">Back to Dashboard</a>
     </div>
 
-    <!-- Filter Form -->
+    <!-- Panel section - groups related information in a focused content block -->
     <div class="card mb-4">
         <div class="card-body">
+            <!-- Form section - collects and submits the fields for this loyalty accounts transaction history workflow -->
             <form method="get" class="row g-3">
                 <div class="col-md-4">
                     <label class="form-label">Transaction Type</label>
@@ -37,8 +39,9 @@
         </div>
     </div>
 
-    <!-- Transactions Table -->
+    <!-- Transactions table - lists each loyalty transaction with its key details -->
     <div class="table-responsive">
+        <!-- Loyalty account table - lists each record with its available actions -->
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -50,13 +53,16 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if (Model.Any())
                 {
+                    <!-- Loop through each loyalty account record passed in from the controller -->
                     @foreach (var transaction in Model)
                     {
                         <tr>
                             <td>@transaction.transactionDate.ToString("dd MMM yyyy HH:mm")</td>
                             <td>
+                                <!-- Conditional section - shows this block only when the matching page state is true -->
                                 @if (transaction.transactionType == "Earn")
                                 {
                                     <span class="badge bg-success">Earned</span>
@@ -70,6 +76,7 @@
                                 @(transaction.transactionType == "Earn" ? "+" : "-")@transaction.loyaltyPoints
                             </td>
                             <td>
+                                <!-- Conditional section - shows this block only when the matching page state is true -->
                                 @if (transaction.ordersId.HasValue)
                                 {
                                     <a href="@Url.Action("Details", "orders", new { id = transaction.ordersId })">#@transaction.ordersId</a>
@@ -80,6 +87,7 @@
                                 }
                             </td>
                             <td>
+                                <!-- Conditional section - shows this block only when the matching page state is true -->
                                 @if (transaction.ordersId.HasValue)
                                 {
                                     <a href="@Url.Action("Details", "orders", new { id = transaction.ordersId })" class="btn btn-sm btn-outline-primary">View Order</a>
@@ -98,11 +106,12 @@
         </table>
     </div>
 
-    <!-- Pagination -->
+    <!-- Conditional section - shows this block only when the matching page state is true -->
     @if (ViewBag.TotalPages > 1)
     {
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if (ViewBag.CurrentPage > 1)
                 {
                     <li class="page-item">
@@ -117,6 +126,7 @@
                     </li>
                 }
 
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if (ViewBag.CurrentPage < ViewBag.TotalPages)
                 {
                     <li class="page-item">
@@ -127,7 +137,7 @@
         </nav>
     }
 
-    <!-- Summary -->
+    <!-- Content wrapper - groups related loyalty accounts transaction history content together -->
     <div class="alert alert-info mt-4">
         <strong>Summary:</strong> Total Points Earned: @ViewBag.TotalPointsEarned | Total Points Redeemed: @ViewBag.TotalPointsRedeemed
     </div>

@@ -5,37 +5,49 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!-- Link the page-specific stylesheet for the home index page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/home/index.css" asp-append-version="true" />
 }
 
 
-<!-- HERO -->
+<!-- Full width wrapper that overrides any default layout padding for the home page -->
 <div class="home-fullwidth-reset">
 
+    <!-- Hero section - the large banner at the top of the home page -->
     <section class="hero" aria-labelledby="hero-heading">
+
+        <!-- Decorative background texture layer, hidden from screen readers -->
         <div class="hero-texture" aria-hidden="true"></div>
+
         <div class="hero-inner">
             <div>
+                <!-- Small label above the main heading to establish brand credibility -->
                 <div class="hero-eyebrow">
                     <div class="hero-eyebrow-dot"></div>
                     Certified Local Cooperative
                 </div>
+
                 <h1 class="hero-title" id="hero-heading">
                     Farm-fresh food,<br><em>straight to your door.</em>
                 </h1>
+
                 <p class="hero-desc">
                     Greenfield Local Hub connects you with our community of local farmers and food
                     producers. Seasonal produce, ethical farming, transparent pricing.
                 </p>
+
+                <!-- Two call-to-action buttons linking to the shop and the producers list -->
                 <div class="hero-btns">
                     <a asp-controller="products" asp-action="Index" class="btn btn-primary btn-lg">Shop Now</a>
                     <a asp-controller="producers" asp-action="Index"
-                       class="btn btn-lg"
-                       style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);border:1.5px solid rgba(255,255,255,.18);">
+                           class="btn btn-lg"
+                           style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);border:1.5px solid rgba(255,255,255,.18);">
                         Meet Our Producers
                     </a>
                 </div>
+
+                <!-- Quick stats row to build trust with the visitor -->
                 <div class="hero-stats" aria-label="Key statistics">
                     <div class="hero-stat"><strong>28+</strong><span>Local Producers</span></div>
                     <div class="hero-stat"><strong>400+</strong><span>Products</span></div>
@@ -43,7 +55,9 @@
                 </div>
             </div>
 
+            <!-- Decorative card stack on the right side of the hero, hidden from screen readers -->
             <div class="hero-visual-stack" aria-hidden="true">
+                <!-- Main highlight card showing a featured product -->
                 <div class="hero-card">
                     <div class="hero-card-label">Today's Highlight</div>
                     <div class="hero-card-value">Heritage Tomatoes</div>
@@ -54,6 +68,7 @@
                         <div class="hero-card-pill" style="margin-left:auto;color:#d4a97a;">£3.20 / kg</div>
                     </div>
                 </div>
+                <!-- Two smaller cards showing a new arrival and a popular item -->
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
                     <div class="hero-card">
                         <div class="hero-card-label">New In</div>
@@ -70,7 +85,7 @@
         </div>
     </section>
 
-    <!-- HOW IT WORKS -->
+    <!-- How It Works section - explains the ordering process to new visitors in four steps -->
     <section class="section" style="background:var(--white);">
         <div class="container">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
@@ -79,6 +94,7 @@
                     <h2 class="section-title">From field to your table in four steps</h2>
                     <p class="section-sub">We make buying local simple. Browse, order, and receive produce from farms within 30 miles of the hub.</p>
                 </div>
+                <!-- Each step is a bordered row with a numbered badge, title and short description -->
                 <div style="display:flex;flex-direction:column;gap:0;">
                     <div style="display:flex;gap:1.2rem;align-items:flex-start;padding:1.4rem;border:1px solid var(--border);border-bottom:none;">
                         <div style="width:32px;height:32px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0;">01</div>
@@ -103,7 +119,7 @@
 
     <div class="divider"></div>
 
-    <!-- THIS WEEK'S PICKS (dynamic from DB) -->
+    <!-- This Week's Picks section - dynamically renders the first 4 products from the database -->
     <section class="section section-green" aria-labelledby="picks-heading">
         <div class="container">
             <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem;">
@@ -114,9 +130,11 @@
                 <a asp-controller="products" asp-action="Index" class="btn btn-outline">View All Products</a>
             </div>
 
+            <!-- Product grid - loops over the first 4 products passed in from the controller -->
             <div class="product-grid-gap">
                 @foreach (var product in Model.Take(4))
                 {
+                    <!-- Each product is a clickable card that navigates to that product's details page -->
                     <article class="product-card"
                              onclick="window.location='@Url.Action("Details", "Products", new { id = product.productsId })'"
                              role="button" tabindex="0"
@@ -124,6 +142,7 @@
                         <div class="pc-wrap">
                             <div class="pc-img">
                                 <div class="pc-img-inner">
+                                    <!-- Show the product image if one exists, otherwise show a placeholder -->
                                     @if (!string.IsNullOrEmpty(product.productImage))
                                     {
                                         <img src="@product.productImage" alt="@product.productName" style="width:100%;height:100%;object-fit:cover;">
@@ -134,24 +153,30 @@
                                     }
                                 </div>
                             </div>
+                            <!-- Pin a "New In" badge on the first product -->
                             @if (product == Model.First())
                             {
                                 <span class="pc-badge">New In</span>
                             }
+                            <!-- Pin a "Popular" badge on the third product -->
                             @if (product == Model.ElementAtOrDefault(2))
                             {
                                 <span class="pc-badge brown">Popular</span>
                             }
                         </div>
                         <div class="pc-body">
+                            <!-- Show the producer name, falling back to "Local Farm" if none is set -->
                             <p class="pc-producer">@(product.producers?.producerName ?? "Local Farm")</p>
                             <h3 class="pc-name">@product.productName</h3>
+                            <!-- Truncate the description to 60 characters to keep the cards a consistent size -->
                             <p class="pc-desc">@(product.productDescription?.Length > 60 ? product.productDescription.Substring(0, 60) + "…" : product.productDescription)</p>
                             <div class="pc-footer">
+                                <!-- Show price per unit, falling back to "unit" if no unit label is set -->
                                 <span class="pc-price">
                                     £@product.productPrice.ToString("0.00")
                                     <small> / @(string.IsNullOrEmpty(product.productUnit) ? "unit" : product.productUnit)</small>
                                 </span>
+                                <!-- Show stock availability with a different style depending on status -->
                                 <span class="pc-avail @(product.productAvailability ? "in" : "out")">
                                     @(product.productAvailability ? "In Stock" : "Out of Stock")
                                 </span>
@@ -165,7 +190,7 @@
 
     <div class="divider"></div>
 
-    <!-- PRODUCER STRIP -->
+    <!-- Producer strip section - highlights the cooperative and links through to the producers list -->
     <section class="section" style="background:var(--white);">
         <div class="container">
             <div class="producer-strip-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
@@ -178,6 +203,7 @@
                         <a asp-controller="Home" asp-action="About" class="btn btn-ghost">Our Story</a>
                     </div>
                 </div>
+                <!-- Four stat tiles displayed in a 2x2 grid to reinforce trust and scale -->
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);">
                     <div style="background:var(--white);padding:1.6rem;">
                         <p style="font-family:var(--font-serif);font-size:1.8rem;font-weight:600;color:var(--green-dark);">45</p>
@@ -200,7 +226,7 @@
         </div>
     </section>
 
-    <!-- CTA BANNER -->
+    <!-- CTA banner at the bottom of the page targeting producers to join the cooperative -->
     <section style="background:var(--green);padding:4rem 2rem;">
         <div class="container">
             <div style="display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;flex-wrap:wrap;">
@@ -208,9 +234,10 @@
                     <h2 style="font-family:var(--font-serif);font-size:1.9rem;color:var(--white);margin-bottom:.6rem;">Are you a local producer?</h2>
                     <p style="color:rgba(255,255,255,.65);font-size:.93rem;line-height:1.7;max-width:520px;">Join our cooperative. Reach thousands of customers, manage your products and stock, and grow your business with our dedicated producer dashboard.</p>
                 </div>
+                <!-- Button links to the contact page so producers can get in touch -->
                 <a asp-controller="Home" asp-action="Contact" class="btn btn-brown btn-lg">Get in Touch</a>
             </div>
         </div>
     </section>
 
-</div><!-- /home-fullwidth-reset -->
+</div>

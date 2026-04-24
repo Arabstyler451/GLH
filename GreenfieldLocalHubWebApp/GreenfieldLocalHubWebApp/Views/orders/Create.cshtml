@@ -1,12 +1,14 @@
-﻿@model GreenfieldLocalHubWebApp.Models.orders
+@model GreenfieldLocalHubWebApp.Models.orders
 
 @{
     ViewData["Title"] = "Checkout";
 }
 
+<!-- Load external font resources used by the orders create page -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
 
+<!-- Link the page-specific stylesheet for the orders create page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/orders/create.css" asp-append-version="true" />
 }
@@ -14,8 +16,9 @@
 
 <div class="glh-checkout-root">
 
-    <!-- Page hero -->
+    <!-- Page hero section - introduces the orders create page and gives visitors the main context -->
     <div class="glh-page-hero">
+        <!-- Page hero section - introduces the orders create page and gives visitors the main context -->
         <div class="glh-page-hero-inner">
             <nav class="glh-breadcrumb" aria-label="Breadcrumb">
                 <a asp-controller="Home" asp-action="Index">Home</a>
@@ -31,6 +34,7 @@
     </div>
 
     <div class="glh-section">
+        <!-- Create form - collects the fields needed to add a new order -->
         <form asp-action="Create" method="post" id="checkoutForm">
             @Html.AntiForgeryToken()
             <div asp-validation-summary="ModelOnly" class="glh-alert-error" role="alert"></div>
@@ -39,10 +43,10 @@
 
             <div class="glh-checkout-grid">
 
-                <!-- LEFT COLUMN — form steps -->
+                <!-- Left column - contains the main details and form content for this page -->
                 <div>
 
-                    <!-- ── Step 1: Fulfilment Method ── -->
+                    <!-- Fulfilment method step - lets the customer choose delivery or collection -->
                     <div class="glh-card">
                         <div class="glh-card-header">
                             <span class="glh-card-header-num">1</span>
@@ -54,7 +58,7 @@
                             </p>
 
                             <div class="glh-fulfilment-grid">
-                                <!-- Home Delivery tile -->
+                                <!-- Home delivery tile -->
                                 <label class="glh-fulfilment-option" id="tile-delivery" for="deliveryCheck">
                                     <span class="glh-fulfilment-check" aria-hidden="true"></span>
                                     <span class="glh-fulfilment-icon">
@@ -67,7 +71,7 @@
                                     </span>
                                 </label>
 
-                                <!-- Click & Collect tile -->
+                                <!-- Click & collect tile -->
                                 <label class="glh-fulfilment-option" id="tile-collection" for="collectionCheck">
                                     <span class="glh-fulfilment-check" aria-hidden="true"></span>
                                     <span class="glh-fulfilment-icon">
@@ -82,7 +86,7 @@
                             </div>
                             
 
-                            <!-- Delivery type (shown when Home Delivery selected) -->
+                            <!-- Delivery type (shown when home delivery selected) -->
                             <div id="deliveryTypeGroup" class="glh-conditional">
                                 <div class="glh-form-group">
                                     <label asp-for="deliveryType" class="glh-form-label">Delivery Speed</label>
@@ -103,7 +107,7 @@
                                 </div>
                             </div>
 
-                            <!-- Collection date (shown when Click & Collect selected) -->
+                            <!-- Collection date (shown when click & collect selected) -->
                             <div id="orderCollectionDateGroup" class="glh-conditional">
                                 <div class="glh-form-group">
                                     <label asp-for="orderCollectionDate" class="glh-form-label">Collection Date</label>
@@ -124,7 +128,7 @@
                         </div>
                     </div>
 
-                    <!-- ── Step 2: Delivery Address ── -->
+                    <!-- Delivery address step - collects the address used for home delivery orders -->
                     <div class="glh-card" id="addressCard">
                         <div class="glh-card-header">
                             <span class="glh-card-header-num">2</span>
@@ -132,6 +136,7 @@
                         </div>
                         <div class="glh-card-body">
 
+                            <!-- Conditional section - shows this block only when the matching page state is true -->
                             @if (ViewBag.HasAddresses == true)
                             {
                                 <p style="font-size:.83rem;color:var(--text-muted);margin-bottom:1.2rem;">
@@ -193,14 +198,15 @@
 
                 </div>
 
-<!-- RIGHT COLUMN — order summary sidebar -->
+<!-- Content wrapper - groups related orders create content together -->
 <div>
     <div class="glh-summary-card order-summary" role="region" aria-label="Order summary">
         <h2 class="glh-summary-title summary-title">Order Summary</h2>
 
+        <!-- Conditional section - shows this block only when the matching page state is true -->
         @if (ViewBag.CartTotal != null)
         {
-            <!-- Pass clean values to JS (only once) -->
+            <!-- Pass clean values to js (only once) -->
             <script id="checkout-data">
 window.checkoutData = {
     subtotalBefore: @(((decimal)(ViewBag.SubtotalBeforeDiscount ?? 0m)).ToString(System.Globalization.CultureInfo.InvariantCulture)),
@@ -217,6 +223,7 @@ window.checkoutData = {
                     <span id="subtotal-before">£@(((decimal)(ViewBag.SubtotalBeforeDiscount ?? 0m)).ToString("0.00"))</span>
                 </div>
 
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if ((decimal)(ViewBag.LoyaltyDiscount ?? 0m) > 0)
                 {
                     <div class="glh-summary-row summary-row" style="color:#1a6b40;">
@@ -248,7 +255,7 @@ window.checkoutData = {
             </p>
         }
 
-        <!-- Fulfilment summary -->
+        <!-- Summary section - highlights the key details before the full page content -->
         <div id="summaryFulfilment" style="margin-top:1.5rem;padding-top:1rem; solid var(--border);">
             <p style="font-weight:600;color:var(--text);margin-bottom:.4rem;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;">Fulfilment</p>
             <span id="summaryFulfilmentText" style="font-size:.875rem;">No method selected</span>
@@ -271,7 +278,7 @@ window.checkoutData = {
         <p>Every order earns you points towards discounts on future shops with Greenfield Local Hub.</p>
     </div>
 
-    <!-- Trust signals -->
+    <!-- Trust strip row - reinforces delivery, traceability and producer support -->
     <div class="glh-info-box" style="margin-top:1rem;">
         <strong>Our Guarantee</strong>
         Fresh produce delivered within 24 hours of harvest. Not happy? 
@@ -288,6 +295,7 @@ window.checkoutData = {
 
 
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
     <script src="~/js/pages/orders/create.js" asp-append-version="true"></script>
 

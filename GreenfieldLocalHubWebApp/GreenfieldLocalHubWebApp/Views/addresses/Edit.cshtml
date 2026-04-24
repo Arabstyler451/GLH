@@ -1,13 +1,14 @@
-﻿@model GreenfieldLocalHubWebApp.Models.address
+@model GreenfieldLocalHubWebApp.Models.address
 @{
     ViewData["Title"] = "Edit Address";
 }
 
+<!-- Link the page-specific stylesheet for the addresses edit page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/addresses/edit.css" asp-append-version="true" />
 }
 
-<!-- Page Hero -->
+<!-- Page hero section - introduces the addresses edit page and gives visitors the main context -->
 <div class="addr-page-hero">
     <div class="addr-breadcrumb">
         <a asp-action="Index">Addresses</a>
@@ -19,12 +20,12 @@
     <p>Update the delivery address details below. Changes are saved immediately once you click Save Address.</p>
 </div>
 
-<!-- Form Card -->
+<!-- Panel section - groups related information in a focused content block -->
 <div class="addr-form-card">
 
     <div asp-validation-summary="ModelOnly" class="addr-validation-summary"></div>
 
-    <!-- Info notice -->
+    <!-- Info notice - explains the current edit state before saving -->
     <div class="addr-edit-notice">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
              stroke-width="2" stroke-linecap="round">
@@ -37,11 +38,12 @@
 
     <p class="addr-form-section-label">Address Details</p>
 
+    <!-- Edit form - lets the user update the saved address details -->
     <form asp-action="Edit">
 
         <input type="hidden" asp-for="addressId" />
 
-        <!-- Street -->
+        <!-- Street field - collects the street address for the form -->
         <div class="addr-form-group">
             <label asp-for="street" class="addr-form-label">
                 Street Address <span class="req">*</span>
@@ -53,7 +55,7 @@
             <span asp-validation-for="street" class="addr-field-error"></span>
         </div>
 
-        <!-- City -->
+        <!-- City field - collects the town or city for the form -->
         <div class="addr-form-group">
             <label asp-for="city" class="addr-form-label">
                 City / Town <span class="req">*</span>
@@ -65,10 +67,10 @@
             <span asp-validation-for="city" class="addr-field-error"></span>
         </div>
 
-        <!-- Postcode + Country side-by-side -->
+        <!-- Postcode and country row - groups the address location fields together -->
         <div class="addr-form-row">
 
-            <!-- Postcode -->
+            <!-- Postcode field - validates the UK postcode for the address -->
             <div class="addr-form-group">
                 <label asp-for="postalCode" class="addr-form-label">
                     Post Code <span class="req">*</span>
@@ -87,7 +89,7 @@
                 <p class="addr-hint">Enter a valid UK post code.</p>
             </div>
 
-            <!-- Country -->
+            <!-- Country field - collects the country for the address -->
             <div class="addr-form-group">
                 <label asp-for="country" class="addr-form-label">
                     Country <span class="req">*</span>
@@ -106,7 +108,7 @@
 
         </div>
 
-        <!-- Actions -->
+        <!-- Action buttons - link to the available management tasks for this record -->
         <div class="addr-btn-row">
             <button type="submit" class="addr-btn-primary">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
@@ -121,6 +123,7 @@
     </form>
 </div>
 
+<!-- Scripts section - loads validation or page-specific scripts for this page -->
 @section Scripts {
     <script src="~/js/pages/addresses/edit.js" asp-append-version="true"></script>
 

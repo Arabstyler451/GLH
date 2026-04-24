@@ -2,16 +2,31 @@
 {
     public class producers
     {
-        public int producersId { get; set; } // Primary ke
-        public string UserId { get; set; } // Foreign key to AspNetUsers for authorisation 
-        public string producerName { get; set; } // Name of the producer
-        public string producerEmail { get; set; } // Email address of the producer
-        public string producerPhone { get; set; } // Phone number of the producer
-        public string producerDescription { get; set; } // Description of the producer's business or products
-        public string producerLocation { get; set; } // Location of the producer (e.g., city, region)
-        public string producerImage { get; set; } // URL to an image representing the producer in the producer's page
+        // Primary key
+        public int producersId { get; set; }
 
-        // Navigation property to the products associated with this producer
+        // Foreign key to AspNetUsers, identifies which user manages this producer profile
+        public string UserId { get; set; }
+
+        // Name of the producer shown in the catalogue
+        public string producerName { get; set; }
+
+        // Email address used to contact the producer
+        public string producerEmail { get; set; }
+
+        // Phone number used to contact the producer
+        public string producerPhone { get; set; }
+
+        // Description of the producer's business or products
+        public string producerDescription { get; set; }
+
+        // Location of the producer, such as their city or region
+        public string producerLocation { get; set; }
+
+        // Image path or URL used to display the producer
+        public string producerImage { get; set; }
+
+        // Navigation property to products owned by this producer, nullable because a producer may exist before any products are added
         public ICollection<products>? products { get; set; }
     }
 }

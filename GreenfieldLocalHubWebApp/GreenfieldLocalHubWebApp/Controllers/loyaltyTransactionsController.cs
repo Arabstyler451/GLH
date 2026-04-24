@@ -10,23 +10,26 @@ using GreenfieldLocalHubWebApp.Models;
 
 namespace GreenfieldLocalHubWebApp.Controllers
 {
+    // Handles all loyalty transaction actions: viewing, creating, editing and deleting transactions
     public class loyaltyTransactionsController : Controller
     {
+        // Holds the database connection used throughout this controller
         private readonly ApplicationDbContext _context;
 
+        // Receives the database context via dependency injection when the controller is created
         public loyaltyTransactionsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: loyaltyTransactions
+        // Shows a list of all loyalty transactions with their related accounts and orders
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.loyaltyTransaction.Include(l => l.loyaltyAccount).Include(l => l.orders);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: loyaltyTransactions/Details/5
+        // Shows the full details of a single loyalty transaction
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,7 +49,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(loyaltyTransaction);
         }
 
-        // GET: loyaltyTransactions/Create
+        // Shows the loyalty transaction creation page with account and order options
         public IActionResult Create()
         {
             ViewData["loyaltyAccountId"] = new SelectList(_context.loyaltyAccount, "loyaltyAccountId", "loyaltyAccountId");
@@ -54,15 +57,14 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View();
         }
 
-        // POST: loyaltyTransactions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Processes the submitted loyalty transaction form and saves a new transaction
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("loyaltyTransactionId,loyaltyAccountId,ordersId,loyaltyPoints,transactionType,transactionDate")] loyaltyTransaction loyaltyTransaction)
         {
             if (ModelState.IsValid)
             {
+                // Save the loyalty transaction to the database
                 _context.Add(loyaltyTransaction);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -72,7 +74,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(loyaltyTransaction);
         }
 
-        // GET: loyaltyTransactions/Edit/5
+        // Shows the edit form for an existing loyalty transaction
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,9 +92,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(loyaltyTransaction);
         }
 
-        // POST: loyaltyTransactions/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Saves changes made to an existing loyalty transaction
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("loyaltyTransactionId,loyaltyAccountId,ordersId,loyaltyPoints,transactionType,transactionDate")] loyaltyTransaction loyaltyTransaction)
@@ -111,6 +111,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+                    // If the loyalty transaction no longer exists, return 404, otherwise rethrow the error
                     if (!loyaltyTransactionExists(loyaltyTransaction.loyaltyTransactionId))
                     {
                         return NotFound();
@@ -127,7 +128,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(loyaltyTransaction);
         }
 
-        // GET: loyaltyTransactions/Delete/5
+        // Shows the delete confirmation page for a loyalty transaction
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,7 +148,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return View(loyaltyTransaction);
         }
 
-        // POST: loyaltyTransactions/Delete/5
+        // Permanently deletes the loyalty transaction from the database after confirmation
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -162,6 +163,7 @@ namespace GreenfieldLocalHubWebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Checks whether a loyalty transaction with the given ID exists in the database
         private bool loyaltyTransactionExists(int id)
         {
             return _context.loyaltyTransaction.Any(e => e.loyaltyTransactionId == id);

@@ -1,35 +1,39 @@
-﻿@model IEnumerable<GreenfieldLocalHubWebApp.Models.address>
+@model IEnumerable<GreenfieldLocalHubWebApp.Models.address>
 @{
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
     ViewData["Title"] = "My Addresses";
 }
 
+<!-- Link the page-specific stylesheet for the addresses index page -->
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/addresses/index.css" asp-append-version="true" />
 }
 
-<!-- PAGE HERO -->
+<!-- Page hero section - introduces the addresses index page and gives visitors the main context -->
 <div class="page-hero">
+    <!-- Page hero section - introduces the addresses index page and gives visitors the main context -->
     <div class="page-hero-inner">
         <h1>Address Book</h1>
         <p>Manage your saved delivery addresses.</p>
     </div>
 </div>
 
-<!-- MAIN CONTENT -->
+<!-- Content section - groups related addresses index content together -->
 <section class="section">
     <div class="container">
         <div class="account-layout">
 
 
-            <!-- ADDRESS PANEL -->
+            <!-- Address panel -->
             <div>
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if (TempData["SuccessMessage"] != null)
                 {
                     <div class="alert alert-success" role="status">
                         @TempData["SuccessMessage"]
                     </div>
                 }
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if (TempData["InfoMessage"] != null)
                 {
                     <div class="alert alert-info" role="status">
@@ -37,9 +41,10 @@
                     </div>
                 }
 
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if (!Model.Any())
                 {
-                    <!-- EMPTY STATE -->
+                    <!-- Content wrapper - groups related addresses index content together -->
                     <div class="empty-state">
                         <div class="empty-state-icon">
                             <svg viewBox="0 0 24 24">
@@ -57,9 +62,11 @@
                 else
                 {
                     <div class="address-grid">
+    <!-- Loop through each address record passed in from the controller -->
     @foreach (var addr in Model)
     {
         <div class="address-card @(addr.IsDefault ? "is-default" : "")">
+            <!-- Conditional section - shows this block only when the matching page state is true -->
             @if (addr.IsDefault)
             {
                 <span class="address-card-badge">Default Address</span>
@@ -77,8 +84,10 @@
                    class="btn btn-ghost btn-sm">
                     Edit
                 </a>
+                <!-- Conditional section - shows this block only when the matching page state is true -->
                 @if (!addr.IsDefault)
                 {
+                    <!-- Form section - collects and submits the fields for this addresses index workflow -->
                     <form asp-controller="addresses"
                           asp-action="SetDefault"
                           asp-route-id="@addr.addressId"
@@ -89,6 +98,7 @@
                         </button>
                     </form>
                 }
+                <!-- Form section - collects and submits the fields for this addresses index workflow -->
                 <form asp-controller="addresses"
                    asp-action="Delete"
                    asp-route-id="@addr.addressId"
@@ -103,7 +113,7 @@
         </div>
     }
 
-    <!-- ADD NEW ADDRESS CARD -->
+    <!-- Add new address card -->
     <a asp-controller="addresses" asp-action="Create" class="address-card-new">
         <div class="address-card-new-icon">+</div>
         <p class="address-card-new-label">Add new address</p>
