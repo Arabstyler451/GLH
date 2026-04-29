@@ -1,22 +1,162 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "H:\\Task2\\GreenfieldLocalHubWebApp\\",
+  "WorkspaceRootPath": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|h:\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\controllers\\addressescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\controllers\\orderproductscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\controllers\\orderproductscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\controllers\\producerdashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\controllers\\producerdashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\controllers\\loyaltytransactionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\controllers\\loyaltytransactionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\controllers\\shoppingcartitemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\controllers\\shoppingcartitemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\controllers\\producerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\controllers\\producerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\controllers\\loyaltyaccountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\controllers\\loyaltyaccountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\models\\orders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\models\\orders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\models\\products.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\models\\products.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\models\\loyaltytransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\models\\loyaltytransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\models\\loyaltyaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\models\\loyaltyaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\models\\producers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\models\\producers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\models\\orderproducts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\models\\orderproducts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\models\\address.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\models\\address.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\models\\categories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\models\\categories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\models\\shoppingcart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\models\\shoppingcart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\models\\shoppingcartitems.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\models\\shoppingcartitems.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\controllers\\shoppingcartscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\controllers\\shoppingcartscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\controllers\\addressescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\controllers\\addressescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|h:\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|h:\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\data\\seeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\data\\seeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\views\\products\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\views\\products\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|h:\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\views\\products\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\views\\products\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\views\\shared\\_accountlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\views\\shared\\_accountlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\views\\products\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\views\\products\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\views\\products\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\views\\products\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\views\\producers\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\views\\producers\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\views\\producers\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\views\\producers\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\views\\producers\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\views\\producers\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\views\\producerdashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\views\\producerdashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\views\\orders\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\views\\orders\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\views\\orders\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\views\\orders\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\views\\orders\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\views\\orders\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\views\\orders\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\views\\orders\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|c:\\users\\digi-t-y2-18\\source\\repos\\glh\\task2\\greenfieldlocalhubwebapp\\greenfieldlocalhubwebapp\\views\\orders\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D215B850-5925-4EBE-ADAE-BC3B32A424B1}|GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj|solutionrelative:greenfieldlocalhubwebapp\\views\\orders\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,56 +166,514 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "addressesController.cs",
-              "DocumentMoniker": "H:\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\addressesController.cs",
-              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Controllers\\addressesController.cs",
-              "ToolTip": "H:\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\addressesController.cs",
-              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Controllers\\addressesController.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAA5wCYAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 16,
+              "Title": "address.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\address.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Models\\address.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\address.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Models\\address.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-24T13:36:02.359Z",
+              "WhenOpened": "2026-04-29T12:44:15.616Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Models\\ErrorViewModel.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:24:08.18Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "loyaltyTransaction.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\loyaltyTransaction.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Models\\loyaltyTransaction.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\loyaltyTransaction.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Models\\loyaltyTransaction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:44:09.181Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "categories.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\categories.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Models\\categories.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\categories.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Models\\categories.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:39:47.374Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "loyaltyAccountsController.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\loyaltyAccountsController.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Controllers\\loyaltyAccountsController.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\loyaltyAccountsController.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Controllers\\loyaltyAccountsController.cs",
+              "ViewState": "AgIAAMUAAAAAAAAAAAAIwNEAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:23:49.254Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "addressesController.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\addressesController.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Controllers\\addressesController.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\addressesController.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Controllers\\addressesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:22:05.563Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "categoriesController.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\categoriesController.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Controllers\\categoriesController.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\categoriesController.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Controllers\\categoriesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:22:04.351Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:22:03.691Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ordersController.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\ordersController.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Controllers\\ordersController.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\ordersController.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Controllers\\ordersController.cs",
+              "ViewState": "AgIAALkAAAAAAAAAAAAYwHoAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:20:58.643Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "site.css",
-              "DocumentMoniker": "H:\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\wwwroot\\css\\site.css",
-              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\wwwroot\\css\\site.css",
-              "ToolTip": "H:\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\wwwroot\\css\\site.css",
-              "RelativeToolTip": "GreenfieldLocalHubWebApp\\wwwroot\\css\\site.css",
-              "ViewState": "AgIAAF4DAAAAAAAAAAAQwGkDAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-04-24T13:20:42.972Z"
+              "Title": "orderProductsController.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\orderProductsController.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Controllers\\orderProductsController.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\orderProductsController.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Controllers\\orderProductsController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:20:50.4Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "H:\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Controllers\\HomeController.cs",
-              "ToolTip": "H:\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAYwD0AAAA7AAAAAAAAAA==",
+              "DocumentIndex": 20,
+              "Title": "shoppingCartsController.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\shoppingCartsController.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Controllers\\shoppingCartsController.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\shoppingCartsController.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Controllers\\shoppingCartsController.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAA5wCUAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-24T09:12:10.44Z"
+              "WhenOpened": "2026-04-29T12:20:44.249Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\products\\Index.cshtml",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Views\\products\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\products\\Index.cshtml",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Views\\products\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T12:20:33.844Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "_AccountLayout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\Shared\\_AccountLayout.cshtml",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Views\\Shared\\_AccountLayout.cshtml",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\Shared\\_AccountLayout.cshtml",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Views\\Shared\\_AccountLayout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T12:20:31.777Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T12:20:30.856Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\products\\Create.cshtml",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Views\\products\\Create.cshtml",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\products\\Create.cshtml",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Views\\products\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T12:20:28.743Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\products\\Details.cshtml",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Views\\products\\Details.cshtml",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\products\\Details.cshtml",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Views\\products\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T12:20:25.766Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\products\\Edit.cshtml",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Views\\products\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\products\\Edit.cshtml",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Views\\products\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T12:20:24.929Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\products\\Delete.cshtml",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Views\\products\\Delete.cshtml",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\products\\Delete.cshtml",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Views\\products\\Delete.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T12:20:24.312Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\producers\\Index.cshtml",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Views\\producers\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\producers\\Index.cshtml",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Views\\producers\\Index.cshtml",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T12:20:19.736Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\producers\\Edit.cshtml",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Views\\producers\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\producers\\Edit.cshtml",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Views\\producers\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T12:20:19.061Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\producers\\Create.cshtml",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Views\\producers\\Create.cshtml",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\producers\\Create.cshtml",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Views\\producers\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T12:20:17.967Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\producerDashboard\\Index.cshtml",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Views\\producerDashboard\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\producerDashboard\\Index.cshtml",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Views\\producerDashboard\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T12:20:15.437Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\orders\\Create.cshtml",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Views\\orders\\Create.cshtml",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\orders\\Create.cshtml",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Views\\orders\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T12:20:12.081Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\orders\\Delete.cshtml",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Views\\orders\\Delete.cshtml",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\orders\\Delete.cshtml",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Views\\orders\\Delete.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T12:20:11.2Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\orders\\Edit.cshtml",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Views\\orders\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\orders\\Edit.cshtml",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Views\\orders\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T12:20:09.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\orders\\Index.cshtml",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Views\\orders\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\orders\\Index.cshtml",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Views\\orders\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T12:20:09.077Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "shoppingCartItems.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\shoppingCartItems.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Models\\shoppingCartItems.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\shoppingCartItems.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Models\\shoppingCartItems.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:20:06.135Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "shoppingCart.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\shoppingCart.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Models\\shoppingCart.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\shoppingCart.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Models\\shoppingCart.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:20:04.68Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "products.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\products.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Models\\products.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\products.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Models\\products.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:20:03.979Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "producers.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\producers.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Models\\producers.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\producers.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Models\\producers.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:20:02.455Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "orders.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\orders.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Models\\orders.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\orders.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Models\\orders.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:20:01.712Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "orderProducts.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\orderProducts.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Models\\orderProducts.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\orderProducts.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Models\\orderProducts.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:20:00.173Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "loyaltyAccount.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\loyaltyAccount.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Models\\loyaltyAccount.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Models\\loyaltyAccount.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Models\\loyaltyAccount.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:19:59.504Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "shoppingCartItemsController.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\shoppingCartItemsController.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Controllers\\shoppingCartItemsController.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\shoppingCartItemsController.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Controllers\\shoppingCartItemsController.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:19:36.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\orders\\Details.cshtml",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Views\\orders\\Details.cshtml",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Views\\orders\\Details.cshtml",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Views\\orders\\Details.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T12:19:32.636Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "SeedData.cs",
-              "DocumentMoniker": "H:\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Data\\SeedData.cs",
-              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Data\\SeedData.cs",
-              "ToolTip": "H:\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Data\\SeedData.cs",
-              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Data\\SeedData.cs",
-              "ViewState": "AgIAAI4AAAAAAAAAAAAgwKIAAABxAAAAAAAAAA==",
+              "Title": "productsController.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\productsController.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Controllers\\productsController.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\productsController.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Controllers\\productsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAPIBAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-24T08:08:13.063Z"
+              "WhenOpened": "2026-04-29T12:19:22.615Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "producersController.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\producersController.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Controllers\\producersController.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\producersController.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Controllers\\producersController.cs",
+              "ViewState": "AgIAALcAAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:19:11.19Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "producerDashboardController.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\producerDashboardController.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Controllers\\producerDashboardController.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\producerDashboardController.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Controllers\\producerDashboardController.cs",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAAAD8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:19:09.383Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "loyaltyTransactionsController.cs",
+              "DocumentMoniker": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\loyaltyTransactionsController.cs",
+              "RelativeDocumentMoniker": "GreenfieldLocalHubWebApp\\Controllers\\loyaltyTransactionsController.cs",
+              "ToolTip": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\Controllers\\loyaltyTransactionsController.cs",
+              "RelativeToolTip": "GreenfieldLocalHubWebApp\\Controllers\\loyaltyTransactionsController.cs",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAmwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T12:19:05.671Z",
+              "EditorCaption": ""
             }
           ]
         }

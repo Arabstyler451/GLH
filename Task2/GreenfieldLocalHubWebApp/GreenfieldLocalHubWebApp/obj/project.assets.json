@@ -9032,11 +9032,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "H:\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj",
+      "projectUniqueName": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj",
       "projectName": "GreenfieldLocalHubWebApp",
-      "projectPath": "H:\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj",
+      "projectPath": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp.csproj",
       "packagesPath": "C:\\Users\\Digi-T-Y2-18\\.nuget\\packages\\",
-      "outputPath": "H:\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\obj\\",
+      "outputPath": "C:\\Users\\Digi-T-Y2-18\\source\\repos\\GLH\\Task2\\GreenfieldLocalHubWebApp\\GreenfieldLocalHubWebApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
